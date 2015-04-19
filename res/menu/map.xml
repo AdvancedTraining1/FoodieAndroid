@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.bjtu.foodie.MapActivity" >
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="always"
+        android:title="@string/action_search"/>
+    <item
+        android:id="@+id/action_switchType"
+        android:icon="@drawable/ic_action_web_site"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_switchmaptype"/>
+    <item
+        android:id="@+id/action_location"
+        android:icon="@drawable/ic_action_location_found"
+        android:showAsAction="always"
+        android:title="@string/action_location"/>
+
+</menu>
