@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="johZ3eUcRwHvbsf9ByyGfEWz" />
+            android:value="0Q5Ira1S508A94by05F4EFXQ" />
         <activity
             android:name=".UI.MomentsActivity"
             android:label="@string/app_name" >
@@ -35,7 +35,7 @@
             android:parentActivityName="com.bjtu.foodie.UI.MyMomentActivity">
         </activity>
         <activity 
-            android:name="com.bjtu.foodie.UI.MapActivity"></activity>
+            android:name="com.bjtu.foodie.map.MapActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />

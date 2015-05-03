@@ -1,15 +1,8 @@
-package com.bjtu.foodie.UI;
-
-import org.apache.http.conn.scheme.LayeredSocketFactory;
+package com.bjtu.foodie.map;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -24,12 +17,20 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bjtu.foodie.R;
 
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption.LocationMode;
+
 public class MapActivity extends Activity {
 
+	// display map
 	private MapView baiduMapView = null;
 	private BaiduMap mbaiduMap;
 	private ActionBar actionBar;
-	private int clickTime = 0; // remember the clicktime is even or odd
+	private boolean curMapModeIsNormal = true; // false => satellite
+	
+	// location
+	private LocationClient mylocClient;
+	private LocationMode curLocMode;
 
 	private double longitude, latitude;
 
@@ -55,41 +56,6 @@ public class MapActivity extends Activity {
 		mbaiduMap.addOverlay(overlay);
 	}
 
-	public LatLng getLocation() {
-		getApplicationContext();
-		LocationManager mLocationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		// requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime,
-		// minDistance, listener)
-		mLocationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-				0, 0, new LocationListener() {
-
-					@Override
-					public void onStatusChanged(String provider, int status,
-							Bundle extras) {
-					}
-
-					@Override
-					public void onProviderEnabled(String provider) {
-					}
-
-					@Override
-					public void onProviderDisabled(String provider) {
-					}
-
-					@Override
-					public void onLocationChanged(Location location) {
-						longitude = location.getLongitude();
-						latitude = location.getLatitude();
-						Toast.makeText(
-								getApplicationContext(),
-								"Longitude : " + longitude + "; Latitude : "
-										+ latitude, Toast.LENGTH_SHORT).show();
-					}
-				});
-//		return (new LatLng(39.963175, 116.400244));
-		return (new LatLng(longitude, latitude));
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -111,17 +77,16 @@ public class MapActivity extends Activity {
 			// set map type [normal and satellite]
 			// type: normal = 1(default); satellite = 2
 			mbaiduMap.setMapType((mbaiduMap.getMapType()) % 2 + 1);
-			if (clickTime == 0) {
+			if (curMapModeIsNormal) {
 				item.setIcon(R.drawable.ic_action_map);
-				clickTime++;
 			} else {
 				item.setIcon(R.drawable.ic_action_web_site);
-				clickTime--;
 			}
+			curMapModeIsNormal = !curMapModeIsNormal;
 			break;
 		case R.id.action_location:
 			// BUG: NOT WORKING!!!
-			markLocation(getLocation());
+			markLocation(getMyCurrentLocation());
 			break;
 		default:
 			break;
@@ -129,12 +94,13 @@ public class MapActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void getMyCurrentLocation() {
+	private LatLng getMyCurrentLocation() {
 		// turn on the location function
 		mbaiduMap.setMyLocationEnabled(true);
 		// structure the location data
 		// MyLocationData locationData = new MyLocationData.Builder().accuracy()
 		Toast.makeText(getApplicationContext(), "locating~~",
 				Toast.LENGTH_SHORT).show();
+		return null;
 	}
 }

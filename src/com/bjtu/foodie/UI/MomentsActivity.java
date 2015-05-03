@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullMomentItemAdapter;
 import com.bjtu.foodie.data.TestData;
+import com.bjtu.foodie.map.MapActivity;
 import com.bjtu.foodie.model.Moment;
 
 public class MomentsActivity extends Activity {
