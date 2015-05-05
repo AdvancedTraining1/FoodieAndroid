@@ -18,8 +18,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int bg_beach1=0x7f020000;
@@ -47,70 +47,71 @@ public final class R {
         public static final int icon_map=0x7f020016;
     }
     public static final class id {
-        public static final int action_addMoments=0x7f08001a;
-        public static final int action_location=0x7f080019;
-        public static final int action_map=0x7f08001c;
-        public static final int action_search=0x7f080017;
-        public static final int action_settings=0x7f08001d;
-        public static final int action_share=0x7f08001b;
-        public static final int action_switchType=0x7f080018;
-        public static final int bmapView=0x7f080000;
-        public static final int editText1=0x7f08000d;
-        public static final int ib_add_photo=0x7f08000e;
-        public static final int imgBtn_comment=0x7f080015;
-        public static final int img_item_content_pic=0x7f080014;
-        public static final int img_item_userphoto=0x7f08000f;
-        public static final int iv_avatar=0x7f080006;
-        public static final int iv_bgimg=0x7f080001;
-        public static final int iv_photo=0x7f080008;
-        public static final int iv_userPic=0x7f080003;
-        public static final int ll_commentList=0x7f08000a;
-        public static final int ll_profile=0x7f080005;
-        public static final int lv_moments=0x7f080004;
-        public static final int lv_myMoments=0x7f08000b;
-        public static final int lv_otherMoments=0x7f08000c;
-        public static final int new_action_send=0x7f08001e;
-        public static final int tv_Date=0x7f080007;
-        public static final int tv_Month=0x7f080016;
-        public static final int tv_content=0x7f080009;
-        public static final int tv_item_uname=0x7f080010;
-        public static final int tv_username=0x7f080002;
-        public static final int txt_item_content=0x7f080011;
-        public static final int txt_item_time=0x7f080012;
-        public static final int txt_item_uname=0x7f080013;
+        public static final int action_addMoments=0x7f09001a;
+        public static final int action_location=0x7f090019;
+        public static final int action_map=0x7f09001c;
+        public static final int action_search=0x7f090017;
+        public static final int action_settings=0x7f09001d;
+        public static final int action_share=0x7f09001b;
+        public static final int action_switchType=0x7f090018;
+        public static final int bmapView=0x7f090000;
+        public static final int editText1=0x7f09000d;
+        public static final int ib_add_photo=0x7f09000e;
+        public static final int imgBtn_comment=0x7f090015;
+        public static final int img_item_content_pic=0x7f090014;
+        public static final int img_item_userphoto=0x7f09000f;
+        public static final int iv_avatar=0x7f090006;
+        public static final int iv_bgimg=0x7f090001;
+        public static final int iv_photo=0x7f090008;
+        public static final int iv_userPic=0x7f090003;
+        public static final int ll_commentList=0x7f09000a;
+        public static final int ll_profile=0x7f090005;
+        public static final int lv_moments=0x7f090004;
+        public static final int lv_myMoments=0x7f09000b;
+        public static final int lv_otherMoments=0x7f09000c;
+        public static final int new_action_send=0x7f09001e;
+        public static final int tv_Date=0x7f090007;
+        public static final int tv_Month=0x7f090016;
+        public static final int tv_content=0x7f090009;
+        public static final int tv_item_uname=0x7f090010;
+        public static final int tv_username=0x7f090002;
+        public static final int txt_item_content=0x7f090011;
+        public static final int txt_item_time=0x7f090012;
+        public static final int txt_item_uname=0x7f090013;
     }
     public static final class layout {
-        public static final int activity_map=0x7f030000;
-        public static final int activity_moments=0x7f030001;
-        public static final int activity_my_moments=0x7f030002;
-        public static final int activity_other_moments=0x7f030003;
-        public static final int add_moment=0x7f030004;
-        public static final int comment_item=0x7f030005;
-        public static final int moments_item=0x7f030006;
-        public static final int my_moments_item=0x7f030007;
+        public static final int activity_main=0x7f030000;
+        public static final int activity_map=0x7f030001;
+        public static final int activity_moments=0x7f030002;
+        public static final int activity_my_moments=0x7f030003;
+        public static final int activity_other_moments=0x7f030004;
+        public static final int add_moment=0x7f030005;
+        public static final int comment_item=0x7f030006;
+        public static final int moments_item=0x7f030007;
+        public static final int my_moments_item=0x7f030008;
     }
     public static final class menu {
-        public static final int map=0x7f070000;
-        public static final int moments=0x7f070001;
-        public static final int my_moment=0x7f070002;
-        public static final int new_moment=0x7f070003;
+        public static final int map=0x7f080000;
+        public static final int moments=0x7f080001;
+        public static final int my_moment=0x7f080002;
+        public static final int new_moment=0x7f080003;
     }
     public static final class string {
-        public static final int action_location=0x7f05000d;
-        public static final int action_map=0x7f05000e;
-        public static final int action_new=0x7f05000a;
-        public static final int action_search=0x7f05000b;
-        public static final int action_send=0x7f050009;
-        public static final int action_settings=0x7f050001;
-        public static final int action_share=0x7f050008;
-        public static final int action_switchmaptype=0x7f05000c;
-        public static final int app_name=0x7f050000;
-        public static final int content=0x7f050003;
-        public static final int fakePhone=0x7f050005;
-        public static final int fakeTime=0x7f050004;
-        public static final int hello_world=0x7f050007;
-        public static final int title_activity_my_moment=0x7f050006;
-        public static final int userName=0x7f050002;
+        public static final int action_location=0x7f06000d;
+        public static final int action_map=0x7f06000e;
+        public static final int action_new=0x7f06000a;
+        public static final int action_search=0x7f06000b;
+        public static final int action_send=0x7f060009;
+        public static final int action_settings=0x7f060001;
+        public static final int action_share=0x7f060008;
+        public static final int action_switchmaptype=0x7f06000c;
+        public static final int app_name=0x7f060000;
+        public static final int content=0x7f060003;
+        public static final int fakePhone=0x7f060005;
+        public static final int fakeTime=0x7f060004;
+        public static final int hello_world=0x7f060007;
+        public static final int title_activity_my_moment=0x7f060006;
+        public static final int userName=0x7f060002;
     }
     public static final class style {
         /** 
@@ -134,10 +135,13 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
+    }
+    public static final class xml {
+        public static final int filter_nfc=0x7f040000;
     }
 }
