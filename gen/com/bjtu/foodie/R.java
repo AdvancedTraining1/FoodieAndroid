@@ -47,15 +47,20 @@ public final class R {
         public static final int icon_map=0x7f020016;
     }
     public static final class id {
-        public static final int action_addMoments=0x7f09001a;
-        public static final int action_location=0x7f090019;
-        public static final int action_map=0x7f09001c;
-        public static final int action_search=0x7f090017;
-        public static final int action_settings=0x7f09001d;
-        public static final int action_share=0x7f09001b;
-        public static final int action_switchType=0x7f090018;
+        public static final int action_addMoments=0x7f09001f;
+        public static final int action_location=0x7f09001e;
+        public static final int action_map=0x7f090021;
+        public static final int action_search=0x7f09001c;
+        public static final int action_settings=0x7f090022;
+        public static final int action_share=0x7f090020;
+        public static final int action_switchType=0x7f09001d;
         public static final int bmapView=0x7f090000;
+        public static final int btn_register=0x7f09001b;
         public static final int editText1=0x7f09000d;
+        public static final int et_againPassword=0x7f09001a;
+        public static final int et_email=0x7f090018;
+        public static final int et_password=0x7f090019;
+        public static final int et_username=0x7f090017;
         public static final int ib_add_photo=0x7f09000e;
         public static final int imgBtn_comment=0x7f090015;
         public static final int img_item_content_pic=0x7f090014;
@@ -69,7 +74,7 @@ public final class R {
         public static final int lv_moments=0x7f090004;
         public static final int lv_myMoments=0x7f09000b;
         public static final int lv_otherMoments=0x7f09000c;
-        public static final int new_action_send=0x7f09001e;
+        public static final int new_action_send=0x7f090023;
         public static final int tv_Date=0x7f090007;
         public static final int tv_Month=0x7f090016;
         public static final int tv_content=0x7f090009;
@@ -89,6 +94,7 @@ public final class R {
         public static final int comment_item=0x7f030006;
         public static final int moments_item=0x7f030007;
         public static final int my_moments_item=0x7f030008;
+        public static final int register=0x7f030009;
     }
     public static final class menu {
         public static final int map=0x7f080000;
