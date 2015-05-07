@@ -18,7 +18,7 @@ public class TestData {
 		for (int i = 0; i < 10; ++i) {
 			Moment m = new Moment(String.format("%d", i), String.format(
 					"moment%d", i), R.drawable.icon_avatar,
-					"Awesome!!!lalalala", R.drawable.bg_sunset2, (new Date(
+					"Awesome!!!lalalala", R.drawable.bg_beach1, (new Date(
 							System.currentTimeMillis())));
 			moments.add(m);
 		}
