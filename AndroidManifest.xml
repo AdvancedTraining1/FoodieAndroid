@@ -166,6 +166,13 @@
         <activity android:name="com.bjtu.foodie.map.MapActivity" >
         </activity>
         <activity android:name="com.bjtu.foodie.UI.RegisterActivity" />
+        
+        <activity android:name="com.bjtu.foodie.UI.DatesActivity" >
+        </activity>
+        <activity
+            android:name="com.bjtu.foodie.UI.AddDateActivity"
+            android:parentActivityName="com.bjtu.foodie.UI.DatesActivity" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />

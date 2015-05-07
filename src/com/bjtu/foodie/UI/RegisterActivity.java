@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 public class RegisterActivity extends Activity {
 	private EditText et_email;

@@ -9,13 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullMomentItemAdapter;
 import com.bjtu.foodie.data.TestData;

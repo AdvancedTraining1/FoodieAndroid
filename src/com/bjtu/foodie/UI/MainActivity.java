@@ -13,6 +13,7 @@ import com.bjtu.foodie.R;
 
 public class MainActivity extends Activity {
 	private Button btn_moment;
+	private Button btn_date;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,16 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), MomentsActivity.class);
+				startActivity(i);
+			}
+		});
+        
+        btn_date = (Button) findViewById(R.id.btn_dt);
+        btn_date.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), DatesActivity.class);
 				startActivity(i);
 			}
 		});
