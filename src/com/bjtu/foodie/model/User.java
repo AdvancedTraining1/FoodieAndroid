@@ -7,6 +7,42 @@ public class User {
 	// account[] email password type[restaurant client] sex avatar tag[interesting] friends
 	// flag[is deleted] friendsCount
 	// token 
+	private String username;
+	private String email;
+	private String password;
+	private String head;
+	private String token;
 	
-
+	public User(String username,  String email, String password){
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
+	public User(){}
+	
+	public User(String token){
+		this.token = token;
+	}
+	
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }
