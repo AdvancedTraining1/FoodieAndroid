@@ -14,37 +14,32 @@ import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.adapter.FullMomentItemAdapter;
+import com.bjtu.foodie.adapter.FullDateItemAdapter;
 import com.bjtu.foodie.data.TestData;
 import com.bjtu.foodie.map.MapActivity;
-import com.bjtu.foodie.model.Moment;
+import com.bjtu.foodie.model.DateModel;
 
-public class MomentsActivity extends Activity {
+public class DatesActivity extends Activity {
 
-	// Listview adapter List<moments> List<comment>
-	private ListView lv_allMoments;
-	private List<Moment> list_moments;
-	private FullMomentItemAdapter momentAdapter;
+	// Listview adapter List<dates> List<comment>
+	private ListView lv_allDates;
+	private List<DateModel> list_dates;
+	private FullDateItemAdapter dateAdapter;
 
-	private TextView tv_username;
-	private ImageView iv_userPic;
-	
 	private ShareActionProvider myProvider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_moments);
+		setContentView(R.layout.activity_dates);
 		
-		lv_allMoments = (ListView) findViewById(R.id.lv_moments);
-		tv_username = (TextView) findViewById(R.id.tv_username);
-		iv_userPic = (ImageView) findViewById(R.id.iv_userPic);
+		lv_allDates = (ListView) findViewById(R.id.lv_dates);
 		
-		list_moments = (new TestData()).getMomentsData();
-		momentAdapter = new FullMomentItemAdapter(this, list_moments);
+		list_dates = (new TestData()).getDatesData();
+		dateAdapter = new FullDateItemAdapter(this, list_dates);
 
-		lv_allMoments.setAdapter(momentAdapter);
-
+		lv_allDates.setAdapter(dateAdapter);
+/*
 		tv_username.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -54,7 +49,7 @@ public class MomentsActivity extends Activity {
 				
 				startActivity(intentMyMoment);
 			}
-		});
+		});*/
 		
 	}
 
@@ -84,8 +79,8 @@ public class MomentsActivity extends Activity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.action_addMoments:
-			Intent intentNewMoment = new Intent(this, AddMomentActivity.class);
-			startActivity(intentNewMoment);
+			Intent intentNewDate = new Intent(this, AddDateActivity.class);
+			startActivity(intentNewDate);
 			break;
 		case R.id.action_map:
 			Intent intentMap = new Intent(this, MapActivity.class);
