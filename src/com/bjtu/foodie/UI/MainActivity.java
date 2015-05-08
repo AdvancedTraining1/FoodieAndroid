@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 	private Button btn_moment;
 	private Button btn_date;
 	private Button m_ToDish;
+	private Button btn_register;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		m_ToDish = (Button)findViewById(R.id.button_dish);
-		
+		btn_register = (Button)findViewById(R.id.btn_register);
 		
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -49,6 +50,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        btn_register.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, RegisterActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
         btn_moment = (Button) findViewById(R.id.btn_mmt);
         btn_moment.setOnClickListener(new OnClickListener() {
 			

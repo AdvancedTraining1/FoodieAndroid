@@ -19,7 +19,7 @@ import android.os.StrictMode;
 @SuppressLint("NewApi")
 public class ConnectToServer {
 
-	final static String ipaddress="http://10.0.2.2:3000/";
+	final static String ipaddress="http://10.0.2.2:3000";
 	@SuppressLint("NewApi")
 	public String testURLConn1(String urlAdd) throws Exception{
 
@@ -36,11 +36,11 @@ public class ConnectToServer {
 		conn.setConnectTimeout(5 * 1000);
 		conn.setRequestMethod("GET");	
 		conn.setInstanceFollowRedirects(false);
-		Session session = Session.getSession();
-		String sessionid = (String) session.get("sessionId");
-		if(sessionid!=null&&sessionid.length()>0){
-			conn.setRequestProperty("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID);
-		}		
+//		Session session = Session.getSession();
+//		String sessionid = (String) session.get("sessionId");
+//		if(sessionid!=null&&sessionid.length()>0){
+//			conn.setRequestProperty("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID);
+//		}		
 		System.out.println("Status:"+conn.getResponseCode());
 		if (conn.getResponseCode() != 200)
 			throw new RuntimeException("失败");
@@ -109,9 +109,9 @@ public class ConnectToServer {
 
 		int abc = conn.getResponseCode() ;
 		String cookieval = conn.getHeaderField("set-cookie"); 
-		if(cookieval != null) { 
-			Constants.POST_SESSIONID = cookieval.substring(0, cookieval.indexOf(";")); 
-		}
+//		if(cookieval != null) { 
+//			Constants.POST_SESSIONID = cookieval.substring(0, cookieval.indexOf(";")); 
+//		}
 		System. out.println("ResponseCode------"+abc);
 		if (conn.getResponseCode() != 200)
 			throw new RuntimeException("失败");
@@ -134,11 +134,11 @@ public class ConnectToServer {
 			HttpPost request = new HttpPost();
 			request.setURI(new URI("http://123.57.38.31:3000/" + urlAdd));
 
-			Session session = Session.getSession();
-			String sessionid = (String) session.get("sessionId");
-			if(sessionid != null) { 
-				request.setHeader("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID); 
-			}
+//			Session session = Session.getSession();
+//			String sessionid = (String) session.get("sessionId");
+//			if(sessionid != null) { 
+//				request.setHeader("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID); 
+//			}
 
 			//UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
 					//postParameters);

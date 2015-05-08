@@ -22,15 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< HEAD
-import android.widget.ImageButton;
 import android.widget.Toast;
-=======
-
-import android.widget.ImageButton;
-import android.widget.Toast;
-
->>>>>>> dd7b734aa7c56ecd8cc43da41a0740c679335ae2
 
 public class RegisterActivity extends Activity {
 	private EditText et_email;
