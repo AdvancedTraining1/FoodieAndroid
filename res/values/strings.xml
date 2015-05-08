@@ -16,7 +16,11 @@
     <string name="action_switchmaptype">switchMapType</string>
     <string name="action_location">location</string>
     <string name="action_map">map</string>
+
+    <string name="button_dish">ToDish</string>
+
     <string name="goto_moment">go to moment</string>
     <string name="goto_date">go to date</string>
+
 
 </resources>
