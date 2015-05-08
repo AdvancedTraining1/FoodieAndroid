@@ -1,10 +1,14 @@
 package com.bjtu.foodie.map;
 
+import org.apache.http.util.LangUtils;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -13,15 +17,28 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
-import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.overlayutil.PoiOverlay;
+import com.baidu.mapapi.search.core.CityInfo;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
+import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.bjtu.foodie.R;
 
 public class MapActivity extends Activity {
@@ -31,6 +48,11 @@ public class MapActivity extends Activity {
 	private BaiduMap mbaiduMap;
 	private ActionBar actionBar;
 	private boolean curMapModeIsNormal = true; // false => satellite
+
+	// surround
+	private PoiSearch mPoiSearchAround = null;
+	private Marker curLocMarker;
+	private InfoWindow mInfoWindow;
 
 	// location
 	private LocationClient mlocClient;
@@ -51,7 +73,9 @@ public class MapActivity extends Activity {
 		baiduMapView = (MapView) findViewById(R.id.bmapView);
 		baiduMapView.showZoomControls(false);
 		mbaiduMap = baiduMapView.getMap();
+		mPoiSearchAround = PoiSearch.newInstance();
 		initLocClient();
+		mbaiduMap.setOnMarkerClickListener(new myMarkerClickListener());
 	}
 
 	private void initLocClient() {
@@ -79,7 +103,7 @@ public class MapActivity extends Activity {
 		opt.setScanSpan(2000); // 设置扫描间隔，单位是毫秒 当<1000(1s)时，定时定位无效
 		mlocClient.setLocOption(opt);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -122,6 +146,10 @@ public class MapActivity extends Activity {
 		mlocClient.requestLocation();
 	}
 
+	private void getMyAround(BDLocation location) {
+
+	}
+
 	public class MyLocationListener implements BDLocationListener {
 
 		@Override
@@ -129,23 +157,66 @@ public class MapActivity extends Activity {
 
 			if (location == null || mbaiduMap == null)
 				return;
-
-			MyLocationData locationData = new MyLocationData.Builder()
-					.accuracy(location.getRadius()).direction(0)
-					.latitude(location.getLatitude())
-					.longitude(location.getLongitude()).build();
-			mbaiduMap.setMyLocationData(locationData);
+			// get current location data
+			// MyLocationData locationData = new MyLocationData.Builder()
+			// .accuracy(location.getRadius()).direction(0)
+			// .latitude(location.getLatitude())
+			// .longitude(location.getLongitude()).build();
+			// mbaiduMap.setMyLocationData(locationData);
 			if (isFirstLoc) {
 				isFirstLoc = false;
 				// set new center point and zoom level(3-20) of the map
 				MapStatusUpdate newState = MapStatusUpdateFactory
-						.newLatLngZoom((new LatLng(location.getLatitude(), location
-								.getLongitude())), 15);
+						.newLatLngZoom((new LatLng(location.getLatitude(),
+								location.getLongitude())), 15);
 				mbaiduMap.animateMapStatus(newState);
+				setMarker(location);
 			}
 		}
-		
-		public void onReceivePoi(BDLocation location) {}
+
+		private void setMarker(BDLocation location) {
+			OverlayOptions curLocOO = new MarkerOptions()
+					.position(
+							new LatLng(location.getLatitude(), location
+									.getLongitude())).icon(markerIcon)
+					.zIndex(9).draggable(true);
+			curLocMarker = (Marker) mbaiduMap.addOverlay(curLocOO);
+		}
+
+		public void onReceivePoi(BDLocation location) {
+		}
+	}
+
+	class myMarkerClickListener implements OnMarkerClickListener {
+
+		@Override
+		public boolean onMarkerClick(final Marker marker) {
+			Button popBtn = new Button(getApplicationContext());
+			popBtn.setBackgroundResource(R.drawable.popup);
+			OnInfoWindowClickListener listener = null;
+			popBtn.setText("搜索周边美食");
+			popBtn.setTextColor(Color.BLACK);
+
+			listener = new OnInfoWindowClickListener() {
+				@Override
+				public void onInfoWindowClick() {
+					// 显示周边固定范围内到餐厅
+					Toast.makeText(getApplicationContext(), "I am searching",
+							Toast.LENGTH_SHORT).show();
+					PoiNearbySearchOption curNearByOption = 
+							new PoiNearbySearchOption().keyword("餐厅").location(marker.getPosition()).radius(1000);
+					if(mPoiSearchAround.searchNearby(curNearByOption)) {
+						;
+					}
+				}
+			};
+			LatLng ll = marker.getPosition();
+			mInfoWindow = new InfoWindow(
+					BitmapDescriptorFactory.fromView(popBtn), ll, -47, listener);
+			mbaiduMap.showInfoWindow(mInfoWindow);
+			return true;
+		}
+
 	}
 
 	@Override

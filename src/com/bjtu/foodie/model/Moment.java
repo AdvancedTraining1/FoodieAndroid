@@ -1,9 +1,6 @@
 package com.bjtu.foodie.model;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import android.text.format.Time;
 
 public class Moment {
 
