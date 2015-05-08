@@ -6,13 +6,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.location.LLSInterface;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
@@ -57,16 +61,18 @@ public class MapActivity extends Activity {
 	private InfoWindow mInfoWindow;
 
 	// location
+	private LatLng myCurPosition = null;
 	private LocationClient mlocClient;
 	private LocationMode curLocMode; // default
 	private BitmapDescriptor markerIcon;
 	private MyLocationListener locListener;
 	private boolean isFirstLoc = true; // if locate first time
-	
+
 	// search around
 	private EditText et_searchKeyword;
 	private EditText et_searchDistance;
-	
+	private ImageButton ib_search;
+	private LinearLayout ll_search;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +84,7 @@ public class MapActivity extends Activity {
 
 		// initial map
 		baiduMapView = (MapView) findViewById(R.id.bmapView);
-		et_searchKeyword = (EditText) findViewById(R.id.et_searchKeyWord);
-		et_searchDistance = (EditText) findViewById(R.id.et_distance);
+		
 		baiduMapView.showZoomControls(false);
 		mbaiduMap = baiduMapView.getMap();
 		mPoiSearchAround = PoiSearch.newInstance();
@@ -128,11 +133,7 @@ public class MapActivity extends Activity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.action_search:
-			
-			// 空值检查
-			String key = et_searchKeyword.getText().toString();
-			int distance = Integer.getInteger(et_searchDistance.getText().toString());
-			searchKeyAroundDistance(key, distance);
+			getSearchDialog();
 			break;
 		case R.id.action_switchType:
 			// set map type [normal and satellite]
@@ -154,13 +155,59 @@ public class MapActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void getSearchDialog() {
+		
+		ll_search = (LinearLayout) findViewById(R.id.ll_searchAround);
+		ll_search.setVisibility(0);
+		
+		et_searchKeyword = (EditText) findViewById(R.id.et_searchKeyWord);
+		et_searchDistance = (EditText) findViewById(R.id.et_distance);
+		ib_search = (ImageButton) findViewById(R.id.ib_search);
+		
+		
+		// curloc got some problem can not get curPosition and have nullpointerException
+		ib_search.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int distance = 0;
+				String distanceS = et_searchDistance.getText().toString();
+				String key = et_searchKeyword.getText().toString();
+				if (distanceS.isEmpty()) {
+					Toast.makeText(getApplicationContext(), "empty distance",
+							Toast.LENGTH_SHORT).show();
+				} else if (key.isEmpty()) {
+						Toast.makeText(getApplicationContext(), "empty keyword",
+								Toast.LENGTH_SHORT).show();
+				} else {
+					distance = Integer.valueOf(distanceS);
+				
+					if (distance < 0) {
+					Toast.makeText(getApplicationContext(), "illegal distance value",
+							Toast.LENGTH_SHORT).show();
+					} else {
+						String s = "keyword:"+key  + "  distance:"+distance;
+						Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+//						searchKeyAroundDistance(key, myCurPosition, distance);
+					}
+				}
+			}
+		});
+	}
+
 	private void getMyCurrentLocation() {
 		mlocClient.start();
 		mlocClient.requestLocation();
 	}
 
-	private void searchKeyAroundDistance(String key, int distance) {
-
+	private void searchKeyAroundDistance(String key, LatLng position, int distance) {
+		PoiNearbySearchOption curNearByOption = new PoiNearbySearchOption()
+				.keyword(key).location(position)
+				.radius(distance);
+		if (mPoiSearchAround.searchNearby(curNearByOption)) {
+			mPoiSearchAround
+					.setOnGetPoiSearchResultListener(new myGetPoiSearchResultListener());
+		}
 	}
 
 	public class MyLocationListener implements BDLocationListener {
@@ -178,10 +225,11 @@ public class MapActivity extends Activity {
 			// mbaiduMap.setMyLocationData(locationData);
 			if (isFirstLoc) {
 				isFirstLoc = false;
+				myCurPosition = new LatLng(location.getLatitude(),
+						location.getLongitude());
 				// set new center point and zoom level(3-20) of the map
 				MapStatusUpdate newState = MapStatusUpdateFactory
-						.newLatLngZoom((new LatLng(location.getLatitude(),
-								location.getLongitude())), 15);
+						.newLatLngZoom(myCurPosition, 15);
 				mbaiduMap.animateMapStatus(newState);
 				setMarker(location);
 			}
@@ -214,15 +262,12 @@ public class MapActivity extends Activity {
 				@Override
 				public void onInfoWindowClick() {
 					// 显示周边固定范围内到餐厅
-					Toast.makeText(getApplicationContext(), "I am searching around 2000 meters",
+					Toast.makeText(getApplicationContext(),
+							"I am searching around 2000 meters",
 							Toast.LENGTH_SHORT).show();
-					PoiNearbySearchOption curNearByOption = new PoiNearbySearchOption()
-							.keyword("餐厅").location(marker.getPosition())
-							.radius(2000);
-					if (mPoiSearchAround.searchNearby(curNearByOption)) {
-						mPoiSearchAround.setOnGetPoiSearchResultListener(new myGetPoiSearchResultListener());
-					}
+					searchKeyAroundDistance("餐厅", marker.getPosition(), 2000);
 				}
+
 			};
 			LatLng ll = marker.getPosition();
 			mInfoWindow = new InfoWindow(
@@ -264,8 +309,9 @@ public class MapActivity extends Activity {
 				Toast.makeText(MapActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT)
 						.show();
 			} else {
-				Toast.makeText(MapActivity.this, result.getName() + ": " + result.getAddress(), Toast.LENGTH_SHORT)
-				.show();
+				Toast.makeText(MapActivity.this,
+						result.getName() + ": " + result.getAddress(),
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 
