@@ -157,6 +157,14 @@
         </activity>
         <activity android:name="com.bjtu.foodie.map.MapActivity" >
         </activity>
+        <activity android:name="com.bjtu.foodie.UI.RegisterActivity" />
+        <activity android:name="com.bjtu.foodie.UI.LoginActivity" />
+        
+        <activity android:name="com.bjtu.foodie.UI.DatesActivity" >
+        </activity>
+        <activity
+            android:name="com.bjtu.foodie.UI.AddDateActivity"
+            android:parentActivityName="com.bjtu.foodie.UI.DatesActivity" />
         <activity 
             android:name="com.bjtu.foodie.UI.DishMenu"
             android:parentActivityName="com.bjtu.foodie.UI.MainActivity">

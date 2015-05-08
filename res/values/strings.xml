@@ -17,6 +17,7 @@
     <string name="action_location">location</string>
     <string name="action_map">map</string>
 
+     <string name="button_register">Register</string>
     <string name="button_dish">ToDish</string>
 
     <string name="goto_moment">go to moment</string>
