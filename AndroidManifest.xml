@@ -103,8 +103,13 @@
         <!-- 目前这个渠道统计功能的报表还未开放。-->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="fe28690dfbd70fe511ea5a3d"/>
-        
+        <meta-data android:name="JPUSH_APPKEY" android:value="fe28690dfbd70fe511ea5a3d"/>    
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0Q5Ira1S508A94by05F4EFXQ" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="A1ShjcEE05d2eQLjL0zxV2mZ" />
 
         <activity
             android:name="com.bjtu.foodie.UI.MainActivity"
@@ -129,10 +134,7 @@
 			</intent-filter>
 			<meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/filter_nfc"/>
         </activity>
-        <!-- moment and map part activities and service -->        
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0Q5Ira1S508A94by05F4EFXQ" />
+        <!-- moment and map part activities and service -->    
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
