@@ -3,8 +3,6 @@ package com.bjtu.foodie.UI;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
-import com.gltype.nourriture.ui.MainActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +25,7 @@ public class LoginActivity extends Activity {
 	public boolean isConnect = false;
 	public UserDao userDao = new UserDao(this);
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
