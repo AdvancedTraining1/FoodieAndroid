@@ -25,14 +25,14 @@ public class MainActivity extends Activity {
 	private Button btn_moment;
 	private Button btn_date;
 	private Button m_ToDish;
-
+	private Button m_ToScanTag;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		m_ToDish = (Button)findViewById(R.id.button_dish);
-		
+		m_ToScanTag = (Button)findViewById(R.id.btn_nfctag);
 		
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -45,6 +45,15 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "ToDish",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, DishMenu.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        
+        m_ToScanTag.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, NFCScanTagActivity.class);
                 startActivityForResult(intent, 0);
             }
         });

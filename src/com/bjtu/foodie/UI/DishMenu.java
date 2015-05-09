@@ -62,9 +62,10 @@ public class DishMenu extends Activity implements OnClickListener{
         case R.id.button0:
         	String s="You have choosed ";
             ArrayList<Boolean> checkList = m_adapter2.getChecklist();
+            ArrayList<String> idList = m_adapter2.getIDList();
             for(int i=0;i<checkList.size();i++){
                 if(checkList.get(i)){
-                    s=s+","+i;
+                    s=s+","+idList.get(i);
                 }
             }
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();

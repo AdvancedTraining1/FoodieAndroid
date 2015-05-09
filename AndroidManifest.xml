@@ -147,6 +147,14 @@
             android:name="com.bjtu.foodie.UI.DishMenu"
             android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
         </activity>
+        <activity 
+            android:name="com.bjtu.foodie.UI.NFCScanTagActivity"
+            android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
+        </activity>
+        <activity 
+            android:name="com.bjtu.foodie.UI.CouponActivity"
+            android:parentActivityName="com.bjtu.foodie.UI.NFCScanTagActivity">
+        </activity>
     </application>
     
 

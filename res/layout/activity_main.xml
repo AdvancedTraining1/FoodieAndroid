@@ -40,6 +40,15 @@
         android:layout_below="@+id/btn_mmt"
         android:layout_marginTop="43dp"
         android:text="@string/goto_date" />
+    
+    <Button
+        android:id="@+id/btn_nfctag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/btn_dt"
+        android:layout_marginTop="43dp"
+        android:text="@string/goto_scantag" />
 
 </LinearLayout>
 

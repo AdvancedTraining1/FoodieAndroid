@@ -21,6 +21,7 @@
 
     <string name="goto_moment">go to moment</string>
     <string name="goto_date">go to date</string>
+    <string name="goto_scantag">go to scan a tag</string>
 
 
 </resources>

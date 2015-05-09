@@ -26,7 +26,7 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 	private List<DishItem> dishes;
 	private Context context;
 	ArrayList<Boolean> checkedItem = new ArrayList<Boolean>();
-	
+	ArrayList<String> idList = new ArrayList<String>();
 	
 	
 	public FullDishItemsAdapter2(Context contex, List<DishItem> dishes) {
@@ -34,11 +34,16 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 		this.context = contex;
 		for(int i=0;i<dishes.size();i++){
             checkedItem.add(i,false);
+            idList.add(i,null);
         }
 	}
 	
 	public ArrayList<Boolean> getChecklist() {
 		return checkedItem;
+	}
+	
+	public ArrayList<String> getIDList() {
+		return idList;
 	}
 
 	@Override
@@ -82,6 +87,7 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 		
 		//---------getPic == id of the pic in drawable-------
 		holder.iamge.setImageResource(dish.getPic());
+		final String id = dish.getId();
 		holder.checked.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
@@ -91,10 +97,11 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 	                   //update the status of checkbox to checked
 	                    
 	                    checkedItem.set(p, true);
+	                    idList.set(p,id);
 	                }else{
 	                  //update the status of checkbox to unchecked
 	                    checkedItem.set(p, false);
-
+	                    idList.set(p,null);
 	                }
 			}
 

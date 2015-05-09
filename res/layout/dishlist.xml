@@ -11,13 +11,13 @@
 			android:id="@+id/array_button"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-	    	android:text="下单"
+	    	android:text="use"
 		/>
 		<Button
 			android:id="@+id/array_button0"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-	    	android:text="取消"
+	    	android:text="delete"
 		/>
     </LinearLayout>
 	
