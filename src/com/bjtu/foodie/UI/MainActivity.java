@@ -15,25 +15,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import cn.jpush.android.api.JPushInterface;
-
-import com.bjtu.foodie.R;
-
 public class MainActivity extends Activity {
 	private Button btn_moment;
 	private Button btn_date;
 	private Button m_ToDish;
+
 	private Button m_ToScanTag;
+
+	private Button btn_register;
+	private Button btn_login;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		m_ToDish = (Button)findViewById(R.id.button_dish);
+
 		m_ToScanTag = (Button)findViewById(R.id.btn_nfctag);
 		
+
+		btn_register = (Button)findViewById(R.id.btn_register);
+		btn_login =  (Button)findViewById(R.id.btn_login);
+
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
@@ -41,7 +46,8 @@ public class MainActivity extends Activity {
         
         
         m_ToDish.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "ToDish",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, DishMenu.class);
@@ -58,6 +64,24 @@ public class MainActivity extends Activity {
             }
         });
 
+        btn_register.setOnClickListener(new OnClickListener() {
+            @Override
+			public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, RegisterActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        
+        btn_login.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Login",Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
         btn_moment = (Button) findViewById(R.id.btn_mmt);
         btn_moment.setOnClickListener(new OnClickListener() {
 			
@@ -99,6 +123,7 @@ public class MainActivity extends Activity {
         JPushInterface.onResume(this);
     }
 	
+	@Override
 	public void onPause()
 	{
 		super.onPause();

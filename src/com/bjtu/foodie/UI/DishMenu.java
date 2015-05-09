@@ -11,25 +11,11 @@ import com.bjtu.foodie.R;
 import com.bjtu.foodie.model.DishItem;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.ActionMode;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class DishMenu extends Activity implements OnClickListener{
@@ -57,7 +43,8 @@ public class DishMenu extends Activity implements OnClickListener{
         m_submit.setOnClickListener(this);
     }
     
-    public void onClick(View v) {
+    @Override
+	public void onClick(View v) {
     	switch(v.getId()){
         case R.id.button0:
         	String s="You have choosed ";
