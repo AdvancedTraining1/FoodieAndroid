@@ -1,7 +1,5 @@
 package com.bjtu.foodie.db;
 
-import java.util.List;
-
 import com.bjtu.foodie.model.User;
 
 import android.content.Context;

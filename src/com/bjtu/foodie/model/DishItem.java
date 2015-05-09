@@ -1,12 +1,5 @@
 package com.bjtu.foodie.model;
 
-
-import java.util.Calendar;
-import java.util.Date;
-
-import android.R.integer;
-import android.text.format.Time;
-
 public class DishItem {
 
 	private String id;

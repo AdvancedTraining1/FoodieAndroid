@@ -15,12 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import cn.jpush.android.api.JPushInterface;
-
-import com.bjtu.foodie.R;
-
 public class MainActivity extends Activity {
 	private Button btn_moment;
 	private Button btn_date;
@@ -43,7 +37,8 @@ public class MainActivity extends Activity {
         
         
         m_ToDish.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "ToDish",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, DishMenu.class);
@@ -52,7 +47,8 @@ public class MainActivity extends Activity {
         });
 
         btn_register.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, RegisterActivity.class);
@@ -109,6 +105,7 @@ public class MainActivity extends Activity {
         JPushInterface.onResume(this);
     }
 	
+	@Override
 	public void onPause()
 	{
 		super.onPause();

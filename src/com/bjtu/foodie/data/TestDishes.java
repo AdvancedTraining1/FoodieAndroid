@@ -1,12 +1,7 @@
 package com.bjtu.foodie.data;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import android.R.integer;
-import android.os.SystemClock;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.model.DishItem;

@@ -12,6 +12,10 @@ public class Moment {
 	private int likeCount;
 	private Date date;
 
+	public Moment(String content){
+		this.content = content;
+	}
+	
 	public Moment(String id, String userName, int userPic, String content,
 			int pic, Date date) {
 		super();

@@ -1,18 +1,10 @@
 package com.bjtu.foodie.UI;
 
-import java.io.UnsupportedEncodingException;
-
-import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;

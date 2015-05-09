@@ -6,8 +6,11 @@ import org.json.JSONObject;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
+<<<<<<< HEAD
 import com.bjtu.foodie.common.Constants;
 
+=======
+>>>>>>> 6e139d65cf35660dc7351ec140dcb0fa8b8abd3a
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -39,6 +42,7 @@ public class LoginActivity extends Activity {
 	String ifSuccess = "Failed";
 	String url, message;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);

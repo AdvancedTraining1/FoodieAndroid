@@ -106,10 +106,14 @@
         <meta-data android:name="JPUSH_APPKEY" android:value="fe28690dfbd70fe511ea5a3d"/>    
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0Q5Ira1S508A94by05F4EFXQ" />
+            android:value="A1ShjcEE05d2eQLjL0zxV2mZ" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="A1ShjcEE05d2eQLjL0zxV2mZ" />
+            android:value="mK0x8ZPZZPumfthMe4DVAHNU" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0Q5Ira1S508A94by05F4EFXQ" />
+        
 
         <activity
             android:name="com.bjtu.foodie.UI.MainActivity"
