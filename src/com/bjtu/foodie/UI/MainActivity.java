@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 	private Button btn_date;
 	private Button m_ToDish;
 	private Button btn_register;
+	private Button btn_login;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends Activity {
 		
 		m_ToDish = (Button)findViewById(R.id.button_dish);
 		btn_register = (Button)findViewById(R.id.btn_register);
-		
+		btn_login =  (Button)findViewById(R.id.btn_login);
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
@@ -55,6 +56,15 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, RegisterActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        
+        btn_login.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Login",Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, 0);
             }
         });

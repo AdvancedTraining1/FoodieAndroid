@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
+import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,11 +33,14 @@ public class RegisterActivity extends Activity {
 	private Button btn_register;
 	private Button btn_back;
 	
+	public static String token;
+	//public boolean isConnect = false;
+	public UserDao userDao = new UserDao(this);
 	ConnectToServer connect;
 	ProgressDialog proDia;
 	Handler handler;
-	String url;
-	String result;
+	String url, message;
+	String result = "Register failed ";
 	String username, password, againPassword, email;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +92,16 @@ public class RegisterActivity extends Activity {
 								handler.post(new Runnable() {
 									@Override
 									public void run() {
-										Toast.makeText(RegisterActivity.this, "Register successful!",Toast.LENGTH_SHORT).show();
+										Toast.makeText(RegisterActivity.this, result,Toast.LENGTH_SHORT).show();
 									}
 								});
 							} catch (Exception e) {
 							} finally {
 								proDia.dismiss();
 								Intent intent = new Intent();
-								intent.setClass(RegisterActivity.this,MainActivity.class);
+								intent.setClass(RegisterActivity.this,LoginActivity.class);
 								startActivity(intent);
 							}
-
 						}
 					}.start();
 				}
@@ -107,7 +110,7 @@ public class RegisterActivity extends Activity {
 		
 		btn_back.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
 			}
@@ -123,13 +126,28 @@ public class RegisterActivity extends Activity {
         	.append("email").append("=").append(user.getEmail());
         byte[] bytes = paramsBuffer.toString().getBytes();
         result = connect.testURLConn2(url, bytes);
-		JSONObject jsonObj = new JSONObject(result);
-		String message = jsonObj.getString("message");
-		System.out.println("RegisterMessage---" + message);
+		
+		loginAfterRegister(username, password);
 	}
 	
-	public void loginAfterRegister(){
+	public void loginAfterRegister(String username, String password) throws Exception{
+		url = "/service/userinfo/login"; 
+		StringBuffer params = new StringBuffer();
+		// 表单参数与get形式一样
+		params.append("username").append("=").append(username)
+				.append("&").append("password").append("=")
+				.append(password);
+		byte[] bytes = params.toString().getBytes();  //变为字节
+		message = connect.testURLConn2(url, bytes);
+		JSONObject jsonObject = new JSONObject(message);
 		
+		try{
+			token = jsonObject.getString("token");
+			userDao.add(token);
+			System.out.println("token:"+token);
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
 	}
 	
 }

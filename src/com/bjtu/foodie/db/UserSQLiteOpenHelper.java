@@ -12,7 +12,7 @@ public class UserSQLiteOpenHelper extends SQLiteOpenHelper {
 	}
 	@Override
 	public void onCreate(SQLiteDatabase arg0) {
-			String createTable = "create table user (id integer primary key autoincrement, token varchar(80), role varchar(5))";
+			String createTable = "create table user (id integer primary key autoincrement, token varchar(80))";
 			arg0.execSQL(createTable);
 
 	}

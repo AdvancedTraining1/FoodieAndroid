@@ -14,19 +14,18 @@ public class UserDao {
 		dbHelper = new UserSQLiteOpenHelper(contex);
 	}
 	
-	public void add(String token,int role){
+	public void add(String token){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("insert into user (token,role) values (?,?)", new Object[]{token,role});
+		db.execSQL("insert into user (token) values (?)", new Object[]{token});
 		db.close();
 	}
 	
 	public User find(){
 		User user = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select token, role from user", null);
+		Cursor cursor = db.rawQuery("select token from user", null);
 		if(cursor.moveToNext()){
 			String token = cursor.getString(cursor.getColumnIndex("token"));
-			
 			user = new User(token);		
 		}
 		cursor.close();

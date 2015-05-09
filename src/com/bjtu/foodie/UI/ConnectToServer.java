@@ -65,17 +65,10 @@ public class ConnectToServer {
 		System.out.println("url-----------"+url);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setInstanceFollowRedirects(false);
-//		Session session = Session.getSession();
-//		String sessionid = (String) session.get("sessionId");
-//		if(sessionid!=null&&sessionid.length()>0){
-//			conn.setRequestProperty("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID);
-//		}
-		
 		conn.setConnectTimeout(5 * 1000);
 		conn.setRequestMethod("POST");	
 		conn.getOutputStream().write(bytes);// 输入参数
 		
-
 		int abc = conn.getResponseCode() ;
 		System. out.println("ResponseCode------"+abc);
 		if (conn.getResponseCode() != 200)
@@ -88,40 +81,7 @@ public class ConnectToServer {
 
 	}
 
-	public String testURLConn3(String urlAdd,byte[] bytes) throws Exception{
 
-		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-		.detectDiskReads().detectDiskWrites().detectNetwork()
-		.penaltyLog().build());
-		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-		.detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-		.penaltyLog().penaltyDeath().build());
-
-		URL url=new URL(ipaddress+urlAdd);
-		System.out.println("url-----------"+url);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-
-		conn.setConnectTimeout(5 * 1000);
-		conn.setRequestMethod("POST");	
-		conn.getOutputStream().write(bytes);// 输入参数
-
-
-		int abc = conn.getResponseCode() ;
-		String cookieval = conn.getHeaderField("set-cookie"); 
-//		if(cookieval != null) { 
-//			Constants.POST_SESSIONID = cookieval.substring(0, cookieval.indexOf(";")); 
-//		}
-		System. out.println("ResponseCode------"+abc);
-		if (conn.getResponseCode() != 200)
-			throw new RuntimeException("失败");
-		InputStream is = conn.getInputStream();
-		String result=readData(is, "UTF-8");
-		System.out.println("result------"+result);
-		conn.disconnect();
-		return result;
-
-	}
 	public String testURLConn4(String urlAdd) throws Exception{
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 		.detectDiskReads().detectDiskWrites().detectNetwork()
