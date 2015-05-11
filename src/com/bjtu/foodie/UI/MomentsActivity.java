@@ -35,6 +35,7 @@ public class MomentsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_moments);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		lv_allMoments = (ListView) findViewById(R.id.lv_moments);
 		tv_username = (TextView) findViewById(R.id.tv_username);

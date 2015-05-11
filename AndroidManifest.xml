@@ -144,7 +144,8 @@
             android:enabled="true"
             android:process=":remote" >
         </service>
-        <activity android:name="com.bjtu.foodie.UI.MomentsActivity" >
+        <activity android:name="com.bjtu.foodie.UI.MomentsActivity" 
+            android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
         </activity>
         <activity
             android:name="com.bjtu.foodie.UI.MyMomentActivity"
