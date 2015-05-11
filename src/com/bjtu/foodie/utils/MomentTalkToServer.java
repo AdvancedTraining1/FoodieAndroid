@@ -36,7 +36,7 @@ public class MomentTalkToServer {
 
 	//public static final String serviceAddr = "http://123.57.38.31:3000/service/";
 	//10.0.2.2
-	public static final String serviceAddr = "http://172.28.42.21:3000/service/";
+	public static final String serviceAddr = "http://101.200.174.49:3000/service/";
 	public static String momentGet(String url) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 				.detectDiskReads().detectDiskWrites().detectNetwork()

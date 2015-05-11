@@ -16,28 +16,38 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private Button btn_moment;
+	/*private Button btn_moment;
 	private Button btn_date;
 	private Button m_ToDish;
 
 	private Button m_ToScanTag;
 
 	private Button btn_register;
+	private Button btn_login;*/
+	
+	private Button btn_moment;
+	private Button btn_dish;
+	private Button btn_date;
 	private Button btn_login;
+	private Button btn_scan;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_mainpage);
 		
-		m_ToDish = (Button)findViewById(R.id.button_dish);
+		//m_ToDish = (Button)findViewById(R.id.button_dish);
 
-		m_ToScanTag = (Button)findViewById(R.id.btn_nfctag);
+		//m_ToScanTag = (Button)findViewById(R.id.btn_nfctag);
 		
 
-		btn_register = (Button)findViewById(R.id.btn_register);
+		//btn_register = (Button)findViewById(R.id.btn_register);
+		btn_moment =  (Button)findViewById(R.id.btn_moment);
+		btn_dish =  (Button)findViewById(R.id.btn_dish);
+		btn_date =  (Button)findViewById(R.id.btn_date);
 		btn_login =  (Button)findViewById(R.id.btn_login);
+		btn_scan =  (Button)findViewById(R.id.btn_scan);
 
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -45,7 +55,7 @@ public class MainActivity extends Activity {
         
         
         
-        m_ToDish.setOnClickListener(new OnClickListener() {
+        btn_dish.setOnClickListener(new OnClickListener() {
             @Override
 			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "ToDish",Toast.LENGTH_LONG ).show();
@@ -55,7 +65,7 @@ public class MainActivity extends Activity {
             }
         });
         
-        m_ToScanTag.setOnClickListener(new OnClickListener() {
+        btn_scan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
@@ -64,7 +74,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        btn_register.setOnClickListener(new OnClickListener() {
+        /*btn_register.setOnClickListener(new OnClickListener() {
             @Override
 			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
@@ -72,7 +82,7 @@ public class MainActivity extends Activity {
                 intent.setClass(MainActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, 0);
             }
-        });
+        });*/
         
         btn_login.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -82,7 +92,7 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, 0);
             }
         });
-        btn_moment = (Button) findViewById(R.id.btn_mmt);
+        //btn_moment = (Button) findViewById(R.id.btn_mmt);
         btn_moment.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -92,7 +102,7 @@ public class MainActivity extends Activity {
 			}
 		});
         
-        btn_date = (Button) findViewById(R.id.btn_dt);
+        //btn_date = (Button) findViewById(R.id.btn_dt);
         btn_date.setOnClickListener(new OnClickListener() {
 			
 			@Override
