@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -30,6 +31,7 @@ public class MainActivity extends Activity {
 	private Button btn_date;
 	private Button btn_login;
 	private Button btn_scan;
+	private TextView text_scan;
 
 
 	@Override
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
 		btn_date =  (Button)findViewById(R.id.btn_date);
 		btn_login =  (Button)findViewById(R.id.btn_login);
 		btn_scan =  (Button)findViewById(R.id.btn_scan);
+		text_scan = (TextView)findViewById(R.id.text_scan);
 
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -138,5 +141,12 @@ public class MainActivity extends Activity {
 	{
 		super.onPause();
 		JPushInterface.onPause(this);
+	}
+	
+	public void functionScan(View view){
+		Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, NFCScanTagActivity.class);
+        startActivityForResult(intent, 0);
 	}
 }
