@@ -29,6 +29,8 @@
     <string name="fakeDate">5月4日</string>
     <string name="search_key_word">餐厅名称</string>
     <string name="search_distance">distance</string>
+    <string name="Dish_Name">DishName</string>
+    <string name="dish_descriptions">Dish Descriptions</string>
 
 
 

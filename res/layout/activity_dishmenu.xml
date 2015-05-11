@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
     <LinearLayout
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
+        android:orientation="vertical" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="center_vertical"
-            
             android:orientation="horizontal" >
-        <FrameLayout
-    		android:layout_width="fill_parent"  
-    		android:layout_height="fill_parent">  
-  
-    		<ImageView    
-        		android:layout_width="fill_parent"   
-        		android:layout_height="120dp"   
-        		android:scaleType="centerCrop"  
-        		android:src="@drawable/bg_ocean" />  
-      
-    		<TextView  
-        		android:layout_width="wrap_content"   
-        		android:layout_height="wrap_content"   
-        		android:layout_marginBottom="20dip"  
-        		android:layout_gravity="center_horizontal|right"  
-  
-        		android:padding="12dip"  
-          
-        		
-        		android:textColor="#444444"  
-          
-        		android:text="Golden Gate" />  
-        	<TextView android:id="@+id/textView0"
-	          android:layout_width="fill_parent"
-			  android:layout_height="wrap_content" 
-			  android:layout_below="@+id/imageView0"
-			  android:textColor="#FFFFFF"
-			  android:textSize="13dip"
-			  
-		      android:text="这个是菜单，饭店的菜单" 
-		      android:layout_gravity="bottom|center_horizontal"/>
-		</FrameLayout>
-		</LinearLayout>
-        <!-- <ImageView android:id="@+id/imageView0"
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_ocean" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|right"
+                    android:layout_marginBottom="20dip"
+                    android:padding="12dip"
+                    android:text="Golden Gate"
+                    android:textColor="#444444" />
+
+                <TextView
+                    android:id="@+id/textView0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView0"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:text="这个是菜单，饭店的菜单"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13dip" />
+            </FrameLayout>
+        </LinearLayout>
+        <!--
+        <ImageView android:id="@+id/imageView0"
          android:src="@drawable/jay"
          android:layout_width="fill_parent" 
          android:layout_height="wrap_content"
          android:layout_alignParentTop="true"
-        /> -->
-        
-		 <!--<TextView android:id="@+id/textView1"
+        />
+        -->
+
+
+        <!--
+        <TextView android:id="@+id/textView1"
 	          android:layout_width="fill_parent"
 			  android:layout_height="wrap_content"
 			  android:layout_below="@id/textView0" 
@@ -67,31 +69,39 @@
         <Button android:id="@+id/button0"
 	          android:layout_width="fill_parent" android:layout_height="wrap_content"
 	          android:layout_below="@+id/textView1"
-	          android:text="简单的ListView列表"/>-->
+	          android:text="简单的ListView列表"/>
+        -->
+
         <ListView
-    		android:id="@+id/listview0"     
-    		android:layout_width="match_parent"
-    		android:layout_weight="1"
+            android:id="@+id/listview0"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:scrollbars="none" >
-        </ListView>  
-        <RelativeLayout 
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			android:gravity="center_vertical">
-        	<TextView android:id="@+id/textView1"
-	          android:layout_width="wrap_content"
-			  android:layout_height="wrap_content" 
-			  android:textSize="13dip"
-			  android:layout_alignParentLeft="true"
-			  android:layout_centerVertical="true"
-		      android:text="Choose widly" />
-        	<Button android:id="@+id/button0"
-	          android:layout_width="wrap_content" android:layout_height="wrap_content"
-	          android:text="Submit"
-	          android:layout_alignParentRight="true"
-	          android:layout_centerVertical="true"/> 
-        </RelativeLayout>
-               
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="Choose widly"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Submit" />
+        </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
