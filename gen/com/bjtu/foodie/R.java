@@ -515,13 +515,13 @@ public final class R {
         public static final int tuan=0x7f02002f;
     }
     public static final class id {
-        public static final int action_addMoments=0x7f0a0054;
-        public static final int action_location=0x7f0a0053;
-        public static final int action_map=0x7f0a0056;
-        public static final int action_search=0x7f0a0051;
-        public static final int action_settings=0x7f0a0057;
-        public static final int action_share=0x7f0a0055;
-        public static final int action_switchType=0x7f0a0052;
+        public static final int action_addMoments=0x7f0a0057;
+        public static final int action_location=0x7f0a0056;
+        public static final int action_map=0x7f0a0059;
+        public static final int action_search=0x7f0a0054;
+        public static final int action_settings=0x7f0a005a;
+        public static final int action_share=0x7f0a0058;
+        public static final int action_switchType=0x7f0a0055;
         public static final int array_button=0x7f0a003e;
         public static final int array_button0=0x7f0a003f;
         public static final int array_image=0x7f0a0040;
@@ -539,18 +539,21 @@ public final class R {
         public static final int btn_register=0x7f0a0007;
         public static final int btn_scan=0x7f0a0021;
         public static final int button0=0x7f0a0005;
+        public static final int button1=0x7f0a004c;
+        public static final int button2=0x7f0a004d;
         public static final int button_dish=0x7f0a0006;
         public static final int content=0x7f0a0035;
         public static final int desc=0x7f0a0045;
         public static final int editText1=0x7f0a0037;
-        public static final int et_againPassword=0x7f0a0050;
+        public static final int et_againPassword=0x7f0a0053;
         public static final int et_distance=0x7f0a0024;
-        public static final int et_email=0x7f0a004f;
+        public static final int et_email=0x7f0a0052;
         public static final int et_password=0x7f0a004a;
         public static final int et_searchKeyWord=0x7f0a0023;
         public static final int et_username=0x7f0a0049;
         public static final int ib_add_photo=0x7f0a0038;
         public static final int ib_search=0x7f0a0025;
+        public static final int image=0x7f0a004b;
         public static final int imageView0=0x7f0a0001;
         public static final int imageView1=0x7f0a000c;
         public static final int imageView10=0x7f0a001a;
@@ -570,8 +573,8 @@ public final class R {
         public static final int imageView8=0x7f0a0014;
         public static final int imageView9=0x7f0a0019;
         public static final int img=0x7f0a0043;
-        public static final int imgBtn_comment=0x7f0a004d;
-        public static final int img_item_content_pic=0x7f0a004c;
+        public static final int imgBtn_comment=0x7f0a0050;
+        public static final int img_item_content_pic=0x7f0a004f;
         public static final int img_item_userphoto=0x7f0a0039;
         public static final int iv_avatar=0x7f0a002c;
         public static final int iv_bgimg=0x7f0a0027;
@@ -587,7 +590,7 @@ public final class R {
         public static final int lv_myMoments=0x7f0a0031;
         public static final int lv_otherMoments=0x7f0a0033;
         public static final int name=0x7f0a0044;
-        public static final int new_action_send=0x7f0a0058;
+        public static final int new_action_send=0x7f0a005b;
         public static final int nfctext=0x7f0a0032;
         public static final int select=0x7f0a0046;
         public static final int textView0=0x7f0a0000;
@@ -596,14 +599,14 @@ public final class R {
         public static final int time=0x7f0a0036;
         public static final int title=0x7f0a0034;
         public static final int tv_Date=0x7f0a002d;
-        public static final int tv_Month=0x7f0a004e;
+        public static final int tv_Month=0x7f0a0051;
         public static final int tv_content=0x7f0a002f;
         public static final int tv_item_uname=0x7f0a003a;
         public static final int tv_username=0x7f0a0028;
         public static final int txt_item_content=0x7f0a003b;
         public static final int txt_item_date=0x7f0a003d;
         public static final int txt_item_time=0x7f0a003c;
-        public static final int txt_item_uname=0x7f0a004b;
+        public static final int txt_item_uname=0x7f0a004e;
     }
     public static final class layout {
         public static final int activity_coupon=0x7f030000;
@@ -622,9 +625,11 @@ public final class R {
         public static final int dishlist=0x7f03000d;
         public static final int dishlist2=0x7f03000e;
         public static final int login=0x7f03000f;
-        public static final int moments_item=0x7f030010;
-        public static final int my_moments_item=0x7f030011;
-        public static final int register=0x7f030012;
+        public static final int moment_add_1=0x7f030010;
+        public static final int moment_add_2=0x7f030011;
+        public static final int moments_item=0x7f030012;
+        public static final int my_moments_item=0x7f030013;
+        public static final int register=0x7f030014;
     }
     public static final class menu {
         public static final int map=0x7f090000;
