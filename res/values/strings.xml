@@ -11,27 +11,22 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_share">share</string>
     <string name="action_send">send</string>
-    <string name="action_new">new</string>   
+    <string name="action_new">new</string>
     <string name="action_search">search</string>
     <string name="action_switchmaptype">switchMapType</string>
     <string name="action_location">location</string>
     <string name="action_map">map</string>
-
-     <string name="button_register">Register</string>
-     <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
     <string name="button_dish">ToDish</string>
-
     <string name="goto_moment">go to moment</string>
     <string name="goto_date">go to date</string>
-
     <string name="goto_scantag">go to scan a tag</string>
-
     <string name="fakeDate">5月4日</string>
     <string name="search_key_word">餐厅名称</string>
     <string name="search_distance">distance</string>
     <string name="Dish_Name">DishName</string>
     <string name="dish_descriptions">Dish Descriptions</string>
-
-
+    <string name="title_activity_temp_restaurant">TempRestaurantActivity</string>
 
 </resources>
