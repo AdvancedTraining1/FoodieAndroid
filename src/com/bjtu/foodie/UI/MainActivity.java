@@ -69,7 +69,8 @@ public class MainActivity extends Activity {
         });
         
         btn_scan.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, NFCScanTagActivity.class);
@@ -88,7 +89,8 @@ public class MainActivity extends Activity {
         });*/
         
         btn_login.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Login",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, LoginActivity.class);

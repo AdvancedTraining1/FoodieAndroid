@@ -1,6 +1,5 @@
 package com.bjtu.foodie.UI;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -84,6 +82,7 @@ public class LoginActivity extends Activity {
 						proDia.show();
 						new Thread()
 						{
+							@Override
 							public void run(){
 								try{
 									loginConnection(username, password);
@@ -115,12 +114,14 @@ public class LoginActivity extends Activity {
 			});
 			
 			btn_back.setOnClickListener(new OnClickListener(){
+				@Override
 				public void onClick(View v) {
 					finish();
 				}
 			});
 			
 			btn_register.setOnClickListener(new OnClickListener(){
+				@Override
 				public void onClick(View v) {
 					Toast.makeText(LoginActivity.this, "Register",Toast.LENGTH_LONG ).show();
 					LoginActivity.this.finish();

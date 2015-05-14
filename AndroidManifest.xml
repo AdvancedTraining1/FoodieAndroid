@@ -166,6 +166,10 @@
         <activity
             android:name="com.bjtu.foodie.UI.AddDateActivity"
             android:parentActivityName="com.bjtu.foodie.UI.DatesActivity" />
+        <activity
+            android:name="com.bjtu.foodie.UI.SelectDateFriendsActivity"
+            android:parentActivityName="com.bjtu.foodie.UI.AddDateActivity" />
+        
         <activity 
             android:name="com.bjtu.foodie.UI.DishMenu"
             android:parentActivityName="com.bjtu.foodie.UI.MainActivity">

@@ -7,11 +7,13 @@ import java.util.List;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.model.DateModel;
 import com.bjtu.foodie.model.Moment;
+import com.bjtu.foodie.model.User;
 
 public class TestData {
 	private List<Moment> moments;
 	private List<DateModel> dates;
-
+	private List<User> friends;
+	
 	public List<Moment> getMomentsData() {
 		moments = new ArrayList<Moment>();
 		for (int i = 0; i < 10; ++i) {
@@ -29,11 +31,20 @@ public class TestData {
 		for (int i = 0; i < 10; ++i) {
 			DateModel d = new DateModel(String.format("%d", i), String.format(
 					"date%d", i), R.drawable.icon_avatar,"Barbecue",
-					"We take a barbecue in huoshaoshi", new Date(
+					"Address: barbecue in huoshaoshi", new Date(
 							System.currentTimeMillis()), new Date(
-							System.currentTimeMillis()),8);
+							System.currentTimeMillis()),3);
 			dates.add(d);
 		}
 		return dates;
+	}
+	
+	public List<User> getFriendsData() {
+		friends = new ArrayList<User>();
+		for (int i = 0; i < 10; ++i) {
+			User f = new User(String.format("friend%d", i),"123","123");
+			friends.add(f);
+		}
+		return friends;
 	}
 }
