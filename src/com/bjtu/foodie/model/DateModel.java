@@ -43,6 +43,20 @@ public class DateModel {
 	}
 	
 	
+	public DateModel(List<User> dateUsers, Date dateTime, String dateContent) {
+		super();
+		this.dateContent = dateContent;
+		this.dateTime = dateTime;
+		this.dateUsers = dateUsers;
+	}
+	public DateModel(String dateUsers, String dateTime, String dateContent) {
+		super();
+		this.dateTitle = dateUsers;//?????
+		this.dateTime = new Date(dateTime);
+		this.dateContent = dateContent;
+		
+	}
+	
 	public String getUserId() {
 		return userId;
 	}
