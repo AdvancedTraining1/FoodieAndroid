@@ -85,7 +85,7 @@ public class MomentsActivity extends Activity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.action_addMoments:
-			Intent intentNewMoment = new Intent(this, AddMomentActivity.class);
+			Intent intentNewMoment = new Intent(this, MomentAddActivity1.class);
 			startActivity(intentNewMoment);
 			break;
 		case R.id.action_map:

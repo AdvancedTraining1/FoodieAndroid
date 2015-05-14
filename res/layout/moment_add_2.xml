@@ -13,9 +13,9 @@
         android:text="Confirm your photo" />
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/newImage"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/bg_beach1"
         android:layout_gravity="center"/>
