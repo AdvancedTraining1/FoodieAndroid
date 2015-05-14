@@ -7,12 +7,17 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-	<!-- NFC -->
+    <!-- NFC -->
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
-    
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
     <!-- Required -->
-    <permission android:name="com.bjtu.foodie.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
+    <permission
+        android:name="com.bjtu.foodie.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
     <!-- Required -->
     <uses-permission android:name="com.bjtu.foodie.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -24,9 +29,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>  
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!--since 1.6.0 -->
-     
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- since 1.6.0 -->
+
+
     <!-- Optional. Required for location feature -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
@@ -35,15 +41,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.NFC" />
-    
-	
+    <uses-permission android:name="android.permission.NFC" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_foodie"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
+
         <!-- Required -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -56,15 +61,15 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-        
+
         <!-- Required -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true" >
-          <intent-filter android:priority="1000"> <!--since 1.3.5 -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!--since 1.3.5 -->
-                <category android:name="com.bjtu.foodie" /> <!--since 1.3.5 -->
-            </intent-filter> <!--since 1.3.5 -->
+            <intent-filter android:priority="1000" > <!-- since 1.3.5 -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- since 1.3.5 -->
+                <category android:name="com.bjtu.foodie" /> <!-- since 1.3.5 -->
+            </intent-filter> <!-- since 1.3.5 -->
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -72,38 +77,44 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-     <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden" >
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.bjtu.foodie" />
             </intent-filter>
         </activity>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" >
         </service>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
-      
+
         <!-- Required. For publish channel feature -->
-        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。 -->
         <!-- 例如: -->
         <!-- 发到 Google Play 的APK可以设置为 google-play; -->
         <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
-        <!-- 目前这个渠道统计功能的报表还未开放。-->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <!-- 目前这个渠道统计功能的报表还未开放。 -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="fe28690dfbd70fe511ea5a3d"/>    
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="fe28690dfbd70fe511ea5a3d" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="A1ShjcEE05d2eQLjL0zxV2mZ" />
@@ -113,78 +124,95 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0Q5Ira1S508A94by05F4EFXQ" />
-        
 
         <activity
-            android:name="com.bjtu.foodie.UI.MainActivity"
+            android:name=".UI.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!--NFC-->
+            <!-- NFC -->
             <intent-filter>
-				<action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-				<data android:mimeType="text/plain" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.nfc.action.TAG_DISCOVERED"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-			<!-- Add a technology filter -->
-			<intent-filter>
-				<action android:name="android.nfc.action.TECH_DISCOVERED" />
-			</intent-filter>
-			<meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/filter_nfc"/>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- Add a technology filter -->
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc" />
         </activity>
-        <!-- moment and map part activities and service -->    
+        <!-- moment and map part activities and service -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" >
         </service>
-        <activity android:name="com.bjtu.foodie.UI.MomentsActivity" 
-            android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
+
+        <activity
+            android:name=".UI.MomentsActivity"
+            android:parentActivityName=".UI.MainActivity" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.MyMomentActivity"
+            android:name=".UI.MyMomentActivity"
             android:label="@string/title_activity_my_moment"
-            android:parentActivityName="com.bjtu.foodie.UI.MomentsActivity" >
+            android:parentActivityName=".UI.MomentsActivity" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.AddMomentActivity"
-            android:parentActivityName="com.bjtu.foodie.UI.MyMomentActivity" >
+            android:name=".UI.AddMomentActivity"
+            android:parentActivityName=".UI.MyMomentActivity" >
         </activity>
-        <activity android:name="com.bjtu.foodie.map.MapActivity" >
+        <activity android:name=".map.MapActivity" >
         </activity>
-        <activity android:name="com.bjtu.foodie.UI.RegisterActivity" />
-        <activity android:name="com.bjtu.foodie.UI.LoginActivity" />
+        <activity android:name=".UI.RegisterActivity" />
+        <activity android:name=".UI.LoginActivity" />
         
-        <activity android:name="com.bjtu.foodie.UI.DatesActivity" >
+        <activity 
+            android:name=".UI.DatesActivity" 
+            android:parentActivityName=".UI.MainActivity" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.AddDateActivity"
-            android:parentActivityName="com.bjtu.foodie.UI.DatesActivity" />
-        <activity 
-            android:name="com.bjtu.foodie.UI.DishMenu"
-            android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
-			<intent-filter>
+            android:name=".UI.AddDateActivity"
+            android:parentActivityName=".UI.DatesActivity" />
+        <activity
+            android:name=".UI.SelectDateFriendsActivity"
+            android:parentActivityName=".UI.AddDateActivity" />
+        
+        <activity
+            android:name=".UI.DishMenu"
+            android:parentActivityName=".UI.MainActivity" >
+            <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/dishchoose" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.bjtu.foodie.UI.NFCScanTagActivity"
-            android:parentActivityName="com.bjtu.foodie.UI.MainActivity">
+        <activity
+            android:name=".UI.NFCScanTagActivity"
+            android:parentActivityName=".UI.MainActivity" >
         </activity>
-        <activity 
-            android:name="com.bjtu.foodie.UI.CouponActivity"
-            android:parentActivityName="com.bjtu.foodie.UI.NFCScanTagActivity">
+        <activity
+            android:name=".UI.CouponActivity"
+            android:parentActivityName=".UI.NFCScanTagActivity" >
+        </activity>
+        <activity
+            android:name=".TempRestaurantActivity"
+            android:label="@string/title_activity_temp_restaurant" >
         </activity>
     </application>
-    
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />

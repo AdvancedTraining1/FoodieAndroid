@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,8 +50,7 @@ public class FullDateItemAdapter extends BaseAdapter {
 		View view = arg1;
 		Holder holder;
 		if (null == view) {
-			view = LayoutInflater.from(context).inflate(R.layout.moments_item,//dates_item is or not
-					null);
+			view = LayoutInflater.from(context).inflate(R.layout.dates_item,null);
 			holder = new Holder(view);
 			view.setTag(holder);
 
@@ -61,13 +60,16 @@ public class FullDateItemAdapter extends BaseAdapter {
 
 		DateModel date = this.dates.get(position);
 		holder.tv_item_uname.setText(date.getUserName());
-		holder.tv_item_content.setText(date.getDateContent());
+		holder.tv_item_friend.setText(String.format("Friends: %d",date.getDateUsers_count()));
 		holder.tv_item_time.setText(date.getSimpleDate());
+		holder.tv_item_content.setText(date.getDateContent());
 		
 		//---------getPic == id of the pic in drawable-------
 		holder.iv_item_userphoto.setImageResource(date.getUserPic());
 		//holder.iv_item_content_pic.setImageResource(moment.getPic());
-		holder.ib_item_comment.setOnClickListener(new OnClickJoinBtnListener(position)); //click join
+		holder.btn_item_accept.setOnClickListener(new OnClickJoinBtnListener(position)); //click join
+		holder.btn_item_refuse.setOnClickListener(new OnClickJoinBtnListener(position)); //click no join
+		
 		return view;
 	}
 	
@@ -87,22 +89,26 @@ public class FullDateItemAdapter extends BaseAdapter {
 
 		ImageView iv_item_userphoto;
 		//ImageView iv_item_content_pic;
-		ImageButton ib_item_comment;
-
+		//ImageButton ib_item_comment;
+		
 		TextView tv_item_uname;
+		TextView tv_item_friend;
 		TextView tv_item_time;
 		TextView tv_item_content;
+		
+		Button btn_item_accept;
+		Button btn_item_refuse;
 
 		public Holder(View view) {
 			tv_item_uname = (TextView) view.findViewById(R.id.txt_item_uname);
+			tv_item_friend = (TextView) view.findViewById(R.id.txt_item_friend);
 			tv_item_time = (TextView) view.findViewById(R.id.txt_item_time);
-			tv_item_content = (TextView) view
-					.findViewById(R.id.txt_item_content);
-			iv_item_userphoto = (ImageView) view
-					.findViewById(R.id.img_item_userphoto);
-			//iv_item_content_pic = (ImageView) view
-			//		.findViewById(R.id.img_item_content_pic);
-			ib_item_comment = (ImageButton) view.findViewById(R.id.imgBtn_comment);
+			tv_item_content = (TextView) view.findViewById(R.id.txt_item_content);
+			iv_item_userphoto = (ImageView) view.findViewById(R.id.img_item_userphoto);
+			//iv_item_content_pic = (ImageView) view.findViewById(R.id.img_item_content_pic);
+			
+			btn_item_accept = (Button) view.findViewById(R.id.btn_accept);
+			btn_item_refuse = (Button) view.findViewById(R.id.btn_refuse);
 		}
 	}
 }

@@ -23,17 +23,18 @@ public class MyMarkerClickListener implements OnMarkerClickListener {
 	InfoWindow mInfoWindow;
 
 	public MyMarkerClickListener(Context context, BaiduMap mbaiduMap,
-			PoiSearch mPoiSearch, InfoWindow mInfoWindow) {
+			PoiSearch mPoiSearch) {
 		super();
 		this.context = context;
 		this.mbaiduMap = mbaiduMap;
 		this.mPoiSearch = mPoiSearch;
-		this.mInfoWindow = mInfoWindow;
 	}
 
 	@Override
 	public boolean onMarkerClick(final Marker marker) {
-		Button popBtn = new Button(context);
+		
+		Toast.makeText(context, "CLICK!", Toast.LENGTH_LONG).show();
+		final Button popBtn = new Button(context);
 		popBtn.setBackgroundResource(R.drawable.popup);
 		OnInfoWindowClickListener listener = null;
 		popBtn.setText("搜索周边美食");
@@ -44,14 +45,15 @@ public class MyMarkerClickListener implements OnMarkerClickListener {
 			public void onInfoWindowClick() {
 				// 显示周边固定范围内到餐厅
 				Toast.makeText(context,
-						"I am searching around 2000 meters",
+						"I am searching around 1000 meters",
 						Toast.LENGTH_SHORT).show();
+				// 隐藏弹出到气泡按钮
+				mbaiduMap.hideInfoWindow();
+				
 				MapUtils.searchKeyAroundDistance(mPoiSearch, MapUtils.DefaultKeyword,
 						marker.getPosition(), MapUtils.DEFAULTDIST,
 						new MyGetPoiSearchResultListener(context,
-								mbaiduMap, mPoiSearch));
-				MapUtils.drawNearByCircle(mbaiduMap, marker.getPosition(),
-						MapUtils.DEFAULTDIST);
+								mbaiduMap, mPoiSearch, marker.getPosition()));
 			}
 		};
 		LatLng ll = marker.getPosition();

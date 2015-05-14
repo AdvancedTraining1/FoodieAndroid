@@ -1,20 +1,13 @@
 package com.bjtu.foodie.UI;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullDishItemsAdapter;
-import com.bjtu.foodie.data.TestDishes;
-import com.bjtu.foodie.model.DishItem;
 
 
 public class CouponActivity extends Activity implements OnClickListener{

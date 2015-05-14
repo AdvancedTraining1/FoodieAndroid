@@ -8,12 +8,6 @@ import java.io.IOException;
   
 import android.app.Activity;  
 import android.content.Context;
-import android.os.Bundle;  
-import android.view.View;  
-import android.view.View.OnClickListener;  
-import android.widget.Button;  
-import android.widget.EditText;  
-import android.widget.TextView;  
 import android.widget.Toast; 
 
 //懒汉式单例类.在第一次调用的时候实例化自己   
@@ -48,7 +42,7 @@ public class ReadFileSingleton extends Activity{
            *          MODE_WORLD_WRITEABLE 公用 可读写 
            *  */  
           FileOutputStream outputStream = openFileOutput(filename,  
-                  Activity.MODE_APPEND);  
+                  Context.MODE_APPEND);  
           Toast.makeText(context, "To another page",Toast.LENGTH_SHORT).show();
           outputStream.write(text.getBytes());  
           outputStream.flush();  

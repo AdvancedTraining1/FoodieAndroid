@@ -1,14 +1,10 @@
 package com.bjtu.foodie.UI;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;

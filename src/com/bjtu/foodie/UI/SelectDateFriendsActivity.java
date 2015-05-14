@@ -7,7 +7,6 @@ import java.util.List;
 import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
 import android.nfc.NfcAdapter.CreateNdefMessageCallback;
 import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;
 import android.nfc.NfcEvent;
@@ -21,38 +20,36 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.adapter.FullDishItemsAdapter;
-import com.bjtu.foodie.adapter.FullDishItemsAdapter2;
-import com.bjtu.foodie.data.TestDishes;
-import com.bjtu.foodie.model.DishItem;
+import com.bjtu.foodie.adapter.FullDateFriendItemsAdapter;
+import com.bjtu.foodie.data.TestData;
+import com.bjtu.foodie.model.User;
 
-public class DishMenu extends Activity implements OnClickListener,
+public class SelectDateFriendsActivity extends Activity implements OnClickListener,
 CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     
 	private ListView m_listview;
-    private List<DishItem> m_DishData;
-    private FullDishItemsAdapter m_adapter;
-    private FullDishItemsAdapter2 m_adapter2;
+    private List<User> m_FriendData;
+    private FullDateFriendItemsAdapter m_adapter;
     private Button m_submit;
-    private String dishchoose="dish choose";
-	NfcAdapter mNfcAdapter;
+    private String friendchoose="friend choose";
+	//NfcAdapter mNfcAdapter;
     private static final int MESSAGE_SENT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dishmenu);
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        setContentView(R.layout.activity_datefriend);
+        //mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         
         
         m_submit = (Button)findViewById(R.id.button0);
         
-        m_listview = (ListView)findViewById(R.id.listview0);
-        m_DishData = (new TestDishes()).getData();
+        m_listview = (ListView)findViewById(R.id.friends);
+        m_FriendData = (new TestData()).getFriendsData();
         //m_adapter = new FullDishItemsAdapter(this,m_DishData);	
         //m_listview.setAdapter(m_adapter);
         
-        m_adapter2 = new FullDishItemsAdapter2(this, m_DishData);
-        m_listview.setAdapter(m_adapter2);
+        m_adapter = new FullDateFriendItemsAdapter(this, m_FriendData);
+        m_listview.setAdapter(m_adapter);
         
         m_submit.setOnClickListener(this);
     }
@@ -62,17 +59,17 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     	switch(v.getId()){
         case R.id.button0:
         	String s="You have choosed ";
-            ArrayList<Boolean> checkList = m_adapter2.getChecklist();
-            ArrayList<String> idList = m_adapter2.getIDList();
+            ArrayList<Boolean> checkList = m_adapter.getChecklist();
+            ArrayList<String> idList = m_adapter.getIDList();
             for(int i=0;i<checkList.size();i++){
                 if(checkList.get(i)){
                     s=s+","+idList.get(i);
-                    dishchoose = dishchoose + ",dish"+i;
+                    friendchoose = friendchoose + ",friend"+i;
                 }
             }
             s=s+", and please touch to restaurant mobile to submit the dishes. Thanks!";
             
-            mNfcAdapter.setNdefPushMessageCallback(this, this);
+            /*mNfcAdapter.setNdefPushMessageCallback(this, this);
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             // Register callback to listen for message-sent success
             mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
@@ -80,7 +77,7 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
             //send music names
             //intent1.putStringArrayListExtra("list", getData());
             //startActivity(intent1);
-            break;
+*/            break;
     }
         
     }
@@ -109,9 +106,9 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
 		// TODO Auto-generated method stub
 		   NdefMessage msg = new NdefMessage(
 	                new NdefRecord[] { createMimeRecord(
-	                        "text/dishchoose", dishchoose.getBytes())
+	                        "text/friendchoose", friendchoose.getBytes())
 	                });
-		   dishchoose = "dish choose";
+		   friendchoose = "friend choose";
 		return msg;
 	}
 	                

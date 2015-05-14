@@ -51,6 +51,7 @@ public class MapActivity extends Activity {
 	private BitmapDescriptor markerIcon;
 	private MyLocationListener locListener;
 	private boolean isFirstLoc = true; // if locate first time
+	private float curZoom = 16;
 
 	// search around
 	private EditText et_searchKeyword;
@@ -75,7 +76,7 @@ public class MapActivity extends Activity {
 		mPoiSearchAround = PoiSearch.newInstance();
 		initLocClient();
 		mbaiduMap.setOnMarkerClickListener(new MyMarkerClickListener(context,
-				mbaiduMap, mPoiSearchAround, mInfoWindow));
+				mbaiduMap, mPoiSearchAround));
 	}
 
 	private void initLocClient() {
@@ -102,6 +103,8 @@ public class MapActivity extends Activity {
 		opt.setCoorType("bd09ll");
 		opt.setScanSpan(2000); // 设置扫描间隔，单位是毫秒 当<1000(1s)时，定时定位无效
 		mlocClient.setLocOption(opt);
+		mlocClient.start();
+		mlocClient.requestLocation();
 	}
 
 	@Override
@@ -133,7 +136,7 @@ public class MapActivity extends Activity {
 			curMapModeIsNormal = !curMapModeIsNormal;
 			break;
 		case R.id.action_location:
-			getMyCurrentLocation();
+			markMyCurPosition();
 			break;
 		default:
 			break;
@@ -178,16 +181,20 @@ public class MapActivity extends Activity {
 						MapUtils.searchKeyAroundDistance(mPoiSearchAround, key,
 								myCurPosition, distance,
 								new MyGetPoiSearchResultListener(context,
-										mbaiduMap, mPoiSearchAround));
+										mbaiduMap, mPoiSearchAround, myCurPosition));
 					}
 				}
 			}
 		});
 	}
 
-	private void getMyCurrentLocation() {
-		mlocClient.start();
-		mlocClient.requestLocation();
+	private void markMyCurPosition() {
+		mbaiduMap.clear();
+		// set new center point and zoom level(3-20) of the map
+		MapStatusUpdate newState = MapStatusUpdateFactory
+				.newLatLngZoom(myCurPosition, curZoom);
+		mbaiduMap.animateMapStatus(newState);
+		MapUtils.setMarker(curLocMarker, mbaiduMap, myCurPosition, markerIcon);
 	}
 
 	public class MyLocationListener implements BDLocationListener {
@@ -198,15 +205,11 @@ public class MapActivity extends Activity {
 			if (location == null || mbaiduMap == null)
 				return;
 			if (isFirstLoc) {
-				isFirstLoc = false;
 				myCurPosition = new LatLng(location.getLatitude(),
 						location.getLongitude());
-				// set new center point and zoom level(3-20) of the map
-				MapStatusUpdate newState = MapStatusUpdateFactory
-						.newLatLngZoom(myCurPosition, 14);
-				mbaiduMap.animateMapStatus(newState);
-				MapUtils.setMarker(curLocMarker, mbaiduMap, location, markerIcon);
-			}
+				isFirstLoc = false;
+			} else
+				curZoom = mbaiduMap.getMapStatus().zoom;
 		}
 
 		public void onReceivePoi(BDLocation location) {
@@ -229,6 +232,7 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 
+		mlocClient.unRegisterLocationListener(locListener);
 		mlocClient.stop();
 		mbaiduMap.setMyLocationEnabled(false);
 		baiduMapView.onDestroy();

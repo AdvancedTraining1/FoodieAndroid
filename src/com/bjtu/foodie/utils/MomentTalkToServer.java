@@ -25,12 +25,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.UI.AddMomentActivity;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
 import android.os.StrictMode;
-import android.widget.Toast;
 
 public class MomentTalkToServer {
 

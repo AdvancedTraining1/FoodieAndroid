@@ -1,6 +1,5 @@
 package com.bjtu.foodie.map;
 
-import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.CircleOptions;
@@ -16,16 +15,15 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 
 public class MapUtils {
 
-	public static final int DEFAULTDIST = 2000;
+	public static final int DEFAULTDIST = 1000;
 	public static final String DefaultKeyword = "餐厅";
 
 	public static void drawNearByCircle(BaiduMap mbaiduMap, LatLng center,
 			int radius) {
-		mbaiduMap.clear();
+		// mbaiduMap.clear();
 		OverlayOptions circleOverlay = new CircleOptions().center(center)
 				.radius(radius).fillColor(0x33A8A8A8);
-		MapStatusUpdate newState = MapStatusUpdateFactory
-				.newLatLngZoom(center, 14);
+		MapStatusUpdate newState = MapStatusUpdateFactory.newLatLng(center);
 		mbaiduMap.animateMapStatus(newState);
 		mbaiduMap.addOverlay(circleOverlay);
 	}
@@ -42,12 +40,10 @@ public class MapUtils {
 	}
 
 	public static void setMarker(Marker curLocMarker, BaiduMap mbaiduMap,
-			BDLocation location, BitmapDescriptor markerIcon) {
+			LatLng location, BitmapDescriptor markerIcon) {
 		OverlayOptions curLocOO = new MarkerOptions()
-				.position(
-						new LatLng(location.getLatitude(), location
-								.getLongitude())).icon(markerIcon).zIndex(9)
-				.draggable(true);
+				.position(new LatLng(location.latitude, location.longitude))
+				.icon(markerIcon).zIndex(9).draggable(true);
 		curLocMarker = (Marker) mbaiduMap.addOverlay(curLocOO);
 	}
 
