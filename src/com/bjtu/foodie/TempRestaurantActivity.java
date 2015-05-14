@@ -1,9 +1,5 @@
 package com.bjtu.foodie;
 
-import com.baidu.mapapi.model.LatLng;
-import com.bjtu.foodie.model.Restaurant;
-import com.bjtu.foodie.model.RestaurantForSerializable;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +7,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.model.LatLng;
+import com.bjtu.foodie.map.MapUtils;
+import com.bjtu.foodie.model.Restaurant;
+import com.bjtu.foodie.model.RestaurantForSerializable;
+
 public class TempRestaurantActivity extends Activity {
 
+	private MapView mapView;
+	private BaiduMap simpleBaiduMap; // show position
 	private Restaurant restaurant;
 	TextView tv_uid,tv_name, tv_addr, tv_type;
 	TextView tv_envRate, tv_FctRate, tv_hygRate, tv_servRate, tv_tstRate;
@@ -21,7 +31,27 @@ public class TempRestaurantActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_temp_restaurant);
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		initRestaurantData();
+		initMap();
+	}
+
+	private void initMap() {
+		mapView = (MapView) findViewById(R.id.simpleMmapView);
+		mapView.showZoomControls(false);
+		simpleBaiduMap = mapView.getMap();
+		
+		MapStatusUpdate newMapcenter = MapStatusUpdateFactory.newLatLngZoom(restaurant.getLocation(), 15);
+		simpleBaiduMap.animateMapStatus(newMapcenter);
+
+		Marker mMarker = null;
+		BitmapDescriptor markerIcon = BitmapDescriptorFactory
+				.fromResource(R.drawable.icon_gcoding);
+		MapUtils.setMarker(mMarker, simpleBaiduMap, restaurant.getLocation(), markerIcon);
+	}
+
+	private void initRestaurantData() {
 		tv_uid = (TextView) findViewById(R.id.tv_uid);
 		tv_name = (TextView) findViewById(R.id.tv_name);
 		tv_addr = (TextView) findViewById(R.id.tv_address);

@@ -85,19 +85,19 @@
                 android:id="@+id/tv_FctRate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/tv_hygRate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/tv_ServRate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/tv_tstRate"
@@ -106,5 +106,12 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/simpleMmapView"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_margin="15dp"
+        android:clickable="true" />
 
 </LinearLayout>
