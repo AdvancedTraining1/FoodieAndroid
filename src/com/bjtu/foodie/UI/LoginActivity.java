@@ -59,10 +59,8 @@ public class LoginActivity extends Activity {
 		
 		if(isConnect){
 			LoginActivity.this.finish();
-			Intent intent = new Intent(this, MainActivity.class);    
-          	startActivity(intent);
           	//tv_result.setText(token);
-          	 Toast.makeText(this, "You have logined", Toast.LENGTH_LONG).show(); 
+			Toast.makeText(this, "You have logined", Toast.LENGTH_LONG).show(); 
 		}
 		else{
 			btn_login.setOnClickListener(new OnClickListener() {
