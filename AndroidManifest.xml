@@ -181,6 +181,10 @@
             android:name=".UI.MomentAddActivity2"
             android:parentActivityName=".UI.MomentAddActivity2" >
         </activity>
+        <activity
+            android:name=".UI.MomentAddActivityLast"
+            android:parentActivityName=".UI.MomentAddActivityLast" >
+        </activity>
         <activity android:name=".map.MapActivity" >
         </activity>
         <activity android:name=".UI.RegisterActivity" />

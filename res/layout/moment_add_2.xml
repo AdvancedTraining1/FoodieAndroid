@@ -18,6 +18,7 @@
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/bg_beach1"
+        android:scaleType="centerCrop"
         android:layout_gravity="center"/>
 
     <LinearLayout
@@ -33,7 +34,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
             android:background="@color/beige"
-            android:text="New photo"/>
+            android:text="New photo"
+            android:onClick="newPhoto"/>
 
         <Button
             android:id="@+id/button2"
@@ -43,7 +45,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:background="@color/beige"
-            android:text="Next" />
+            android:text="Next"
+            android:onClick="next"/>
         
     </LinearLayout>
     

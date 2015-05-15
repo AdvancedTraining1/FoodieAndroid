@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+    	tools:context="com.bjtu.foodie.UI.MomentAddActivityLast" >
+    
+    <item  
+        android:id="@+id/menu_publish"
+        android:icon="@drawable/icon_edit"
+        android:showAsAction="always|withText"
+        android:title="Publish"/>
+
+</menu>

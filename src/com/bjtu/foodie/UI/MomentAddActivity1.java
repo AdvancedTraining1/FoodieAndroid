@@ -1,32 +1,28 @@
 package com.bjtu.foodie.UI;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bjtu.foodie.R;
+import com.bjtu.foodie.common.Constants;
 
 public class MomentAddActivity1 extends Activity{
 
-	public static final int SELECT_PIC_BY_TACK_PHOTO = 1; 
+	public static final int SELECT_PIC_BY_TAKE_PHOTO = 1; 
 	public static final int SELECT_PIC_BY_PICK_PHOTO = 2;
 	private Uri photoUri;
 	private String picPath;
-	public static final String KEY_PHOTO_PATH = "photo_path";
-	private static final String IMAGE_FILE_NAME = "foodieImage.jpg";
 	private Intent newIntent;
 	
 	@Override
@@ -40,19 +36,6 @@ public class MomentAddActivity1 extends Activity{
 		Toast.makeText(getApplicationContext(), "takePhoto",
 			     Toast.LENGTH_SHORT).show();
 		
-		/*Intent intent = new Intent("android.media.action.IMAGE_CAPTURE"); 
-		ContentValues values = new ContentValues();  
-	    values.put(MediaStore.Images.Media.DISPLAY_NAME, String.valueOf(System.currentTimeMillis())+".jpg");  
-	    values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");  
-	    photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
-	    intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);  
-	    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-	    startActivityForResult(intent,SELECT_PIC_BY_TACK_PHOTO);*/
-		
-		/*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);  
-		startActivityForResult(intent,SELECT_PIC_BY_TACK_PHOTO);*/
-		
 	    String SDState = Environment.getExternalStorageState();  
         if(SDState.equals(Environment.MEDIA_MOUNTED))  
         {  
@@ -65,9 +48,8 @@ public class MomentAddActivity1 extends Activity{
              */ 
             ContentValues values = new ContentValues();    
             photoUri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);    
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);  
-            //
-            startActivityForResult(intent, SELECT_PIC_BY_TACK_PHOTO);  
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(intent, SELECT_PIC_BY_TAKE_PHOTO);  
         }else{  
             Toast.makeText(this,"内存卡不存在", Toast.LENGTH_LONG).show();  
         }
@@ -123,17 +105,17 @@ public class MomentAddActivity1 extends Activity{
             if(VERSION.SDK_INT < 14) {  
                 cursor.close();  
              }
-//            cursor.close();  
         }  
-        //Log.i(TAG, "imagePath = "+picPath);  
+        Log.i(Constants.TAG_MOMENT, "imagePath = "+picPath);  
         if(picPath != null && ( picPath.endsWith(".png") || picPath.endsWith(".PNG") ||picPath.endsWith(".jpg") ||picPath.endsWith(".JPG")  ))  
         {
-        	//lastIntent = getIntent();
         	newIntent = new Intent(this, MomentAddActivity2.class);
-        	newIntent.putExtra(KEY_PHOTO_PATH, picPath);
-        	System.out.println("||||||||||||||||"+picPath);
+        	newIntent.putExtra(Constants.KEY_PHOTO_PATH, picPath);
+        	if(requestCode == SELECT_PIC_BY_TAKE_PHOTO){
+        		newIntent.putExtra(Constants.KEY_PHOTO_FROM_TAKE, "takePhoto");
+        	}
+        	Log.i(Constants.TAG_MOMENT,picPath);
             setResult(Activity.RESULT_OK, newIntent);  
-//            finish();
             startActivity(newIntent);
         }else{  
             Toast.makeText(this, "选择图片文件不正确", Toast.LENGTH_LONG).show();  
