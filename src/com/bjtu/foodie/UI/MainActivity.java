@@ -13,91 +13,72 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import cn.jpush.android.api.JPushInterface;
+
+import com.bjtu.foodie.R;
+
 public class MainActivity extends Activity {
-	/*private Button btn_moment;
+	private Button btn_moment;
 	private Button btn_date;
 	private Button m_ToDish;
-
-	private Button m_ToScanTag;
-
 	private Button btn_register;
-	private Button btn_login;*/
-	
-	private Button btn_moment;
-	private Button btn_dish;
-	private Button btn_date;
 	private Button btn_login;
-	private Button btn_scan;
-	private TextView text_scan;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mainpage);
 		
-		//m_ToDish = (Button)findViewById(R.id.button_dish);
-
-		//m_ToScanTag = (Button)findViewById(R.id.btn_nfctag);
-		
-
+		m_ToDish = (Button)findViewById(R.id.btn_dish);
 		//btn_register = (Button)findViewById(R.id.btn_register);
-		btn_moment =  (Button)findViewById(R.id.btn_moment);
-		btn_dish =  (Button)findViewById(R.id.btn_dish);
-		btn_date =  (Button)findViewById(R.id.btn_date);
-		btn_login =  (Button)findViewById(R.id.btn_login);
-		btn_scan =  (Button)findViewById(R.id.btn_scan);
-		text_scan = (TextView)findViewById(R.id.text_scan);
-
+		
 		JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
-        
-        
-        
-        btn_dish.setOnClickListener(new OnClickListener() {
-            @Override
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new OnClickListener() {
+			
+			@Override
 			public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "ToDish",Toast.LENGTH_LONG ).show();
+				Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+				startActivity(i);
+			}
+
+		});
+        
+        btn_register = (Button) findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+				startActivity(i);
+			}
+
+		});
+        
+        
+        m_ToDish.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, DishMenu.class);
                 startActivityForResult(intent, 0);
             }
         });
-        
-        btn_scan.setOnClickListener(new OnClickListener() {
-            @Override
-			public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, NFCScanTagActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
 
         /*btn_register.setOnClickListener(new OnClickListener() {
-            @Override
-			public void onClick(View v) {
+            public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Register",Toast.LENGTH_LONG ).show();
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, 0);
             }
         });*/
-        
-        btn_login.setOnClickListener(new OnClickListener() {
-            @Override
-			public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Login",Toast.LENGTH_LONG ).show();
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
-        //btn_moment = (Button) findViewById(R.id.btn_mmt);
+        btn_moment = (Button) findViewById(R.id.btn_moment);
         btn_moment.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -107,7 +88,7 @@ public class MainActivity extends Activity {
 			}
 		});
         
-        //btn_date = (Button) findViewById(R.id.btn_dt);
+        btn_date = (Button) findViewById(R.id.btn_date);
         btn_date.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -138,17 +119,9 @@ public class MainActivity extends Activity {
         JPushInterface.onResume(this);
     }
 	
-	@Override
 	public void onPause()
 	{
 		super.onPause();
 		JPushInterface.onPause(this);
-	}
-	
-	public void functionScan(View view){
-		Toast.makeText(MainActivity.this, "To Scacn a Tag",Toast.LENGTH_LONG ).show();
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, NFCScanTagActivity.class);
-        startActivityForResult(intent, 0);
 	}
 }

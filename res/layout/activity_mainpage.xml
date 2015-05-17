@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/seashell"
-    android:orientation="vertical" >
+<RelativeLayout 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <LinearLayout
+        android:id="@+id/llayout" 
+        android:orientation="vertical"
+        android:layout_width="match_parent" 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentTop="true" 
+        >
+        <include layout="@layout/top1"/>
     
 <LinearLayout 
 	          android:paddingLeft="15dip"
@@ -128,65 +137,6 @@
 	              android:layout_height="0.5dp"
 	              android:background="@color/lightgray"
 		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/res3"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="兰州拉面    "
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-		              />
-		          <ImageView
-		              android:id="@+id/imageView5"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /><ImageView
-		              android:id="@+id/imageView6"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /><ImageView
-		              android:id="@+id/imageView7"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		              
-		                 <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent"
-		              android:orientation="vertical" >
-		              <ImageView
-		              android:id="@+id/imageView8"
-		              android:layout_width="15dp"
-		              android:layout_height="15dp"
-		              android:layout_marginLeft="30dip"
-		              android:src="@drawable/tuan" />
-		              <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:text="四道口  面食"
-	              	  android:textSize="10dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/gray"
-	              	  android:layout_marginLeft="20dip"
-		              />
-		             
-		          </LinearLayout>
-		      </LinearLayout>
 		      
 		      <TextView
 		          android:layout_width="fill_parent"
@@ -368,7 +318,7 @@
 		              android:id="@+id/btn_dish"
 		              android:layout_width="80dp"
 		              android:layout_height="wrap_content"
-		              android:background="@color/papayawhip"
+		              android:background="@color/lightskyblue"
 		              android:text="dish" />
 		          
 		          <Button
@@ -376,7 +326,7 @@
 		              android:layout_width="80dp"
 		              android:layout_height="wrap_content"
 		              android:layout_marginLeft="5dip"
-		              android:background="@color/papayawhip"
+		              android:background="@color/lightskyblue"
 		              android:text="moment" />
 		          
 		          <Button
@@ -384,24 +334,8 @@
 		              android:layout_width="80dp"
 		              android:layout_height="wrap_content"
 		              android:layout_marginLeft="5dip"
-		              android:background="@color/papayawhip"
-		              android:text="date" />
-		          
-		          <Button
-		              android:id="@+id/btn_login"
-		              android:layout_width="80dp"
-		              android:layout_height="wrap_content"
-		              android:layout_marginLeft="5dip"
-		              android:background="@color/papayawhip"
-		              android:text="login" />
-		          
-		          <Button
-		              android:id="@+id/btn_scan"
-		              android:layout_width="80dp"
-		              android:layout_height="wrap_content"
-		              android:layout_marginLeft="5dip"
-		              android:background="@color/papayawhip"
-		              android:text="scan" />
+		              android:background="@color/lightskyblue"
+		              android:text="date" />		          		       		          		          
 		          
 		      </LinearLayout>
 		      
@@ -411,4 +345,6 @@
 	              android:background="@color/lightgray"
 		          />
 		    </LinearLayout>
-</LinearLayout>
+		    
+		    </LinearLayout>
+</RelativeLayout>

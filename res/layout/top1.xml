@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#87CEFA"
+    android:orientation="vertical" >
+    
+	<RelativeLayout 
+            android:layout_width="match_parent" 
+    		android:layout_height="wrap_content" 
+    		android:padding="12dip"
+            >
+            <LinearLayout 
+                android:orientation="horizontal"
+                android:layout_width="wrap_content" 
+    			android:layout_height="wrap_content" 
+    			android:layout_alignParentLeft="true"
+    			android:gravity="center"
+                >
+                <ImageView 
+                    android:layout_width="30dp" 
+    				android:layout_height="30dp" 
+    				android:src="@drawable/icon_foodie"
+                    />
+                <TextView
+                    android:layout_width="wrap_content" 
+    				android:layout_height="wrap_content" 
+    				android:text="Foodie"
+    				android:layout_marginLeft="10dip"
+    				android:textSize="18dp"
+    				android:textColor="@color/lightgray"
+                    />
+            </LinearLayout>
+            <LinearLayout 
+                android:orientation="horizontal"
+                android:layout_width="wrap_content" 
+    			android:layout_height="wrap_content" 
+    			android:layout_alignParentRight="true"
+    			android:gravity="center"
+                >
+
+                <Button
+                   android:layout_width="wrap_content" 
+    				android:layout_height="wrap_content" 
+    				android:id="@+id/btn_login"
+    				android:layout_marginRight="20dip"
+    				android:textSize="10sp"
+                    android:text="登录" />
+                
+                 
+                  <Button
+                   android:layout_width="wrap_content" 
+    				android:layout_height="wrap_content" 
+    				android:id="@+id/btn_register"
+    				android:layout_marginRight="20dip"
+    				android:textSize="10sp"
+                    android:text="注册" />
+            </LinearLayout>
+        </RelativeLayout>
+</LinearLayout>
