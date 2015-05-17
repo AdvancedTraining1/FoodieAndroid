@@ -189,9 +189,8 @@
         </activity>
         <activity android:name=".UI.RegisterActivity" />
         <activity android:name=".UI.LoginActivity" />
-        
-        <activity 
-            android:name=".UI.DatesActivity" 
+        <activity
+            android:name=".UI.DatesActivity"
             android:parentActivityName=".UI.MainActivity" >
         </activity>
         <activity
@@ -200,7 +199,6 @@
         <activity
             android:name=".UI.SelectDateFriendsActivity"
             android:parentActivityName=".UI.AddDateActivity" />
-        
         <activity
             android:name=".UI.DishMenu"
             android:parentActivityName=".UI.MainActivity" >
@@ -221,8 +219,12 @@
             android:parentActivityName=".UI.NFCScanTagActivity" >
         </activity>
         <activity
-            android:name=".TempRestaurantActivity"
+            android:name="com.bjtu.foodie.UI.TempRestaurantActivity"
             android:label="@string/title_activity_temp_restaurant" >
+        </activity>
+        <activity
+            android:name="com.bjtu.foodie.map.RoutePlanActivity"
+            android:label="@string/title_activity_route_plan" >
         </activity>
     </application>
 

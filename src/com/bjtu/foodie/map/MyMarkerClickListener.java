@@ -33,7 +33,6 @@ public class MyMarkerClickListener implements OnMarkerClickListener {
 	@Override
 	public boolean onMarkerClick(final Marker marker) {
 		
-		Toast.makeText(context, "CLICK!", Toast.LENGTH_LONG).show();
 		final Button popBtn = new Button(context);
 		popBtn.setBackgroundResource(R.drawable.popup);
 		OnInfoWindowClickListener listener = null;

@@ -28,6 +28,7 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.bjtu.foodie.R;
 
@@ -58,6 +59,10 @@ public class MapActivity extends Activity {
 	private EditText et_searchDistance;
 	private ImageButton ib_search;
 	private LinearLayout ll_search;
+	
+	// my position infomation
+	private static String curAddr;
+	private static String curCity; //  needed by citySearch
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,7 @@ public class MapActivity extends Activity {
 
 		// build marker icon
 		markerIcon = BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_gcoding);
+				.fromResource(R.drawable.icon_location_red);
 		curLocMode = LocationMode.NORMAL;
 		mbaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
 		// LocationMode mode, boolean enableDirection, BitmapDescriptor
@@ -98,6 +103,7 @@ public class MapActivity extends Activity {
 
 		LocationClientOption opt = new LocationClientOption();
 		opt.setOpenGps(true);
+		opt.setIsNeedAddress(true);
 		// coorType - 取值有3个
 		// 返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
 		opt.setCoorType("bd09ll");
@@ -178,6 +184,7 @@ public class MapActivity extends Activity {
 						String s = "keyword:" + key + "  distance:" + distance;
 						Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
 
+						mbaiduMap.clear();
 						MapUtils.searchKeyAroundDistance(mPoiSearchAround, key,
 								myCurPosition, distance,
 								new MyGetPoiSearchResultListener(context,
@@ -195,6 +202,7 @@ public class MapActivity extends Activity {
 				.newLatLngZoom(myCurPosition, curZoom);
 		mbaiduMap.animateMapStatus(newState);
 		MapUtils.setMarker(curLocMarker, mbaiduMap, myCurPosition, markerIcon);
+		Toast.makeText(context, "my city ->" + curCity, Toast.LENGTH_LONG).show();
 	}
 
 	public class MyLocationListener implements BDLocationListener {
@@ -208,14 +216,23 @@ public class MapActivity extends Activity {
 				myCurPosition = new LatLng(location.getLatitude(),
 						location.getLongitude());
 				isFirstLoc = false;
-			} else
-				curZoom = mbaiduMap.getMapStatus().zoom;
+				curCity = location.getCity();
+				curAddr = location.getAddrStr();
+				
+			} 
 		}
 
 		public void onReceivePoi(BDLocation location) {
 		}
 	}
 
+	static public String getCurAddr() {
+		return curAddr;
+	}
+
+	static public String getCurCity() {
+		return curCity;
+	}
 
 	@Override
 	protected void onPause() {

@@ -1,0 +1,142 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    tools:context="com.bjtu.foodie.map.RoutePlanActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="1"
+        android:background="#efefef"
+        android:orientation="horizontal"
+        android:paddingTop="2dp" >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_selflocation" />
+
+        <TextView
+            android:id="@+id/tv_startPos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+            android:text="start place"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_reLocation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_location_found_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        android:background="#efefef"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_restaurant" />
+
+        <TextView
+            android:id="@+id/tv_endPos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+            android:text="end place"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_refindResaurant"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_place" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="1"
+        android:background="#efefef"
+        android:orientation="horizontal"
+        android:paddingTop="2dp" >
+
+        <ImageView
+            android:id="@+id/iv_walk"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_rp_self" />
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp" 
+            android:background="#55000000"/>
+
+        <ImageView
+            android:id="@+id/iv_bus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_rp_bus" />
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp" 
+            android:background="#55000000" />
+
+        <ImageView
+            android:id="@+id/iv_car"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_rp_car" />
+    </LinearLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/baiduMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="3dp"
+        android:layout_weight="10"
+        android:clickable="true" />
+
+</LinearLayout>

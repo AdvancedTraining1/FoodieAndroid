@@ -28,5 +28,6 @@
     <string name="Dish_Name">DishName</string>
     <string name="dish_descriptions">Dish Descriptions</string>
     <string name="title_activity_temp_restaurant">TempRestaurantActivity</string>
+    <string name="title_activity_route_plan">RoutePlanActivity</string>
 
 </resources>

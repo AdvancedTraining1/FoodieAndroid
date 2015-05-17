@@ -1,4 +1,4 @@
-package com.bjtu.foodie;
+package com.bjtu.foodie.UI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,11 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
+import com.bjtu.foodie.R;
+import com.bjtu.foodie.R.drawable;
+import com.bjtu.foodie.R.id;
+import com.bjtu.foodie.R.layout;
+import com.bjtu.foodie.R.menu;
 import com.bjtu.foodie.map.MapUtils;
 import com.bjtu.foodie.model.Restaurant;
 import com.bjtu.foodie.model.RestaurantForSerializable;
