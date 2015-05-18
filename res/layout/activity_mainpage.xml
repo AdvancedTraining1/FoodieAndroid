@@ -335,7 +335,14 @@
 		              android:layout_height="wrap_content"
 		              android:layout_marginLeft="5dip"
 		              android:background="@color/lightskyblue"
-		              android:text="date" />		          		       		          		          
+		              android:text="date" />
+		          <Button
+		              android:id="@+id/btn_friend"
+		              android:layout_width="80dp"
+		              android:layout_height="wrap_content"
+		              android:layout_marginLeft="5dip"
+		              android:background="@color/lightskyblue"
+		              android:text="friend" />		          		       		          		          
 		          
 		      </LinearLayout>
 		      

@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	private Button m_ToDish;
 	private Button btn_register;
 	private Button btn_login;
+	private Button btn_friend;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), DatesActivity.class);
+				startActivity(i);
+			}
+
+		});
+        
+        btn_friend = (Button) this.findViewById(R.id.btn_friend);
+        btn_friend.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
 				startActivity(i);
 			}
 
