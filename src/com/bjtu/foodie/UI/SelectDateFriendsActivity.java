@@ -1,15 +1,17 @@
 package com.bjtu.foodie.UI;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter.CreateNdefMessageCallback;
-import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;
-import android.nfc.NfcEvent;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,73 +23,65 @@ import android.widget.Toast;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullDateFriendItemsAdapter;
+import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.data.TestData;
 import com.bjtu.foodie.model.User;
+import com.bjtu.foodie.utils.DatesTalkToServer;
 
-public class SelectDateFriendsActivity extends Activity implements OnClickListener,
-CreateNdefMessageCallback,OnNdefPushCompleteCallback{
-    
+public class SelectDateFriendsActivity extends Activity implements
+		OnClickListener {
+
 	private ListView m_listview;
-    private List<User> m_FriendData;
-    private FullDateFriendItemsAdapter m_adapter;
-    private Button m_submit;
-    private String friendchoose="friend choose";
-	//NfcAdapter mNfcAdapter;
-    private static final int MESSAGE_SENT = 1;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datefriend);
-        //mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        
-        
-        m_submit = (Button)findViewById(R.id.button0);
-        
-        m_listview = (ListView)findViewById(R.id.friends);
-        m_FriendData = (new TestData()).getFriendsData();
-        //m_adapter = new FullDishItemsAdapter(this,m_DishData);	
-        //m_listview.setAdapter(m_adapter);
-        
-        m_adapter = new FullDateFriendItemsAdapter(this, m_FriendData);
-        m_listview.setAdapter(m_adapter);
-        
-        m_submit.setOnClickListener(this);
-    }
-    
-    @Override
-	public void onClick(View v) {
-    	switch(v.getId()){
-        case R.id.button0:
-        	String s="You have choosed ";
-            ArrayList<Boolean> checkList = m_adapter.getChecklist();
-            ArrayList<String> idList = m_adapter.getIDList();
-            for(int i=0;i<checkList.size();i++){
-                if(checkList.get(i)){
-                    s=s+","+idList.get(i);
-                    friendchoose = friendchoose + ",friend"+i;
-                }
-            }
-            s=s+", and please touch to restaurant mobile to submit the dishes. Thanks!";
-            
-            /*mNfcAdapter.setNdefPushMessageCallback(this, this);
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            // Register callback to listen for message-sent success
-            mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
-            //Intent intent1=new Intent(this,ShowList1.class);
-            //send music names
-            //intent1.putStringArrayListExtra("list", getData());
-            //startActivity(intent1);
-*/            break;
-    }
-        
-    }
+	private FullDateFriendItemsAdapter m_adapter;
+	private Button m_submit;
+	private String friendchoose = "friend choose";
+	private static final int MESSAGE_SENT = 1;
+
+	//ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+	List<User> list;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_datefriend);
+		
+		m_submit = (Button) findViewById(R.id.button0);
+		m_submit.setOnClickListener(this);
+		
+		
+		ListFriendTask task = new ListFriendTask();
+		m_listview = (ListView) findViewById(R.id.friends);
+		
+		task.listView = m_listview;
+		task.activity = this;
+		task.list = list;
+		task.execute();
+
+	}
 
 	@Override
-	public void onNdefPushComplete(NfcEvent event) {
-		// TODO Auto-generated method stub
-		mHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
-		
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.button0:
+			String s = "You have choosed ";
+			ArrayList<Boolean> checkList = m_adapter.getChecklist();
+			ArrayList<String> idList = m_adapter.getIDList();
+			/*
+			 * for(int i=0;i<checkList.size();i++){ if(checkList.get(i)){
+			 * s=s+","+idList.get(i); friendchoose = friendchoose + ",friend"+i;
+			 * } }
+			 */
+
+			Intent intent = new Intent(this, AddDateActivity.class);
+			intent.putExtra("friendList", idList);// add constant variable
+													// friendList??
+			startActivity(intent);
+
+			break;
+		}
+
 	}
+
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -99,56 +93,56 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
         }
     };
 
-	@Override
-	public NdefMessage createNdefMessage(NfcEvent event) {
+	
+    public String selectFriend(){
+    	String resultString=null;
+    	
+		if (LoginActivity.token != null) {
+			List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, LoginActivity.token));
+
+			resultString = DatesTalkToServer.datesPost("date/select", postParameters);
+			
+		} else {
+			Intent loginIntent = new Intent(this, LoginActivity.class);
+			startActivity(loginIntent);
+		}
 		
-		
-		// TODO Auto-generated method stub
-		   NdefMessage msg = new NdefMessage(
-	                new NdefRecord[] { createMimeRecord(
-	                        "text/friendchoose", friendchoose.getBytes())
-	                });
-		   friendchoose = "friend choose";
-		return msg;
+		return resultString;
 	}
-	                
-    public NdefRecord createMimeRecord(String mimeType, byte[] payload) {
-        byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCII"));
-        NdefRecord mimeRecord = new NdefRecord(
-                NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
-        return mimeRecord;
-    }
-	                
-	                
-//        @Override
-//        public void onResume() {
-//            super.onResume();
-//            // Check to see that the Activity started due to an Android Beam
-//            System.out.println("onResume.......");
-//            System.out.println("onResume  get Action......."+getIntent().getAction());
-//            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
-//                processIntent(getIntent());
-//            }
-//        }
+	
+    class ListFriendTask extends AsyncTask<Object, Object, Object>{
+		ListView listView;
+		SelectDateFriendsActivity activity;
+		//ArrayList<JSONObject> list;
+		List<User> list;
+		
+		@Override
+		protected Object doInBackground(Object... arg0) {
+			String friendResult = selectFriend();
+			System.out.println("friendResult====="+friendResult);
+			try {
+				JSONObject jsonObject = new JSONObject(friendResult);
+				JSONArray jsonArray = jsonObject.getJSONArray("root");
+				for(int i=0;i<jsonArray.length();i++){   
+	                //JSONObject jo = (JSONObject)jsonArray.opt(i);
+	                User jo = (User)jsonArray.opt(i);
+	                list.add(jo);
+	            }
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		public void onPostExecute(Object result){
+			
+			m_adapter = new FullDateFriendItemsAdapter(activity, list);
+			m_listview.setAdapter(m_adapter);
 
-//        @Override
-//        public void onNewIntent(Intent intent) {
-//            // onResume gets called after this to handle the intent
-//            setIntent(intent);
-//        }
-        
-//        void processIntent(Intent intent) {
-//       	 System.out.println("processIntent.......");
-//           Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-//                   NfcAdapter.EXTRA_NDEF_MESSAGES);
-//           // only one message sent during the beam
-//           NdefMessage msg = (NdefMessage) rawMsgs[0];
-//           System.out.println("transfor information:"+new String(msg.getRecords()[0].getPayload()));
-//           // record 0 contains the MIME type, record 1 is the AAR, if present
-//         //  mInfoText.setText(new String(msg.getRecords()[0].getPayload()));
-//       }
-
-
+		}
+	}
     
 }
 

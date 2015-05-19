@@ -5,6 +5,13 @@ import java.util.List;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.model.User;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +30,7 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 	private Context context;
 	ArrayList<Boolean> checkedItem = new ArrayList<Boolean>();
 	ArrayList<String> idList = new ArrayList<String>();
+	public ImageLoader imageLoader;
 	
 	
 	public FullDateFriendItemsAdapter(Context contex, List<User> friends) {
@@ -58,7 +66,7 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	public String getMomentId(int arg0) {
+	public String getFriendId(int arg0) {
 		return friends.get(arg0).getId();
 	}
 
@@ -78,11 +86,32 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 
 		User friend = this.friends.get(position);
 		holder.name.setText(friend.getUsername());
-		//holder.text.setText(dish.getDesc());
-		//view.setBackgroundColor(dish.getColor());
+		//holder.image.setImageResource(R.drawable.icon_avatar);
 		
-		//---------getPic == id of the pic in drawable-------
-		holder.image.setImageResource(R.drawable.icon_avatar);
+		/*ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())  
+	    .threadPriority(Thread.NORM_PRIORITY - 2)
+	    .denyCacheImageMultipleSizesInMemory()  
+	    .discCacheFileNameGenerator(new Md5FileNameGenerator())  
+	    .tasksProcessingOrder(QueueProcessingType.LIFO)  
+	    .build();  
+		ImageLoader.getInstance().init(config);*/
+		
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_launcher)
+		.showImageForEmptyUri(R.drawable.ic_launcher)
+		.showImageOnFail(R.drawable.ic_launcher)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		.displayer(new RoundedBitmapDisplayer(20))
+		.build();
+		
+		
+		ImageLoader.getInstance()
+		.displayImage("http://192.168.1.103:3000/"+friends.get(position).getHead().trim(), holder.image, options, new SimpleImageLoadingListener() {
+		});//101.200.174.49
+		
+		
 		final String id = friend.getId();
 		holder.checked.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override

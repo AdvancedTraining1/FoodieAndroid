@@ -1,12 +1,19 @@
 package com.bjtu.foodie.UI;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
+import com.bjtu.foodie.UI.MomentAddActivityLast.UploadPicTask;
+import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.model.DateModel;
 import com.bjtu.foodie.model.User;
+import com.bjtu.foodie.utils.DatesTalkToServer;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -72,6 +79,11 @@ public class AddDateActivity extends Activity {
 		connect = new ConnectToServer();
 		handler = new Handler();
 		
+		//============transmit friend list back to add page????
+		Intent intent = getIntent();
+		friends = intent.getStringExtra(Constants.KEY_PHOTO_PATH);
+		//============
+		
 		
 		   pickDate = (Button) findViewById(R.id.but_showDate);  
 		  
@@ -95,6 +107,7 @@ public class AddDateActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setClass(AddDateActivity.this, SelectDateFriendsActivity.class);
                 startActivityForResult(intent, 0);
+				
             }
         });
 		
@@ -103,7 +116,7 @@ public class AddDateActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				friends = et_friends.getText().toString();
+				friends = et_friends.getText().toString();//????
 				time = et_time.getText().toString();
 				content = et_content.getText().toString();
 				System.out.println("friends：" + friends+"-------time：" + time+"-------content:" + content);
@@ -146,6 +159,8 @@ public class AddDateActivity extends Activity {
 		});
 		
 	}
+	
+	
 	
 	
 	public void addDateConnection(DateModel date) throws Exception{
