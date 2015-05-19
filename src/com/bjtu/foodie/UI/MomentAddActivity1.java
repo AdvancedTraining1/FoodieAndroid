@@ -19,17 +19,19 @@ import com.bjtu.foodie.common.Constants;
 
 public class MomentAddActivity1 extends Activity{
 
-	public static final int SELECT_PIC_BY_TAKE_PHOTO = 1; 
+	public static final int SELECT_PIC_BY_TAKE_PHOTO = 1;
 	public static final int SELECT_PIC_BY_PICK_PHOTO = 2;
 	private Uri photoUri;
 	private String picPath;
 	private Intent newIntent;
+	public static MomentAddActivity1 instance;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.moment_add_1);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		instance = this;
 	}
 	
 	public void takePhoto(View view){
@@ -41,11 +43,9 @@ public class MomentAddActivity1 extends Activity{
         {  
               
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"  
-            /*** 
-             * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的 
-             * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图 
-             * 如果不实用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰 
-             */ 
+//             * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的 
+//             * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图 
+//             * 如果不实用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰 
             ContentValues values = new ContentValues();    
             photoUri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);    
             intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
