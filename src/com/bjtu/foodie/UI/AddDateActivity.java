@@ -9,7 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.UI.MomentAddActivityLast.UploadPicTask;
 import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.model.DateModel;
 import com.bjtu.foodie.model.User;
