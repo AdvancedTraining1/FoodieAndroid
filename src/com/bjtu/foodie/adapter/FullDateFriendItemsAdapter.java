@@ -3,6 +3,8 @@ package com.bjtu.foodie.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.model.User;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -26,14 +28,15 @@ import android.widget.TextView;
 
 public class FullDateFriendItemsAdapter extends BaseAdapter {
 
-	private List<User> friends;
+	//private List<User> friends;
+	private ArrayList<JSONObject> friends;
 	private Context context;
 	ArrayList<Boolean> checkedItem = new ArrayList<Boolean>();
 	ArrayList<String> idList = new ArrayList<String>();
 	public ImageLoader imageLoader;
 	
 	
-	public FullDateFriendItemsAdapter(Context contex, List<User> friends) {
+	public FullDateFriendItemsAdapter(Context contex, ArrayList<JSONObject> friends) {
 		this.friends = friends;
 		this.context = contex;
 		for(int i=0;i<friends.size();i++){
@@ -66,9 +69,9 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	public String getFriendId(int arg0) {
-		return friends.get(arg0).getId();
-	}
+//	public String getFriendId(int arg0) {
+//		return friends.get(arg0).getId();
+//	}
 
 	@Override
 	public View getView(int position, View arg1, ViewGroup arg2) {
@@ -84,8 +87,9 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 			holder = (Holder) view.getTag();
 		}
 
-		User friend = this.friends.get(position);
-		holder.name.setText(friend.getUsername());
+	 try{
+		JSONObject friend = this.friends.get(position);
+		holder.name.setText(friend.getString("account"));
 		//holder.image.setImageResource(R.drawable.icon_avatar);
 		
 		/*ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())  
@@ -108,11 +112,11 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		
 		
 		ImageLoader.getInstance()
-		.displayImage("http://192.168.1.103:3000/"+friends.get(position).getHead().trim(), holder.image, options, new SimpleImageLoadingListener() {
-		});//101.200.174.49
+		.displayImage("http://219.242.243.113:3000/"+friend.getString("head").trim(), holder.image, options, new SimpleImageLoadingListener() {
+		});//101.200.174.49 server
+		//192.168.1.103 wifi
 		
-		
-		final String id = friend.getId();
+		final String id = friend.getString("_id");
 		holder.checked.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
@@ -131,7 +135,12 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 			}
 
         });
-		return view;
+		
+	 }catch(Exception e) {
+		e.printStackTrace();
+	 }
+	 
+	 return view;
 	}
 	
 

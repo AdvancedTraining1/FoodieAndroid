@@ -37,8 +37,8 @@ public class SelectDateFriendsActivity extends Activity implements
 	private String friendchoose = "friend choose";
 	private static final int MESSAGE_SENT = 1;
 
-	//ArrayList<JSONObject> list = new ArrayList<JSONObject>();
-	List<User> list;
+	ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+	//List<User> list;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,19 +114,20 @@ public class SelectDateFriendsActivity extends Activity implements
     class ListFriendTask extends AsyncTask<Object, Object, Object>{
 		ListView listView;
 		SelectDateFriendsActivity activity;
-		//ArrayList<JSONObject> list;
-		List<User> list;
+		ArrayList<JSONObject> list;
+		//List<User> list;
 		
 		@Override
 		protected Object doInBackground(Object... arg0) {
 			String friendResult = selectFriend();
 			System.out.println("friendResult====="+friendResult);
 			try {
-				JSONObject jsonObject = new JSONObject(friendResult);
-				JSONArray jsonArray = jsonObject.getJSONArray("root");
+				JSONObject jsonObject = new JSONObject(friendResult);System.out.println(jsonObject);
+				JSONArray jsonArray = jsonObject.getJSONArray("root");System.out.println(jsonArray);
 				for(int i=0;i<jsonArray.length();i++){   
-	                //JSONObject jo = (JSONObject)jsonArray.opt(i);
-	                User jo = (User)jsonArray.opt(i);
+	                JSONObject jo = (JSONObject)jsonArray.opt(i);
+	                //User jo = (User)jsonArray.opt(i);System.out.println(jo);
+	                //User jb = (User)JSONObject.toBean(jo,User.class);//将json对象转换为User对象
 	                list.add(jo);
 	            }
 			} catch (JSONException e) {
