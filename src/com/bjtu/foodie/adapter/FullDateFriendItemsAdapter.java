@@ -34,6 +34,8 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 	ArrayList<Boolean> checkedItem = new ArrayList<Boolean>();
 	ArrayList<String> idList = new ArrayList<String>();
 	public ImageLoader imageLoader;
+	ArrayList<Object> item = new ArrayList<Object>();
+	ArrayList<String> nameList = new ArrayList<String>();
 	
 	
 	public FullDateFriendItemsAdapter(Context contex, ArrayList<JSONObject> friends) {
@@ -42,6 +44,8 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		for(int i=0;i<friends.size();i++){
             checkedItem.add(i,false);
             idList.add(i,null);
+            item.add(i,null);
+            nameList.add(i,null);
         }
 	}
 	
@@ -51,6 +55,10 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 	
 	public ArrayList<String> getIDList() {
 		return idList;
+	}
+	
+	public ArrayList<String> getNameList() {
+		return nameList;
 	}
 
 	@Override
@@ -69,9 +77,14 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-//	public String getFriendId(int arg0) {
-//		return friends.get(arg0).getId();
-//	}
+	/*public String getFriendId(int arg0) {
+		return friends.get(arg0).getId();
+	}*/
+	/*同样先将json字符串转换为json对象，再将json对象转换为java对象，如下所示。
+	JSONObject obj = new JSONObject().fromObject(jsonStr);//将json字符串转换为json对象
+	将json对象转换为java对象
+	Person jb = (Person)JSONObject.toBean(obj,Person.class);//将建json对象转换为Person对象
+*/	
 
 	@Override
 	public View getView(int position, View arg1, ViewGroup arg2) {
@@ -88,17 +101,17 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		}
 
 	 try{
-		JSONObject friend = this.friends.get(position);
+		final JSONObject friend = this.friends.get(position);
 		holder.name.setText(friend.getString("account"));
-		//holder.image.setImageResource(R.drawable.icon_avatar);
-		
-		/*ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())  
+		holder.image.setImageResource(R.drawable.jay);
+		//动态显示头像2.img
+		/*ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context.getApplicationContext())  
 	    .threadPriority(Thread.NORM_PRIORITY - 2)
 	    .denyCacheImageMultipleSizesInMemory()  
 	    .discCacheFileNameGenerator(new Md5FileNameGenerator())  
 	    .tasksProcessingOrder(QueueProcessingType.LIFO)  
 	    .build();  
-		ImageLoader.getInstance().init(config);*/
+		ImageLoader.getInstance().init(config);
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.ic_launcher)
@@ -112,10 +125,11 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 		
 		
 		ImageLoader.getInstance()
-		.displayImage("http://219.242.243.113:3000/"+friend.getString("head").trim(), holder.image, options, new SimpleImageLoadingListener() {
-		});//101.200.174.49 server
+		.displayImage("http://219.242.243.52:3000/"+friend.getString("head").trim(), holder.image, options, new SimpleImageLoadingListener() {
+		});*/
+		//101.200.174.49 server
 		//192.168.1.103 wifi
-		
+		final String name = friend.getString("account");
 		final String id = friend.getString("_id");
 		holder.checked.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override
@@ -127,10 +141,14 @@ public class FullDateFriendItemsAdapter extends BaseAdapter {
 	                    
 	                    checkedItem.set(p, true);
 	                    idList.set(p,id);
+	                    item.set(p, friend);
+	                    nameList.set(p, name);
 	                }else{
 	                  //update the status of checkbox to unchecked
 	                    checkedItem.set(p, false);
 	                    idList.set(p,null);
+	                    item.set(p, null);
+	                    nameList.set(p, null);
 	                }
 			}
 

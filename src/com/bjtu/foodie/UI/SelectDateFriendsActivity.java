@@ -45,9 +45,6 @@ public class SelectDateFriendsActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_datefriend);
 		
-		m_submit = (Button) findViewById(R.id.button0);
-		m_submit.setOnClickListener(this);
-		
 		
 		ListFriendTask task = new ListFriendTask();
 		m_listview = (ListView) findViewById(R.id.friends);
@@ -56,25 +53,36 @@ public class SelectDateFriendsActivity extends Activity implements
 		task.activity = this;
 		task.list = list;
 		task.execute();
-
+		
+		m_submit = (Button) findViewById(R.id.button0);
+		m_submit.setOnClickListener(this);			
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.button0:
-			String s = "You have choosed ";
-			ArrayList<Boolean> checkList = m_adapter.getChecklist();
-			ArrayList<String> idList = m_adapter.getIDList();
-			/*
-			 * for(int i=0;i<checkList.size();i++){ if(checkList.get(i)){
-			 * s=s+","+idList.get(i); friendchoose = friendchoose + ",friend"+i;
-			 * } }
-			 */
+			String s="";
+			ArrayList<Boolean> checkList = m_adapter.getChecklist();System.out.println("checkList=="+checkList);
+			ArrayList<String> idList = m_adapter.getIDList();System.out.println("idList=="+idList);
+			ArrayList<String> nameList = m_adapter.getNameList();System.out.println("nameList=="+nameList);
+			ArrayList<Object> item = null;
+			
+			  for(int i=0;i<checkList.size();i++){ 
+				  if(checkList.get(i)){
+					  s=s+idList.get(i)+","; 
+					  //item.add(m_adapter.getItem(i));
+				  } 
+			  }
+			  Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show(); 
 
 			Intent intent = new Intent(this, AddDateActivity.class);
-			intent.putExtra("friendList", idList);// add constant variable
+			intent.putStringArrayListExtra("friendIdList", idList);
+			intent.putStringArrayListExtra("friendNameList", nameList);
+			//intent.putExtra("friendList", idList);// add constant variable
 													// friendList??
+			intent.putExtra(Constants.flag, "have selected friends");
+			
 			startActivity(intent);
 
 			break;

@@ -47,8 +47,8 @@ public class AddDateActivity extends Activity {
 	Handler handler;
 	String url, message;
 	String result = "Publish date failed ";
-	String friends, time, content;
-	
+	String friends="", time, content;
+	ArrayList<String> friendIds,friendNames;
 	  
     private Button pickDate = null;  
   
@@ -78,10 +78,29 @@ public class AddDateActivity extends Activity {
 		connect = new ConnectToServer();
 		handler = new Handler();
 		
-		//============transmit friend list back to add page????
+		//============transmit friend list back to add page
+		
 		Intent intent = getIntent();
-		friends = intent.getStringExtra(Constants.KEY_PHOTO_PATH);
-		//============
+		String flag=intent.getStringExtra(Constants.flag);
+		System.out.println("flag==="+flag);
+		if(flag!=null&&flag.equals("have selected friends")){
+			
+			friendIds = getIntent().getStringArrayListExtra("friendIdList");
+			friendNames = getIntent().getStringArrayListExtra("friendNameList");
+			//friends = intent.getStringExtra(Constants.KEY_PHOTO_PATH);			
+			
+			for(int i=0;i<friendNames.size();i++){
+				if(friendNames.get(i)!=null){
+					friends= friends+friendNames.get(i)+".";
+				}
+				
+			} 
+			System.out.println("friends====="+friends);
+			et_friends.setText(friends);
+			
+		}
+		
+		//============================================================
 		
 		
 		   pickDate = (Button) findViewById(R.id.but_showDate);  
@@ -115,7 +134,8 @@ public class AddDateActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				friends = et_friends.getText().toString();//????
+				//friends = et_friends.getText().toString();
+				
 				time = et_time.getText().toString();
 				content = et_content.getText().toString();
 				System.out.println("friends：" + friends+"-------time：" + time+"-------content:" + content);
