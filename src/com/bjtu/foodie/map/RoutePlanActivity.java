@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +52,8 @@ public class RoutePlanActivity extends Activity implements
 	private ImageView iv_relocate;
 	private ImageView iv_refind;
 	private ImageView iv_walk, iv_bus, iv_car;
+	private ListView lv_routeStep;
+	private ImageButton imgBtn_navig;
 
 	private MapView mapView;
 	private BaiduMap mbaiduMap;
@@ -57,9 +62,8 @@ public class RoutePlanActivity extends Activity implements
 	private List<DrivingRouteLine> carRouteLines;
 	private List<TransitRouteLine> busRouteLines;
 	private List<WalkingRouteLine> walkRouteLines;
-	private DrivingRouteLine curCarRoute;
-	private TransitRouteLine curBusRoute;
-	private WalkingRouteLine curWalkRoute;
+	private RouteLine route;
+	private MapRoutePlanStepAdapter rpAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,7 @@ public class RoutePlanActivity extends Activity implements
 						.from(startNode).to(endNode));
 			}
 		});
+
 	}
 
 	private void initMap() {
@@ -122,9 +127,12 @@ public class RoutePlanActivity extends Activity implements
 		tv_end = (TextView) findViewById(R.id.tv_endPos);
 		iv_relocate = (ImageView) findViewById(R.id.iv_reLocation);
 		iv_refind = (ImageView) findViewById(R.id.iv_refindResaurant);
+
 		iv_walk = (ImageView) findViewById(R.id.iv_walk);
 		iv_bus = (ImageView) findViewById(R.id.iv_bus);
 		iv_car = (ImageView) findViewById(R.id.iv_car);
+		lv_routeStep = (ListView) findViewById(R.id.lv_routesteps);
+		imgBtn_navig = (ImageButton) findViewById(R.id.ib_navigate);
 
 		mapView = (MapView) findViewById(R.id.baiduMap);
 
@@ -145,9 +153,7 @@ public class RoutePlanActivity extends Activity implements
 
 	@Override
 	public void onGetDrivingRouteResult(DrivingRouteResult driveResult) {
-		Toast.makeText(getApplicationContext(), "car plan", Toast.LENGTH_SHORT)
-				.show();
-
+		
 		if (driveResult == null
 				|| driveResult.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
 			Toast.makeText(getApplicationContext(), "No Route",
@@ -160,24 +166,24 @@ public class RoutePlanActivity extends Activity implements
 		}
 		if (driveResult.error == SearchResult.ERRORNO.NO_ERROR) {
 			carRouteLines = driveResult.getRouteLines();
-			curCarRoute = carRouteLines.get(0);
+			route = carRouteLines.get(0);
 			Toast.makeText(getApplicationContext(),
 					"how many routes:" + carRouteLines.size(),
 					Toast.LENGTH_LONG).show();
 			mbaiduMap.clear();
 			DrivingRouteOverlay overlay = new MyDrivingRouteOverlay(mbaiduMap);
 			mbaiduMap.setOnMarkerClickListener(overlay);
-			overlay.setData(curCarRoute);
+			overlay.setData((DrivingRouteLine) route);
 			overlay.addToMap();
 			overlay.zoomToSpan();
 		}
-
+		imgBtn_navig.setVisibility(View.VISIBLE);
+		lv_routeStep.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void onGetTransitRouteResult(TransitRouteResult busResult) {
-		Toast.makeText(getApplicationContext(), "bus plan", Toast.LENGTH_SHORT)
-				.show();
+
 		if (busResult == null
 				|| busResult.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
 			Toast.makeText(getApplicationContext(), "No Route",
@@ -202,24 +208,28 @@ public class RoutePlanActivity extends Activity implements
 		}
 		if (busResult.error == SearchResult.ERRORNO.NO_ERROR) {
 			busRouteLines = busResult.getRouteLines();
-			curBusRoute = busRouteLines.get(0);
-//			Toast.makeText(getApplicationContext(),
-			/** bugs:NullPointerException */
-//					"how many routes:" + walkRouteLines.size(),
-//					Toast.LENGTH_LONG).show();
+			route = busRouteLines.get(0);
+			Toast.makeText(getApplicationContext(),
+					"how many routes:" + busRouteLines.size(),
+					Toast.LENGTH_LONG).show();
 			TransitRouteOverlay overlay = new MyTransitRouteOverlay(mbaiduMap);
 			mbaiduMap.clear();
 			mbaiduMap.setOnMarkerClickListener(overlay);
-			overlay.setData(curBusRoute);
+			overlay.setData((TransitRouteLine) route);
 			overlay.addToMap();
 			overlay.zoomToSpan();
 		}
+
+		rpAdapter = new MapRoutePlanStepAdapter(route.getAllStep(),
+				getApplicationContext());
+		lv_routeStep.setAdapter(rpAdapter);
+		lv_routeStep.setVisibility(View.VISIBLE);
+		imgBtn_navig.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
 	public void onGetWalkingRouteResult(WalkingRouteResult walkResult) {
-		Toast.makeText(getApplicationContext(), "walk plan", Toast.LENGTH_SHORT)
-				.show();
+
 		if (walkResult == null
 				|| walkResult.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
 			Toast.makeText(getApplicationContext(), "No Route",
@@ -232,7 +242,7 @@ public class RoutePlanActivity extends Activity implements
 		}
 		if (walkResult.error == SearchResult.ERRORNO.NO_ERROR) {
 			walkRouteLines = walkResult.getRouteLines();
-			curWalkRoute = walkRouteLines.get(0);
+			route = walkRouteLines.get(0);
 
 			Toast.makeText(getApplicationContext(),
 					"how many routes:" + walkRouteLines.size(),
@@ -240,11 +250,12 @@ public class RoutePlanActivity extends Activity implements
 			mbaiduMap.clear();
 			WalkingRouteOverlay overlay = new MyWalkingRouteOverlay(mbaiduMap);
 			mbaiduMap.setOnMarkerClickListener(overlay);
-			overlay.setData(curWalkRoute);
+			overlay.setData((WalkingRouteLine) route);
 			overlay.addToMap();
 			overlay.zoomToSpan();
 		}
-
+		imgBtn_navig.setVisibility(View.VISIBLE);
+		lv_routeStep.setVisibility(View.GONE);
 	}
 
 	class MyDrivingRouteOverlay extends DrivingRouteOverlay {
@@ -283,6 +294,27 @@ public class RoutePlanActivity extends Activity implements
 			return BitmapDescriptorFactory
 					.fromResource(R.drawable.icon_restaurant);
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		mapView.onPause();
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		mapView.onResume();
+		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		mbaiduMap.setMyLocationEnabled(false);
+		mapView.onDestroy();
+		mapView = null;
+		super.onDestroy();
 	}
 
 	class MyWalkingRouteOverlay extends WalkingRouteOverlay {
