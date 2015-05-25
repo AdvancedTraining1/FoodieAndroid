@@ -12,7 +12,6 @@ public class User {
 	private String password;
 	private String head;
 	private String token;
-	private Friend[] friendlist;
 	
 	public User(String username,  String email, String password){
 		this.username = username;
@@ -70,12 +69,7 @@ public class User {
 	public void setHead(String head) {
 		this.head = head;
 	}
-	public Friend[] getFriendlist() {
-		return friendlist;
-	}
-	public void setFriendlist(Friend[] friendlist) {
-		this.friendlist = friendlist;
-	}
+
 	
 	
 }
