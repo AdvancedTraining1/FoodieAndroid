@@ -1,7 +1,5 @@
 package com.bjtu.foodie.model;
 
-import java.io.Serializable;
-
 import com.baidu.mapapi.model.LatLng;
 
 // define varieties of restaurant from baiduMap

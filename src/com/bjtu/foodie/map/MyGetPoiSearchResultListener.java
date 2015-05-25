@@ -64,7 +64,7 @@ public class MyGetPoiSearchResultListener implements
 			// click and pop the detail infos of restaurant
 			LinearLayout ll_popup = new LinearLayout(context);
 			ll_popup.setOrientation(LinearLayout.VERTICAL);
-			LayoutParams llParam = new LayoutParams(600,LayoutParams.WRAP_CONTENT);
+			LayoutParams llParam = new LayoutParams(600,android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			ll_popup.setLayoutParams(llParam);
 			ll_popup.setBackgroundResource(R.drawable.location_tips);
 
@@ -75,10 +75,10 @@ public class MyGetPoiSearchResultListener implements
 			TextView tv_info = new TextView(context);
 			Button btn_planRoute = new Button(context);
 			tv_info.setLayoutParams(new LayoutParams(600,
-					LayoutParams.WRAP_CONTENT));
+					android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 			tv_info.setBackgroundColor(0x00000000);
 			btn_planRoute.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+					android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 			btn_planRoute.setText("RoutePlan");
 			btn_planRoute.setTextColor(0x88ffffff);
 			btn_planRoute.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -28,7 +28,6 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.bjtu.foodie.R;
 

@@ -13,13 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
-import android.widget.Toast;
-
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import cn.jpush.android.api.JPushInterface;
-
-import com.bjtu.foodie.R;
 
 public class MainActivity extends Activity {
 	private Button btn_moment;
@@ -63,7 +56,8 @@ public class MainActivity extends Activity {
         
         
         m_ToDish.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, DishMenu.class);
                 startActivityForResult(intent, 0);
@@ -119,6 +113,7 @@ public class MainActivity extends Activity {
         JPushInterface.onResume(this);
     }
 	
+	@Override
 	public void onPause()
 	{
 		super.onPause();

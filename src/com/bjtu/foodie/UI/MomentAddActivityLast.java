@@ -29,6 +29,7 @@ public class MomentAddActivityLast extends Activity{
 //	public MomentAddActivity1 addActivity1;
 //	List activityList = new ArrayList();
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.moment_add_last);

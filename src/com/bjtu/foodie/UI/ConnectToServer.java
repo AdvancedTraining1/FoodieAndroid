@@ -19,7 +19,7 @@ import android.os.StrictMode;
 @SuppressLint("NewApi")
 public class ConnectToServer {
 
-	final static String ipaddress="http://101.200.174.49:3000";
+	final static String ipaddress="http://192.168.1.104:3000";//192.168.1.103 wifi  101.200.174.49 server
 	@SuppressLint("NewApi")
 	public String testURLConn1(String urlAdd) throws Exception{
 

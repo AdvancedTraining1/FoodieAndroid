@@ -9,6 +9,7 @@ import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.MediaColumns;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,6 +72,7 @@ public class MomentAddActivity1 extends Activity{
         return super.onTouchEvent(event);  
     } 
 	
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK)  
         {
@@ -95,7 +97,7 @@ public class MomentAddActivity1 extends Activity{
                 return;  
             }  
         }  
-        String[] pojo = {MediaStore.Images.Media.DATA};  
+        String[] pojo = {MediaColumns.DATA};  
         Cursor cursor = managedQuery(photoUri, pojo, null, null,null);     
         if(cursor != null )  
         {  
