@@ -244,7 +244,7 @@
             android:label="@string/title_activity_new_friend_search_result" >
         </activity>
         <activity
-            android:name=".FriendMessageActivity"
+            android:name="com.bjtu.foodie.UI.FriendMessageActivity"
             android:label="@string/title_activity_friend_message" >
         </activity>
     </application>
