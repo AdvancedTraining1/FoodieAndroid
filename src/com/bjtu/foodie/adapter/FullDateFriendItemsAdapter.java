@@ -1,20 +1,10 @@
 package com.bjtu.foodie.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.model.User;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

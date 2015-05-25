@@ -6,14 +6,9 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.common.Constants;
-import com.bjtu.foodie.model.DateModel;
-import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.utils.DatesTalkToServer;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -49,6 +44,7 @@ public class AddDateActivity extends Activity {
 	String result = "Publish date failed ";
 	String friends="", time, content;
 	ArrayList<String> friendIds,friendNames;
+	String ids="";
 	  
     private Button pickDate = null;  
   
@@ -92,10 +88,12 @@ public class AddDateActivity extends Activity {
 			for(int i=0;i<friendNames.size();i++){
 				if(friendNames.get(i)!=null){
 					friends= friends+friendNames.get(i)+".";
+					ids= ids+friendIds.get(i)+",";
 				}
 				
 			} 
 			System.out.println("friends====="+friends);
+			System.out.println("ids====="+ids);
 			et_friends.setText(friends);
 			
 		}
@@ -150,58 +148,46 @@ public class AddDateActivity extends Activity {
 					Toast.makeText(v.getContext(), "The content can't be empty", Toast.LENGTH_LONG).show();
 				}
 				else{
-					proDia = ProgressDialog.show(AddDateActivity.this, "Publish Date","Publishing date now,please wait!");
-					proDia.show();
-					new Thread() {
-						@Override
-						public void run() {
-							try {
-								DateModel date=new DateModel(friends,time,content);
-								addDateConnection(date);
-								handler.post(new Runnable() {
-									@Override
-									public void run() {
-										Toast.makeText(AddDateActivity.this, result,Toast.LENGTH_SHORT).show();
-									}
-								});
-							} catch (Exception e) {
-							} finally {
-								proDia.dismiss();
-								Intent intent = new Intent();
-								intent.setClass(AddDateActivity.this,AddDateActivity.class);
-								startActivity(intent);
-							}
-						}
-					}.start();
+					//proDia = ProgressDialog.show(AddDateActivity.this, "Publish Date","Publishing date now,please wait!");
+					//proDia.show();
+					
+					createDate();
+					
 				}
 			}
 		});
 		
 	}
 	
-	
-	
-	
-	public void addDateConnection(DateModel date) throws Exception{
-        url = "/service/date/create"; 
-        StringBuffer paramsBuffer = new StringBuffer();
-        paramsBuffer.append("friends").append("=").append(date.getDateUsers()).append("&")//??list getDateUsers
-        	.append("time").append("=").append(date.getDateTime()).append("&")
-        	.append("content").append("=").append(date.getDateContent());
-        byte[] bytes = paramsBuffer.toString().getBytes();
-        result = connect.testURLConn2(url, bytes);
-		
-        /*JSONObject jsonObject = new JSONObject(message);		
-		try{
-			token = jsonObject.getString("token");
-			isConnect = true;
-			userDao.add(token);
-		}catch(Exception e){
-			e.printStackTrace();
-		}	
-		
-		if(token != null)
-			ifSuccess = "Successfully";*/
+	public void createDate(){
+		if(LoginActivity.token != null){
+			
+			List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, LoginActivity.token));
+	        postParameters.add(new BasicNameValuePair("time", time));
+	        postParameters.add(new BasicNameValuePair("content", content));
+	        postParameters.add(new BasicNameValuePair("friendids", ids));
+	        postParameters.add(new BasicNameValuePair("friendnames", friends));
+	        
+	        String resultString = DatesTalkToServer.datesPost("date/create",postParameters);
+	        
+	        if(resultString.equals("publish date success")){
+	        	//proDia.dismiss();
+	        	Toast.makeText(getApplicationContext(), "publish success!",
+					     Toast.LENGTH_SHORT).show();
+	        	
+	        	finish();
+	    		Intent intent = new Intent(AddDateActivity.this, AddDateActivity.class);
+	    		startActivity(intent);
+	        }else{
+	        	//proDia.dismiss();
+	        	Toast.makeText(getApplicationContext(), "publish fail!",
+					     Toast.LENGTH_SHORT).show();
+	        }
+		}else{
+			Intent loginIntent = new Intent(this, LoginActivity.class);
+			startActivity(loginIntent);
+		}
 	}
 	
 //==========================================日期控件=====================	
@@ -246,7 +232,8 @@ public class AddDateActivity extends Activity {
   
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {  
   
-       public void onDateSet(DatePicker view, int year, int monthOfYear,  
+       @Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear,  
   
               int dayOfMonth) {  
   
@@ -279,7 +266,7 @@ public class AddDateActivity extends Activity {
   
            Message msg = new Message();  
   
-           if (pickDate.equals((Button) v)) {  
+           if (pickDate.equals(v)) {  
   
               msg.what = AddDateActivity.SHOW_DATAPICK;  
   

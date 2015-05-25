@@ -24,8 +24,6 @@ import android.widget.Toast;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullDateFriendItemsAdapter;
 import com.bjtu.foodie.common.Constants;
-import com.bjtu.foodie.data.TestData;
-import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.utils.DatesTalkToServer;
 
 public class SelectDateFriendsActivity extends Activity implements
