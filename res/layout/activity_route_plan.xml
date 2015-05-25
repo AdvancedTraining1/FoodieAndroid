@@ -32,7 +32,7 @@
             android:layout_weight="7"
             android:gravity="center_vertical"
             android:text="start place"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_reLocation"
@@ -67,7 +67,7 @@
             android:layout_weight="7"
             android:gravity="center_vertical"
             android:text="end place"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_refindResaurant"
@@ -81,62 +81,86 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_weight="1"
-        android:background="#efefef"
-        android:orientation="horizontal"
-        android:paddingTop="2dp" >
+        android:layout_weight="13"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/iv_walk"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_rp_self" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-        <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" 
-            android:background="#55000000"/>
+            <com.baidu.mapapi.map.MapView
+                android:id="@+id/baiduMap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true" />
 
-        <ImageView
-            android:id="@+id/iv_bus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_rp_bus" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="3dp"
+                android:orientation="vertical"
+                android:paddingTop="2dp" >
 
-        <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" 
-            android:background="#55000000" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="3dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp" >
 
-        <ImageView
-            android:id="@+id/iv_car"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_rp_car" />
+                    <ImageView
+                        android:id="@+id/iv_walk"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/background_btn"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_walk" />
+
+                    <ImageView
+                        android:id="@+id/iv_bus"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/background_btn"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_bus" />
+
+                    <ImageView
+                        android:id="@+id/iv_car"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/background_btn"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_car" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ib_navigate"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/background_btn"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_navigation" 
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/lv_routesteps"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="3dp"
+            android:visibility="gone" />
     </LinearLayout>
-
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/baiduMap"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="3dp"
-        android:layout_weight="10"
-        android:clickable="true" />
 
 </LinearLayout>

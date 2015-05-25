@@ -18,4 +18,6 @@ public class Constants {
 	
 	public static final String URL_UPLOADE = "http://101.200.174.49:3000/service/moment/upload";
 	//cmm end
+	
+	public static final String flag= "have not selected friends";
 }

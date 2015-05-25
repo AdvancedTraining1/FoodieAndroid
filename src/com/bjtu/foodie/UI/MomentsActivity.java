@@ -30,12 +30,15 @@ public class MomentsActivity extends Activity {
 	private ImageView iv_userPic;
 	
 	private ShareActionProvider myProvider;
+	
+	public static MomentsActivity instance;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_moments);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		instance = this;
 		
 		lv_allMoments = (ListView) findViewById(R.id.lv_moments);
 		tv_username = (TextView) findViewById(R.id.tv_username);

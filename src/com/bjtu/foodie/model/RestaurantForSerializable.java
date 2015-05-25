@@ -2,8 +2,6 @@ package com.bjtu.foodie.model;
 
 import java.io.Serializable;
 
-import com.baidu.mapapi.model.LatLng;
-
 //no Location
 @SuppressWarnings("serial")
 public class RestaurantForSerializable implements Serializable {
