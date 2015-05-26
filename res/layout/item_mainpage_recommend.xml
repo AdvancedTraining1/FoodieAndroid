@@ -3,30 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="15dip"
-    android:paddingLeft="5dip"
-    android:paddingTop="15dip" >
+    android:paddingBottom="5dip"
+    android:paddingLeft="10dip"
+    android:paddingTop="5dip" >
 
     <ImageView
         android:id="@+id/iv_restPhoto"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="45dp"
         android:scaleType="fitCenter"
         android:src="@drawable/res5" />
 
     <TextView
         android:id="@+id/tv_restName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
         android:layout_height="fill_parent"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="鲜果时间    "
+        android:gravity="center_vertical"
+        android:text="鲜果时间"
         android:textColor="@color/black"
         android:textSize="15dip" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -50,25 +54,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2.5"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp" >
 
         <ImageView
             android:id="@+id/imageView17"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="30dip"
             android:src="@drawable/tuan" />
 
         <TextView
+            android:id="@+id/tv_resttype"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="20dip"
             android:gravity="center"
             android:text="五道口  奶茶"
             android:textColor="@color/gray"
-            android:textSize="10dip" />
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>
