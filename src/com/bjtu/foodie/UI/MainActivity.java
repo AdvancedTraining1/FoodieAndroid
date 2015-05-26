@@ -6,11 +6,14 @@ import android.view.View.OnClickListener;
 import cn.jpush.android.api.JPushInterface;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.FeatureInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import android.widget.Button;
 
@@ -24,8 +27,11 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mainpage);
+		
+		
 		
 		m_ToDish = (Button)findViewById(R.id.btn_dish);
 		//btn_register = (Button)findViewById(R.id.btn_register);
