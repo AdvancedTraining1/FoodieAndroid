@@ -14,15 +14,13 @@ import android.widget.ListView;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullFriendItemSearchAdapter;
-import com.bjtu.foodie.model.DishItem;
 import com.bjtu.foodie.model.Friend;
 
 public class NewFriendSearchResultActivity extends Activity {
 	
 	List<Friend> friendList = new ArrayList<Friend>();
 	ListView mySearchList;
-	
-	  private List<DishItem> m_DishData;
+
 	
 
 	@Override

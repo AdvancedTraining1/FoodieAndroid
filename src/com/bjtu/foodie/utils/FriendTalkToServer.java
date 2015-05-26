@@ -37,7 +37,7 @@ import com.loopj.android.http.SyncHttpClient;
 public class FriendTalkToServer {
 	//public static final String serviceAddr = "http://123.57.38.31:3000/service/";
 		//10.0.2.2
-		public static final String serviceAddr = "http://192.168.1.100:3000";
+		public static final String serviceAddr = "http://192.168.1.103:3000";
 		
 		public String testURLConn1(String urlAdd) throws Exception{
 

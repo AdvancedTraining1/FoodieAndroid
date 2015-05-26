@@ -8,15 +8,17 @@ public class FriendMessage implements Serializable{
 	Friend to;
 	String date;
 	String status;
+	String id;
 	
 
 	
-	public FriendMessage(Friend from, Friend to, String date, String status) {
+	public FriendMessage(Friend from, Friend to, String date, String status,String id) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.date = date;
 		this.status = status;
+		this.id = id;
 	}
 	public Friend getFrom() {
 		return from;
@@ -42,6 +44,14 @@ public class FriendMessage implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 	
 	
 

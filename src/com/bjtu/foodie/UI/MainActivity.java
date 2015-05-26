@@ -1,21 +1,21 @@
 package com.bjtu.foodie.UI;
 
 
-import com.bjtu.foodie.R;
-import android.view.View.OnClickListener;
-import cn.jpush.android.api.JPushInterface;
-
-
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.FeatureInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
-
 import android.widget.Button;
+import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+
+import com.bjtu.foodie.R;
+import com.bjtu.foodie.db.UserDao;
+import com.bjtu.foodie.model.User;
 
 public class MainActivity extends Activity {
 	private Button btn_moment;
@@ -102,11 +102,45 @@ public class MainActivity extends Activity {
         
         btn_friend = (Button) this.findViewById(R.id.btn_friend);
         btn_friend.setOnClickListener(new OnClickListener() {
+        	
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
-				startActivity(i);
+				
+				System.out.println("sss---");
+				UserDao userDao = new UserDao(MainActivity.this);
+				User user = userDao.find();
+				Handler handler = new Handler();
+				if(user!=null){
+					System.out.println("sss---"+user.getToken());
+					
+					
+					String token = user.getToken();
+					if(token.equals("")||token==null){						
+
+						handler.post(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
+							}
+						});
+						
+					}else{
+						Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
+						startActivity(i);						
+					}
+				
+				
+			}else{
+				
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+				
 			}
 
 		});

@@ -1,5 +1,6 @@
 package com.bjtu.foodie.UI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,12 @@ public class FriendListActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 				friendMessageList = getMessgaeList();
+				FriendListActivity.this.finish();
+				Intent intent = new Intent();
+				intent.setClass(FriendListActivity.this,
+						FriendMessageActivity.class);
+				intent.putExtra("friendMessageList", (Serializable) friendMessageList); 
+				startActivity(intent);
 				
 				
 			}
@@ -141,6 +148,8 @@ public class FriendListActivity extends Activity {
 			friendListResult = connect.testURLConn1(urlString);
 			JSONObject jsonObject = new JSONObject(friendListResult);
 			JSONArray jsonArray = jsonObject.getJSONArray("friendList");
+			
+			System.out.println("friendListResult--" + friendListResult);
 			friendCount = jsonObject.getInt("num");
 			for(int i=0;i<jsonArray.length();i++){   
 	            JSONObject jo = (JSONObject)jsonArray.opt(i);
@@ -150,6 +159,8 @@ public class FriendListActivity extends Activity {
 	            Friend friend = new Friend(id, account, head);
 	            myFriendList.add(friend);
 	        }
+			
+			System.out.println("myFriendList--" + myFriendList.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,33 +174,42 @@ public class FriendListActivity extends Activity {
 		User user = userDao.find();
 		String tokenString = user.getToken();
 		
-		String friendListResult;		
+		String friendMessageListResult;		
 		String urlString="/service/friend/getFriendMessage?token="+tokenString;
 		try {
-			friendListResult = connect.testURLConn1(urlString);
-			JSONObject jsonObject = new JSONObject(friendListResult);
+			friendMessageListResult = connect.testURLConn1(urlString);
+			JSONObject jsonObject = new JSONObject(friendMessageListResult);
+			System.out.println("friendMessageListResult--" + friendMessageListResult);
 			JSONArray jsonArray = jsonObject.getJSONArray("fMlists");
-			friendCount = jsonObject.getInt("num");
+			System.out.println("fmlist" + jsonArray.length());
 			for(int i=0;i<jsonArray.length();i++){   
-	            JSONObject jo = (JSONObject)jsonArray.opt(i);	            
-	            
-	            String from_id = jo.getJSONObject("from").getString("account");
-	            String from_account = jo.getJSONObject("from").getString("account");
-	            String from_head = jo.getJSONObject("from").getString("head");
-	            Friend from = new Friend(from_id, from_account, from_head);
-	            
-	            String to_id = jo.getJSONObject("to").getString("account");
-	            String to_account = jo.getJSONObject("to").getString("account");
-	            String to_head = jo.getJSONObject("to").getString("head");
-	            Friend to = new Friend(to_id,to_account,to_head);
-	            
+	            JSONObject jo = (JSONObject)jsonArray.opt(i);	
+	        	System.out.println("jo--" + jo);
 	            String date = jo.getString("date");
 	            String status = jo.getString("status");
-	           
+	            String id = jo.getString("_id");
+	            System.out.println("message id" +id);
 	            
-	            FriendMessage friendMessage = new FriendMessage(from, to, date, status);
+	            String from_id = jo.getJSONObject("from").getString("_id");
+	        
+	            String from_account = jo.getJSONObject("from").getString("account");
+	            String from_head = jo.getJSONObject("from").getString("head");	       
+	            Friend from = new Friend(from_id, from_account, from_head);
+	            System.out.println("from id" +from_id +" "+ from_account+"" +from_head);
+	            
+	            String to_id = jo.getJSONObject("to").getString("_id");
+	     
+	            String to_account = jo.getJSONObject("to").getString("account");
+	            System.out.println("to account" +to_account);
+	            String to_head = jo.getJSONObject("to").getString("head");
+	            Friend to = new Friend(to_id,to_account,to_head);
+	            System.out.println("to id" +to_id +" "+ to_account+"" +to_head);
+	               
+	            FriendMessage friendMessage = new FriendMessage(from, to, date, status,id);
 	            friendMessageList.add(friendMessage);
 	        }
+			
+			System.out.println("list count ---" + friendMessageList.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

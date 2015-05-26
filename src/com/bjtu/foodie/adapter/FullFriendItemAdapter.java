@@ -28,6 +28,7 @@ public class FullFriendItemAdapter extends BaseAdapter{
 	private Context context;
 	DisplayImageOptions options;  
 //	FriendListActivity context;
+	final String urlString = "http://192.168.1.103:3000/";
 	
 	public FullFriendItemAdapter(List<Friend> friendList, Context context) {
 		super();
@@ -53,19 +54,19 @@ public class FullFriendItemAdapter extends BaseAdapter{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return friendList==null  ? 0 : friendList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return friendList == null ? null : friendList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class FullFriendItemAdapter extends BaseAdapter{
 		Friend friend = this.friendList.get(position);
 	//	holder.headImage.setImageResource(friend.getHead());
 		ImageLoader.getInstance()
-		.displayImage("http://192.168.1.101:3000/"+friend.getHead().trim(), holder.headImage, options, new SimpleImageLoadingListener() {
+		.displayImage(urlString+friend.getHead().trim(), holder.headImage, options, new SimpleImageLoadingListener() {
 			
 		});
 				
