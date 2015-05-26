@@ -6,11 +6,14 @@ import android.view.View.OnClickListener;
 import cn.jpush.android.api.JPushInterface;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.FeatureInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import android.widget.Button;
 
@@ -20,11 +23,15 @@ public class MainActivity extends Activity {
 	private Button m_ToDish;
 	private Button btn_register;
 	private Button btn_login;
+	private Button btn_friend;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mainpage);
+		
+		
 		
 		m_ToDish = (Button)findViewById(R.id.btn_dish);
 		//btn_register = (Button)findViewById(R.id.btn_register);
@@ -88,6 +95,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), DatesActivity.class);
+				startActivity(i);
+			}
+
+		});
+        
+        btn_friend = (Button) this.findViewById(R.id.btn_friend);
+        btn_friend.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
 				startActivity(i);
 			}
 

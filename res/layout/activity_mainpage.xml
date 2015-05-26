@@ -1,350 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-	android:layout_width="fill_parent" 
-	android:layout_height="fill_parent"
-	android:background="@color/white"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
     <LinearLayout
-        android:id="@+id/llayout" 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <include layout="@layout/top1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:orientation="vertical"
-        android:layout_width="match_parent" 
-    	android:layout_height="wrap_content" 
-    	android:layout_alignParentTop="true" 
-        >
-        <include layout="@layout/top1"/>
-    
-<LinearLayout 
-	          android:paddingLeft="15dip"
-	          android:paddingRight="15dip"
-	          android:orientation="vertical" 
-	          android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-	          >
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/res1"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="店铺推荐"
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-		              />
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="2dp"
-	              android:background="@color/gray"
-		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/res2"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="海底捞火锅"
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-		              />
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip" >
 
-		           <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent"
-		              android:orientation="vertical" >
-		              
-		              <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent">
-		          <ImageView
-		              android:id="@+id/imageView1"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		          <ImageView
-		              android:id="@+id/imageView12"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		          <ImageView
-		              android:id="@+id/imageView2"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		          <ImageView
-		              android:id="@+id/imageView3"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		          </LinearLayout>
-		      
-		          
-		          </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
-		          <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent"
-		              android:orientation="vertical" >
-		              <ImageView
-		              android:id="@+id/imageView4"
-		              android:layout_width="15dp"
-		              android:layout_height="15dp"
-		              android:layout_marginLeft="14dip"
-		              android:src="@drawable/tuan" />
-		              <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="北下关  火锅"
-	              	  android:textSize="10dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/gray"
-		              />
-		             
-		          </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dip"
+                android:paddingLeft="5dip"
+                android:paddingTop="15dip" >
 
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="0.5dp"
-	              android:background="@color/lightgray"
-		          />
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="0.5dp"
-	              android:background="@color/lightgray"
-		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/res4"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="绝味鸭脖    "
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-		              />
-		           <ImageView
-		              android:id="@+id/imageView13"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /> <ImageView
-		              android:id="@+id/imageView14"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /> <ImageView
-		              android:id="@+id/imageView15"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		              <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent"
-		              android:orientation="vertical" >
-		              <ImageView
-		              android:id="@+id/imageView16"
-		              android:layout_width="15dp"
-		              android:layout_height="15dp"
-		              android:layout_marginLeft="30dip"
-		              android:src="@drawable/tuan" />
-		              <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:text="魏公村  面食"
-	              	  android:textSize="10dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/gray"
-	              	  android:layout_marginLeft="20dip"
-		              />
-		             
-		          </LinearLayout>
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="0.5dp"
-	              android:background="@color/lightgray"
-		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/res5"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="鲜果时间    "
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-		              />
-		          
-		           <ImageView
-		              android:id="@+id/imageView9"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /> <ImageView
-		              android:id="@+id/imageView10"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" /> <ImageView
-		              android:id="@+id/imageView11"
-		              android:layout_width="10dp"
-		              android:layout_height="10dp"
-		              android:src="@drawable/star" />
-		              <LinearLayout
-		              android:layout_width="wrap_content"
-		              android:layout_height="match_parent"
-		              android:orientation="vertical" >
-		              <ImageView
-		              android:id="@+id/imageView17"
-		              android:layout_width="15dp"
-		              android:layout_height="15dp"
-		              android:layout_marginLeft="30dip"
-		              android:src="@drawable/tuan" />
-		              <TextView
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:text="五道口  奶茶"
-	              	  android:textSize="10dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/gray"
-	              	  android:layout_marginLeft="20dip"
-		              />
-		             
-		          </LinearLayout>
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="2dp"
-	              android:background="@color/lightgray"
-		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="5dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
-		          <ImageView
-		              android:layout_width="90dp"
-	              	  android:layout_height="35dp"
-	              	  android:src="@drawable/daijin"
-	              	  android:scaleType="fitCenter"
-		              />
-		          <TextView
-		              android:id="@+id/text_scan"
-		              android:layout_width="wrap_content"
-	              	  android:layout_height="fill_parent"
-	              	  android:layout_marginLeft="10dp"
-	              	  android:text="点击领取优惠券"
-	              	  android:textSize="15dip"
-	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
-	              	  android:clickable="true"
-	              	  android:onClick="functionScan"
-		              />
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="0.5dp"
-	              android:background="@color/lightgray"
-		          />
-		      <LinearLayout 
-		          android:orientation="horizontal" 
-		          android:paddingTop="15dip"
-		          android:paddingBottom="15dip"
-		          android:paddingLeft="0dip"
-		          android:layout_width="match_parent"
-	              android:layout_height="wrap_content"
-		          >
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_restaurant" />
 
-		          <Button
-		              android:id="@+id/btn_dish"
-		              android:layout_width="80dp"
-		              android:layout_height="wrap_content"
-		              android:background="@color/lightskyblue"
-		              android:text="dish" />
-		          
-		          <Button
-		              android:id="@+id/btn_moment"
-		              android:layout_width="80dp"
-		              android:layout_height="wrap_content"
-		              android:layout_marginLeft="5dip"
-		              android:background="@color/lightskyblue"
-		              android:text="moment" />
-		          
-		          <Button
-		              android:id="@+id/btn_date"
-		              android:layout_width="80dp"
-		              android:layout_height="wrap_content"
-		              android:layout_marginLeft="5dip"
-		              android:background="@color/lightskyblue"
-		              android:text="date" />		          		       		          		          
-		          
-		      </LinearLayout>
-		      
-		      <TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="0.5dp"
-	              android:background="@color/lightgray"
-		          />
-		    </LinearLayout>
-		    
-		    </LinearLayout>
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="店铺推荐"
+                    android:textColor="@color/black"
+                    android:textSize="15dip" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7" >
+
+                <ListView
+                    android:id="@+id/lv_restRecommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </ListView>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/lightgray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_coupons" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_scan"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:gravity="center_vertical|left"
+                android:onClick="functionScan"
+                android:text="点击领取优惠券"
+                android:textColor="@color/black"
+                android:textSize="20dip" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/lightgray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <Button
+                android:id="@+id/btn_dish"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_mainpage_btn"
+                android:text="dish"
+                android:textColor="@color/whitesmoke" />
+
+            <Button
+                android:id="@+id/btn_moment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/bg_mainpage_btn"
+                android:text="moment"
+                android:textColor="@color/whitesmoke"/>
+
+            <Button
+                android:id="@+id/btn_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/bg_mainpage_btn"
+                android:text="date"
+                android:textColor="@color/whitesmoke" />
+
+            <Button
+                android:id="@+id/btn_friend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/bg_mainpage_btn"
+                android:text="friend"
+                android:textColor="@color/whitesmoke" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
