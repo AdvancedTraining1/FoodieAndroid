@@ -36,6 +36,8 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 public class FullFriendItemSearchAdapter extends BaseAdapter{
 	
+	final String urlString = "http://192.168.1.103:3000/";
+	
 	public List<Friend> friendList;
 	private FoodieAndroidAPP myApp; 
 	FriendTalkToServer connect = new FriendTalkToServer();
@@ -101,7 +103,7 @@ public class FullFriendItemSearchAdapter extends BaseAdapter{
 
 		final Friend friend = this.friendList.get(position);
 		ImageLoader.getInstance()
-		.displayImage("http://192.168.1.100:3000/"+friend.getHead().trim(), holder.headImage, options, new SimpleImageLoadingListener() {
+		.displayImage(urlString+friend.getHead().trim(), holder.headImage, options, new SimpleImageLoadingListener() {
 			
 		});
 				
@@ -140,6 +142,7 @@ public class FullFriendItemSearchAdapter extends BaseAdapter{
 						
 						System.out.println("yes this ...");
 						holder.addbtn.setText("等待验证");
+						holder.addbtn.setEnabled(false);
 						//notifyDataSetChanged();
 
 					}

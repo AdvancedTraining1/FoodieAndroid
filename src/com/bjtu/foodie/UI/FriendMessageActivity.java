@@ -1,21 +1,46 @@
 package com.bjtu.foodie.UI;
 
-import com.bjtu.foodie.R;
-import com.bjtu.foodie.R.id;
-import com.bjtu.foodie.R.layout;
-import com.bjtu.foodie.R.menu;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.bjtu.foodie.R;
+import com.bjtu.foodie.adapter.FullFriendMessageAdapter;
+import com.bjtu.foodie.model.FriendMessage;
 
 public class FriendMessageActivity extends Activity {
+	
+	List<FriendMessage> friendMessageList = new ArrayList<FriendMessage>();
+	ListView myfriendMessageList;
+	TextView noFriendMessageHintTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friend_message);
+		
+		myfriendMessageList = (ListView) findViewById(R.id.friend_message_listview);
+		noFriendMessageHintTextView = (TextView) findViewById(R.id.no_message_hint);
+		
+		
+		friendMessageList = (List<FriendMessage>) getIntent().getSerializableExtra("friendMessageList");
+		
+		System.out.println("FriendMessageActivity---" + friendMessageList.size());
+		
+		if (friendMessageList.size() == 0) {
+			
+			noFriendMessageHintTextView.setVisibility(View.VISIBLE);
+		}else {
+			FullFriendMessageAdapter adapter = new FullFriendMessageAdapter(friendMessageList,this);
+			myfriendMessageList.setAdapter(adapter);
+		}
 	}
 
 	@Override
