@@ -46,17 +46,6 @@ public class DatesActivity extends Activity {
 		dateAdapter = new FullDateItemAdapter(this, list_dates);
 
 		lv_allDates.setAdapter(dateAdapter);
-/*
-		tv_username.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intentMyMoment = new Intent(getApplicationContext(),
-						MyMomentActivity.class);
-				
-				startActivity(intentMyMoment);
-			}
-		});*/
 		
 	}
 
@@ -83,7 +72,7 @@ public class DatesActivity extends Activity {
 	            String address = jo.getString("dateContent");	            
 	            String dateUsers = jo.getString("dateUsers");
 	            
-	            DateModel date = new DateModel(name, time, address);//????
+	            DateModel date = new DateModel(name, time, address);
 */	            friendDates.add(jo);
 	        }
 		} catch (Exception e) {
