@@ -353,7 +353,9 @@ public class AddDateActivity extends Activity {
 		int item_id = item.getItemId();
 		switch (item_id) {
 		case R.id.new_action_send:
-			Toast.makeText(this, "Sending~~", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "My Date Message", Toast.LENGTH_SHORT).show();
+			Intent intentMyDate = new Intent(this, MyDateActivity.class);
+			startActivity(intentMyDate);
 			break;
 
 		default:

@@ -201,6 +201,10 @@
             android:name=".UI.SelectDateFriendsActivity"
             android:parentActivityName=".UI.AddDateActivity" />
         <activity
+            android:name=".UI.MyDateActivity"
+            android:parentActivityName=".UI.MainActivity" />
+        
+        <activity
             android:name=".UI.DishMenu"
             android:parentActivityName=".UI.MainActivity" >
             <intent-filter>

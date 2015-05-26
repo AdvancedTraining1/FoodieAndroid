@@ -20,4 +20,10 @@ public class Constants {
 	//cmm end
 	
 	public static final String flag= "have not selected friends";
+	public static String flagAccept="accept";
+	public static String flagRefuse="refuse";
+	public static String status1="have not accepted";
+	public static String status2="have not refused";
+	
+	
 }

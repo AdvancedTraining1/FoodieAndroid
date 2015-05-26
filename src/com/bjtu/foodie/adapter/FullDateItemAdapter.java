@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.UI.LoginActivity;
+import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.DateModel;
 import com.bjtu.foodie.model.User;
@@ -34,7 +35,7 @@ public class FullDateItemAdapter extends BaseAdapter {
 	
 	//public UserDao userDao=new UserDao(context);;
 	private Handler handler = new Handler();
-
+	
 	public FullDateItemAdapter(Context contex, ArrayList<JSONObject> dates) {
 		this.dates = dates;
 		this.context = contex;
@@ -83,6 +84,105 @@ public class FullDateItemAdapter extends BaseAdapter {
 			JSONObject user=users.getJSONObject(i);
 			String account=user.getString("account");
 			friends=friends+account+".";
+			
+			if(user.getString("status").equals("1")){//accept
+				holder.btn_item_accept.setVisibility(View.GONE);
+				holder.btn_item_refuse.setVisibility(View.GONE);
+				
+				holder.tv_status.setVisibility(View.VISIBLE);
+				holder.tv_status.setText("have accepted");
+				
+			}else if(user.getString("status").equals("2")){//refuse
+				holder.btn_item_accept.setVisibility(View.GONE);
+				holder.btn_item_refuse.setVisibility(View.GONE);
+				
+				holder.tv_status.setVisibility(View.VISIBLE);
+				holder.tv_status.setText("have refused");
+				
+			}else{
+				holder.btn_item_accept.setVisibility(View.VISIBLE);
+				holder.btn_item_refuse.setVisibility(View.VISIBLE);
+				holder.tv_status.setVisibility(View.GONE);
+				
+				
+				holder.btn_item_accept.setOnClickListener(new OnClickListener(){
+
+					public void onClick(View v){
+						try {										
+							final String message;
+							String urlString = "date/join";
+
+							List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+							postParameters.add(new BasicNameValuePair("dateId", date.getString("_id")));	
+							postParameters.add(new BasicNameValuePair("token", LoginActivity.token));
+							String ListResult = DatesTalkToServer.datesPost(urlString, postParameters);
+							JSONObject jsonObject = new JSONObject(ListResult);
+							message = jsonObject.getString("message");
+							// 子线程不能修改main线程，所以必须用handler来对ui线程进行操作
+							handler.post(new Runnable() {
+								@Override
+								public void run() {
+									Toast.makeText(context,message, Toast.LENGTH_SHORT).show();
+								}
+							});
+							
+							if(message.equals("join successful！")){
+								
+								holder.btn_item_accept.setVisibility(View.GONE);
+								holder.btn_item_refuse.setVisibility(View.GONE);
+								
+								holder.tv_status.setVisibility(View.VISIBLE);
+								holder.tv_status.setText("have accepted");
+								
+							}
+																				
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				});
+				
+				holder.btn_item_refuse.setOnClickListener(new OnClickListener(){
+					public void onClick(View v){
+						try {
+							
+							final String message;
+							String urlString = "date/nojoin";
+
+							List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+							postParameters.add(new BasicNameValuePair("dateId", date.getString("_id")));	
+							postParameters.add(new BasicNameValuePair("token", LoginActivity.token));
+							String ListResult = DatesTalkToServer.datesPost(urlString, postParameters);
+							JSONObject jsonObject = new JSONObject(ListResult);
+							message = jsonObject.getString("message");
+							// 子线程不能修改main线程，所以必须用handler来对ui线程进行操作
+							handler.post(new Runnable() {
+								@Override
+								public void run() {
+									Toast.makeText(context,message, Toast.LENGTH_SHORT).show();
+								}
+							});
+							
+							if(message.equals("refuse successful！")){
+								
+								holder.btn_item_accept.setVisibility(View.GONE);
+								holder.btn_item_refuse.setVisibility(View.GONE);
+								
+								holder.tv_status.setVisibility(View.VISIBLE);
+								holder.tv_status.setText("have refused");
+								
+							}
+																				
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				});
+			}
 		}
 		
 		holder.tv_item_friend.setText(friends);
@@ -93,87 +193,18 @@ public class FullDateItemAdapter extends BaseAdapter {
 		//---------getPic == id of the pic in drawable-------
 		holder.iv_item_userphoto.setImageResource(R.drawable.jay);//date.getJSONObject("author").getString("head")
 		
-		holder.btn_item_refuse.setOnClickListener(new OnClickListener(){
-			public void onClick(View v){
-				try {
-					
-					final String message;
-					String urlString = "date/nojoin";
-
-					List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-					postParameters.add(new BasicNameValuePair("dateId", date.getString("_id")));	
-					postParameters.add(new BasicNameValuePair("token", LoginActivity.token));
-					String ListResult = DatesTalkToServer.datesPost(urlString, postParameters);
-					JSONObject jsonObject = new JSONObject(ListResult);
-					message = jsonObject.getString("message");
-					// 子线程不能修改main线程，所以必须用handler来对ui线程进行操作
-					handler.post(new Runnable() {
-						@Override
-						public void run() {
-							Toast.makeText(context,message, Toast.LENGTH_SHORT).show();
-						}
-					});
-					
-					if(message.equals("refuse successful！")){
-						
-						holder.btn_item_accept.setVisibility(View.GONE);
-						holder.btn_item_refuse.setVisibility(View.GONE);
-						
-						holder.tv_status.setVisibility(View.VISIBLE);
-						holder.tv_status.setText("have refused");
-					}
-					
-					
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		}); 
 		
-		holder.btn_item_accept.setOnClickListener(new OnClickListener(){
-
-			public void onClick(View v){
-				try {
-					
-					
-					final String message;
-					String urlString = "date/join";
-
-					List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-					postParameters.add(new BasicNameValuePair("dateId", date.getString("_id")));	
-					postParameters.add(new BasicNameValuePair("token", LoginActivity.token));
-					String ListResult = DatesTalkToServer.datesPost(urlString, postParameters);
-					JSONObject jsonObject = new JSONObject(ListResult);
-					message = jsonObject.getString("message");
-					// 子线程不能修改main线程，所以必须用handler来对ui线程进行操作
-					handler.post(new Runnable() {
-						@Override
-						public void run() {
-							Toast.makeText(context,message, Toast.LENGTH_SHORT).show();
-						}
-					});
-					
-					if(message.equals("join successful！")){
-						
-						holder.btn_item_accept.setVisibility(View.GONE);
-						holder.btn_item_refuse.setVisibility(View.GONE);
-						
-						holder.tv_status.setVisibility(View.VISIBLE);
-						holder.tv_status.setText("have accepted");
-					}
-					
-					
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		});
+		/*if(Constants.flagAccept.equals("accept")&&Constants.flagRefuse.equals("refuse")){
+			holder.btn_item_accept.setVisibility(View.VISIBLE);
+			holder.btn_item_refuse.setVisibility(View.VISIBLE);
+		}else if(Constants.status1.equals("have accepted")){
+			holder.tv_status1.setVisibility(View.VISIBLE);
+		}else if(Constants.status2.equals("have refused")){
+			holder.tv_status2.setVisibility(View.VISIBLE);
+		}
+		*/
+		 
+		
 		
 	}catch(Exception e) {
 		e.printStackTrace();
@@ -181,20 +212,6 @@ public class FullDateItemAdapter extends BaseAdapter {
 		return view;
 	}
 	
-	
-	/*private class OnClickJoinBtnListener implements OnClickListener {
-		private int pos;
-		
-		public OnClickNoJoinBtnListener(int pos) {
-			this.pos = pos;
-		}
-		@Override
-		public void onClick(View v) {
-			Toast.makeText(context, "On click item" + pos, Toast.LENGTH_SHORT).show();
-			
-			
-		}
-	}*/
 
 	private static class Holder {
 
