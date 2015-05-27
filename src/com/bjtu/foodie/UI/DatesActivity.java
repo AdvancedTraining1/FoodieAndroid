@@ -27,6 +27,8 @@ public class DatesActivity extends Activity {
 	ConnectToServer connect=new ConnectToServer();
 	public UserDao userDao = new UserDao(this);
 	
+	JSONObject userJSON=null;
+	
 	// Listview adapter List<dates> List<comment>
 	private ListView lv_allDates;
 	private ArrayList<JSONObject> list_dates;
@@ -43,7 +45,7 @@ public class DatesActivity extends Activity {
 		
 		//list_dates = (new TestData()).getDatesData();
 		list_dates = getFriendDates();
-		dateAdapter = new FullDateItemAdapter(this, list_dates);
+		dateAdapter = new FullDateItemAdapter(this, list_dates,userJSON);
 
 		lv_allDates.setAdapter(dateAdapter);
 		
@@ -63,6 +65,9 @@ public class DatesActivity extends Activity {
 			friendDatesResult = connect.testURLConn1(urlString);
 			JSONObject jsonObject = new JSONObject(friendDatesResult);System.out.println("jsonObject=="+jsonObject);
 			JSONArray jsonArray = jsonObject.getJSONArray("date");System.out.println("jsonArray=="+jsonArray);
+			userJSON = jsonObject.getJSONObject("user");
+			
+			
 			//friendCount = jsonObject.getInt("num");
 			for(int i=0;i<jsonArray.length();i++){   
 	            JSONObject jo = (JSONObject)jsonArray.opt(i);

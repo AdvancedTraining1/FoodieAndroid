@@ -33,12 +33,15 @@ public class FullDateItemAdapter extends BaseAdapter {
 	private ArrayList<JSONObject> dates;
 	private Context context;
 	
-	//public UserDao userDao=new UserDao(context);;
+	private JSONObject userJSON;
+	
 	private Handler handler = new Handler();
 	
-	public FullDateItemAdapter(Context contex, ArrayList<JSONObject> dates) {
+	public FullDateItemAdapter(Context contex, ArrayList<JSONObject> dates,JSONObject userJSON) {
 		this.dates = dates;
 		this.context = contex;
+		this.userJSON = userJSON;
+		
 	}
 
 	@Override
@@ -73,6 +76,7 @@ public class FullDateItemAdapter extends BaseAdapter {
 			holder = (Holder) view.getTag();
 		}
 		
+			
 	try{
 		final JSONObject date = this.dates.get(position);
 		
@@ -84,18 +88,20 @@ public class FullDateItemAdapter extends BaseAdapter {
 			JSONObject user=users.getJSONObject(i);
 			String account=user.getString("account");
 			friends=friends+account+".";
-			
+		
+		if(user.getString("_id").equals(userJSON.getString("_id"))){
+			//System.out.println("status===="+user.getString("status"));
 			if(user.getString("status").equals("1")){//accept
 				holder.btn_item_accept.setVisibility(View.GONE);
 				holder.btn_item_refuse.setVisibility(View.GONE);
-				
+			
 				holder.tv_status.setVisibility(View.VISIBLE);
 				holder.tv_status.setText("have accepted");
 				
 			}else if(user.getString("status").equals("2")){//refuse
 				holder.btn_item_accept.setVisibility(View.GONE);
 				holder.btn_item_refuse.setVisibility(View.GONE);
-				
+			
 				holder.tv_status.setVisibility(View.VISIBLE);
 				holder.tv_status.setText("have refused");
 				
@@ -183,6 +189,7 @@ public class FullDateItemAdapter extends BaseAdapter {
 					}
 				});
 			}
+		}
 		}
 		
 		holder.tv_item_friend.setText(friends);

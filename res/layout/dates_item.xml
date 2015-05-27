@@ -117,16 +117,14 @@
                 	android:layout_width="wrap_content"
                 	android:layout_height="wrap_content"
                 	android:gravity="center_vertical"
-                	android:text="accept"
-                	android:visibility="gone" />
+                	android:text="accept" />
                 
                 <Button
                 	android:id="@+id/btn_refuse"
                 	android:layout_width="wrap_content"
                 	android:layout_height="wrap_content"
                 	android:gravity="center_vertical"
-                	android:text="refuse"
-                	android:visibility="gone"/>
+                	android:text="refuse" />
 
                 <TextView
                 	android:id="@+id/txt_status"

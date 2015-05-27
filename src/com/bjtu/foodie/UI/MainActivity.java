@@ -104,9 +104,38 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(),
+				/*Intent i = new Intent(getApplicationContext(),
 						DatesActivity.class);
-				startActivity(i);
+				startActivity(i);*/
+				UserDao userDao = new UserDao(MainActivity.this);
+				User user = userDao.find();
+				Handler handler = new Handler();
+				if (user != null) {					
+					String token = user.getToken();
+					if (token.equals("") || token == null) {
+
+						handler.post(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
+							}
+						});
+
+					} else {
+						Intent i = new Intent(getApplicationContext(),
+								DatesActivity.class);
+						startActivity(i);
+					}
+
+				} else {
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(MainActivity.this, "login frist",Toast.LENGTH_SHORT).show();
+						}
+					});
+				}
+				
 			}
 
 		});
