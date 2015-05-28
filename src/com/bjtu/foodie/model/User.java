@@ -69,5 +69,7 @@ public class User {
 	public void setHead(String head) {
 		this.head = head;
 	}
+
+	
 	
 }

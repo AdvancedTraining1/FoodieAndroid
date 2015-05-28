@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:gravity="center_vertical">
+    
+    
+     <ImageView
+        android:id="@+id/friend_head"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:padding="2dip"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_avatar" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp" >
+        
+          <TextView
+              android:id="@+id/friend_id"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/friend_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="friend"
+            android:textSize="19sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/message"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="The other request to add you as a friend"
+            android:textSize="11sp"
+            android:gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_agree_friend"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:text="Agree"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_disagree_friend"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:textSize="11dp"
+            android:text="DisAgree" />
+
+       
+    </LinearLayout>
+
+</LinearLayout>

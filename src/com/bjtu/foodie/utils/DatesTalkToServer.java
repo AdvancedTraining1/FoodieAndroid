@@ -3,38 +3,23 @@ package com.bjtu.foodie.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.bjtu.foodie.UI.AddMomentActivity;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.SyncHttpClient;
-
 import android.os.StrictMode;
 
 public class DatesTalkToServer {
 
 	//public static final String serviceAddr = "http://101.200.174.49:3000/service/";
 	//10.0.2.2
-	public static final String serviceAddr = "http://219.242.243.113:3000/service/";//192.168.1.103 wifi
+	public static final String serviceAddr = "http://192.168.1.104:3000/service/";//192.168.1.103 wifi
 	public static String datesGet(String url) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 				.detectDiskReads().detectDiskWrites().detectNetwork()

@@ -29,5 +29,11 @@
     <string name="dish_descriptions">Dish Descriptions</string>
     <string name="title_activity_temp_restaurant">TempRestaurantActivity</string>
     <string name="title_activity_route_plan">RoutePlanActivity</string>
+    <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="title_activity_add_friend">AddFriendActivity</string>
+    <string name="title_activity_search_friend">SearchFriendActivity</string>
+    <string name="no_friend_hint">You have no friend. Quick to add.</string>
+    <string name="title_activity_new_friend_search_result">NewFriendSearchResultActivity</string>
+    <string name="title_activity_friend_message">FriendMessageActivity</string>
 
 </resources>

@@ -94,16 +94,6 @@ public class ConnectToServer {
 			HttpPost request = new HttpPost();
 			request.setURI(new URI("http://123.57.38.31:3000/" + urlAdd));
 
-//			Session session = Session.getSession();
-//			String sessionid = (String) session.get("sessionId");
-//			if(sessionid != null) { 
-//				request.setHeader("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID); 
-//			}
-
-			//UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
-					//postParameters);
-			//request.setEntity(formEntity);
-
 			HttpResponse response = client.execute(request);
 			reader = new BufferedReader(new InputStreamReader(response
 					.getEntity().getContent()));

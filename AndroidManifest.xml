@@ -44,6 +44,7 @@
     <uses-permission android:name="android.permission.NFC" />
 
     <application
+        android:name=".FoodieAndroidAPP"
         android:allowBackup="true"
         android:icon="@drawable/icon_foodie"
         android:label="@string/app_name"
@@ -209,6 +210,10 @@
             android:name=".UI.SelectDateFriendsActivity"
             android:parentActivityName=".UI.AddDateActivity" />
         <activity
+            android:name=".UI.MyDateActivity"
+            android:parentActivityName=".UI.MainActivity" />
+        
+        <activity
             android:name=".UI.DishMenu"
             android:parentActivityName=".UI.MainActivity" >
             <intent-filter>
@@ -228,12 +233,32 @@
             android:parentActivityName=".UI.NFCScanTagActivity" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.TempRestaurantActivity"
+            android:name=".UI.TempRestaurantActivity"
             android:label="@string/title_activity_temp_restaurant" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.map.RoutePlanActivity"
+            android:name=".map.RoutePlanActivity"
             android:label="@string/title_activity_route_plan" >
+        </activity>
+        <activity
+            android:name=".UI.FriendListActivity"
+            android:label="@string/title_activity_friend_list" >
+        </activity>
+        <activity
+            android:name=".UI.AddFriendActivity"
+            android:label="@string/title_activity_add_friend" >
+        </activity>
+        <activity
+            android:name=".UI.SearchFriendActivity"
+            android:label="@string/title_activity_search_friend" >
+        </activity>
+        <activity
+            android:name=".UI.NewFriendSearchResultActivity"
+            android:label="@string/title_activity_new_friend_search_result" >
+        </activity>
+        <activity
+            android:name="com.bjtu.foodie.UI.FriendMessageActivity"
+            android:label="@string/title_activity_friend_message" >
         </activity>
     </application>
 

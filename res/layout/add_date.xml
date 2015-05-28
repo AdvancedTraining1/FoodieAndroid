@@ -20,7 +20,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:ems="10"
-        	android:text="Friends" >
+        	android:hint="select date friends"
+        	android:enabled="false" >
  
         	<requestFocus />
     	</EditText>
@@ -38,21 +39,26 @@
        </LinearLayout>
              
        <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/time"
-                android:layout_width="200dip"
-                android:layout_height="wrap_content" 
-                android:text="Time" />
+                android:layout_marginTop="15dp"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:ems="10"
+                android:hint="choose time" 
+                android:enabled="false"/>
 
             <Button
                 android:id="@+id/but_showDate"
-                android:layout_width="100dip"
-                android:layout_height="wrap_content"
-                android:text="选择日期" />
+                android:layout_marginTop="15dp"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:ems="10"
+                android:text="choose" />
         </LinearLayout>
         
         <EditText
@@ -61,9 +67,8 @@
         	android:layout_width="wrap_content"
        	 	android:layout_height="wrap_content"
         	android:ems="10"
-        	android:text="Address" >
+        	android:hint="input your address" >
 
-        	<requestFocus />
     	</EditText>
     
         <LinearLayout

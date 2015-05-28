@@ -3,6 +3,12 @@ package com.bjtu.foodie.common;
 public class Constants {
 	public static final String INTENT_EXTRA_MAIN_TAB = "fromMainTab";
 	
+	public static final String flag= "have not selected friends";
+	public static String flagAccept="accept";
+	public static String flagRefuse="refuse";
+	public static String status1="have not accepted";
+	public static String status2="have not refused";
+	
 	//cmm start
 	public static final String TAG_MOMENT = "--MomentTag";
 	

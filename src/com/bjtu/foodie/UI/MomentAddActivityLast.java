@@ -26,6 +26,7 @@ public class MomentAddActivityLast extends Activity{
 	private EditText contentEditText;
 	private TextView locationTextView;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.moment_add_last);
