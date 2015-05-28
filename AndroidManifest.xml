@@ -185,6 +185,15 @@
             android:name=".UI.MomentAddActivityLast"
             android:parentActivityName=".UI.MomentAddActivityLast" >
         </activity>
+        <activity
+            android:name=".UI.MomentPopupActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:parentActivityName=".UI.MomentPopupActivity" >
+        </activity>
+        <activity
+            android:name=".UI.MomentSingleActivity"
+            android:parentActivityName=".UI.MomentSingleActivity" >
+        </activity>
         <activity android:name=".map.MapActivity" >
         </activity>
         <activity android:name=".UI.RegisterActivity" />
