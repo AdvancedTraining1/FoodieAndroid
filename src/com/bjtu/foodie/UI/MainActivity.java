@@ -93,8 +93,10 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				//Intent i = new Intent(getApplicationContext(),
+						//MomentsActivity.class);
 				Intent i = new Intent(getApplicationContext(),
-						MomentsActivity.class);
+						SinginActivity.class);
 				startActivity(i);
 			}
 		});
