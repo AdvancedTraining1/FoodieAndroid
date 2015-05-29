@@ -1,6 +1,7 @@
 package com.bjtu.foodie.adapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.bjtu.foodie.R;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FullDishItemsAdapter2 extends BaseAdapter {
-
+	public HashMap<Integer, Boolean> state = new HashMap<Integer, Boolean>();
 	private List<DishItem> dishes;
 	private Context context;
 	ArrayList<Boolean> checkedItem = new ArrayList<Boolean>();
@@ -63,7 +64,7 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View arg1, ViewGroup arg2) {
+	public View getView(final int position, View arg1, ViewGroup arg2) {
 		View view = arg1;
 		Holder holder;
 		final int p=position;
@@ -92,12 +93,10 @@ public class FullDishItemsAdapter2 extends BaseAdapter {
 				if(isChecked){
 	                   //update the status of checkbox to checked
 	                    
-	                    checkedItem.set(p, true);
-	                    idList.set(p,id);
+					state.put(position, isChecked);
 	                }else{
 	                  //update the status of checkbox to unchecked
-	                    checkedItem.set(p, false);
-	                    idList.set(p,null);
+	                	state.remove(position);
 	                }
 			}
 
