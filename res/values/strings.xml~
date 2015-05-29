@@ -35,20 +35,5 @@
     <string name="no_friend_hint">You have no friend. Quick to add.</string>
     <string name="title_activity_new_friend_search_result">NewFriendSearchResultActivity</string>
     <string name="title_activity_friend_message">FriendMessageActivity</string>
-    <string name="card_title">被读的卡片</string>
-    <string name="account_number">Put it to reader</string>
-	<string name="service_name">CardEmulation Sample</string>
-    <string name="intro_message">
-        <![CDATA[
-        
-            
-            	这是预约位置，排号的地方，只有你安安静静的等了，在会喊到你，这个机制还不是很完善，不过签个到，点个名还是妥妥的，
-            	1.通过114找到该酒店的订餐电话。
-				2.打订餐电话告知预计就餐的时间，人数。可以顺路了解一下酒店的特色菜是否与用餐口味冲突。
-				3.酒店会提供具体房间，时间，并向你确认订餐人员姓名及单位。
-				4.在与酒店约定的时间，（一般会给你额外保留30分-1小时），抵达酒店。在前台报上订餐人员的相关信息及房间，服务人员就会领你到指定的订餐房间了。
-            
-        
-        ]]>
-    </string>
+
 </resources>
