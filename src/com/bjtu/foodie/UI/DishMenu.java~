@@ -120,10 +120,13 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
             
             mNfcAdapter.setNdefPushMessageCallback(this, this);
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
             //Intent intent1=new Intent(this,ShowList1.class);123,23,412,123
+=======
             // Register callback to listen for message-sent success
             mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
             //Intent intent1=new Intent(this,ShowList1.class);
+>>>>>>> a2c7178be69b9e6ce3424a5c1b52949fa6478781
             //send music names
             //intent1.putStringArrayListExtra("list", getData());
             //startActivity(intent1);
@@ -151,7 +154,8 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
         }
     };
 
-	@Override	public NdefMessage createNdefMessage(NfcEvent event) {
+	@Override
+	public NdefMessage createNdefMessage(NfcEvent event) {
 		
 		
 		// TODO Auto-generated method stub

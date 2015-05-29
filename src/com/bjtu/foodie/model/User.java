@@ -20,8 +20,9 @@ public class User {
 	}
 	public User(){}
 	
-	public User(String token){
+	public User(String token, String id){
 		this.token = token;
+		this.id = id;
 	}
 	
 	public String getToken() {

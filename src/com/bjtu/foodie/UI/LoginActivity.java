@@ -7,6 +7,7 @@ import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.common.Constants;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class LoginActivity extends Activity {
 	private Button btn_register;
 	private Button btn_login;
 	public static String token;
+	public static String id;
 	public boolean isConnect = false;
 	public UserDao userDao = new UserDao(this);
 	private Handler handler = new Handler();
@@ -53,7 +55,7 @@ public class LoginActivity extends Activity {
 		if(user!=null){
 			isConnect = true;
 			token = user.getToken();
-//			userId = user.getUserId();
+			id = user.getId();
 			System.out.println("-------------------"+token);
 		}
 		
@@ -143,8 +145,9 @@ public class LoginActivity extends Activity {
 		
 		try{
 			token = jsonObject.getString("token");
+			id = jsonObject.getString("id");
 			isConnect = true;
-			userDao.add(token);
+			userDao.add(token,id);
 		}catch(Exception e){
 			e.printStackTrace();
 		}	
