@@ -3,42 +3,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-
-    <EditText
-        android:id="@+id/title"
-        android:layout_marginTop="15dp"
+   
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+        
+       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="title" >
+        android:orientation="horizontal" >
+        <EditText
+        	android:id="@+id/friends"
+        	android:layout_marginTop="15dp"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:ems="10"
+        	android:hint="select date friends"
+        	android:enabled="false" >
+ 
+        	<requestFocus />
+    	</EditText>
+    	
+        <Button
+        	android:id="@+id/select"
+        	android:layout_marginTop="15dp"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:ems="10"
+        	android:text="select" >
+ 
+        	<requestFocus />
+    	</Button>
+       </LinearLayout>
+             
+       <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
+            <EditText
+                android:id="@+id/time"
+                android:layout_marginTop="15dp"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:ems="10"
+                android:hint="choose time" 
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/but_showDate"
+                android:layout_marginTop="15dp"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:ems="10"
+                android:text="choose" />
+        </LinearLayout>
+        
+        <EditText
+        	android:id="@+id/content"
+        	android:layout_marginTop="15dp"
+        	android:layout_width="wrap_content"
+       	 	android:layout_height="wrap_content"
+        	android:ems="10"
+        	android:hint="input your address" >
+
+    	</EditText>
     
-    <EditText
-        android:id="@+id/content"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_below="@+id/title"
-        android:ems="10"
-        android:text="content" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
-    
-    <EditText
-        android:id="@+id/time"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_below="@+id/content"
-        android:ems="10"
-        android:text="time" >
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint=""
+                android:textSize="16sp" />
 
-        <requestFocus />
-    </EditText>
+            <Button
+                android:id="@+id/publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="publish" />
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

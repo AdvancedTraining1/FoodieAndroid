@@ -7,22 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONStringer;
-import org.json.JSONTokener;
-
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.data.ReadFileSingleton;
-import com.bjtu.foodie.model.DishItem;
-
-
-
-import android.R.integer;
-import android.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -44,9 +33,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class NFCScanTagActivity extends Activity {
@@ -141,7 +128,7 @@ public class NFCScanTagActivity extends Activity {
 				
 				Intent intent1=new Intent(NFCScanTagActivity.this,CouponActivity.class);
 	            //send music names
-	            intent1.putStringArrayListExtra("list", (ArrayList<String>) msg);
+	            intent1.putStringArrayListExtra("list", msg);
 	            startActivity(intent1);
 			}
 		});
@@ -286,7 +273,7 @@ public class NFCScanTagActivity extends Activity {
              *          MODE_WORLD_WRITEABLE 公用 可读写 
              *  */  
             FileOutputStream outputStream = openFileOutput(filename,  
-                    Activity.MODE_APPEND);  
+                    Context.MODE_APPEND);  
             //Toast.makeText(context, "To another page",Toast.LENGTH_SHORT).show();           
             
             outputStream.write(text.getBytes());  

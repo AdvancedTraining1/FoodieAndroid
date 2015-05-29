@@ -11,7 +11,7 @@ public class TestDishes {
 
 	public List<DishItem> getData() {
 		
-		int[] colors = new int[] { 0xff626569, 0xff4f5257 };
+		int[] colors = new int[] { 0x00010101, 0x55808080 };
 		dishes = new ArrayList<DishItem >();
 		//DishItem(String id, String dishName,String desc,int pic)
 		for (int i = 0; i < 6; ++i) {

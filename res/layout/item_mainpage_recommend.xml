@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dip"
+    android:paddingLeft="10dip"
+    android:paddingTop="5dip" >
+
+    <ImageView
+        android:id="@+id/iv_restPhoto"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="45dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/res5" />
+
+    <TextView
+        android:id="@+id/tv_restName"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="鲜果时间"
+        android:textColor="@color/black"
+        android:textSize="15dip" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/icon_stars" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/icon_stars" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/icon_stars" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2.5"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp" >
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/tuan" />
+
+        <TextView
+            android:id="@+id/tv_resttype"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="五道口  奶茶"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

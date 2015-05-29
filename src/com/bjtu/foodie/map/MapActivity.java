@@ -1,14 +1,12 @@
 package com.bjtu.foodie.map;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,12 +14,10 @@ import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.location.LLSInterface;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
@@ -29,21 +25,9 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.overlayutil.PoiOverlay;
-import com.baidu.mapapi.search.core.CityInfo;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.bjtu.foodie.R;
 
@@ -52,7 +36,7 @@ public class MapActivity extends Activity {
 	// display map
 	private MapView baiduMapView = null;
 	private BaiduMap mbaiduMap;
-	private ActionBar actionBar;
+	private Context context;
 	private boolean curMapModeIsNormal = true; // false => satellite
 
 	// surround
@@ -67,41 +51,48 @@ public class MapActivity extends Activity {
 	private BitmapDescriptor markerIcon;
 	private MyLocationListener locListener;
 	private boolean isFirstLoc = true; // if locate first time
+	private float curZoom = 16;
 
 	// search around
 	private EditText et_searchKeyword;
 	private EditText et_searchDistance;
 	private ImageButton ib_search;
 	private LinearLayout ll_search;
+	
+	// my position infomation
+	private static String curAddr;
+	private static String curCity; //  needed by citySearch
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SDKInitializer.initialize(getApplicationContext());
+		context = getApplicationContext();
+		SDKInitializer.initialize(context);
 		setContentView(R.layout.activity_map);
 
-		actionBar = getActionBar();
+		context = getApplicationContext();
 
 		// initial map
 		baiduMapView = (MapView) findViewById(R.id.bmapView);
-		
+
 		baiduMapView.showZoomControls(false);
 		mbaiduMap = baiduMapView.getMap();
 		mPoiSearchAround = PoiSearch.newInstance();
 		initLocClient();
-		mbaiduMap.setOnMarkerClickListener(new myMarkerClickListener());
+		mbaiduMap.setOnMarkerClickListener(new MyMarkerClickListener(context,
+				mbaiduMap, mPoiSearchAround));
 	}
 
 	private void initLocClient() {
 		// turn on the location function
 		mbaiduMap.setMyLocationEnabled(true);
 
-		mlocClient = new LocationClient(getApplicationContext());
+		mlocClient = new LocationClient(context);
 		locListener = new MyLocationListener();
 
 		// build marker icon
 		markerIcon = BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_gcoding);
+				.fromResource(R.drawable.icon_location_red);
 		curLocMode = LocationMode.NORMAL;
 		mbaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
 		// LocationMode mode, boolean enableDirection, BitmapDescriptor
@@ -111,11 +102,14 @@ public class MapActivity extends Activity {
 
 		LocationClientOption opt = new LocationClientOption();
 		opt.setOpenGps(true);
+		opt.setIsNeedAddress(true);
 		// coorType - 取值有3个
 		// 返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
 		opt.setCoorType("bd09ll");
 		opt.setScanSpan(2000); // 设置扫描间隔，单位是毫秒 当<1000(1s)时，定时定位无效
 		mlocClient.setLocOption(opt);
+		mlocClient.start();
+		mlocClient.requestLocation();
 	}
 
 	@Override
@@ -147,7 +141,7 @@ public class MapActivity extends Activity {
 			curMapModeIsNormal = !curMapModeIsNormal;
 			break;
 		case R.id.action_location:
-			getMyCurrentLocation();
+			markMyCurPosition();
 			break;
 		default:
 			break;
@@ -156,58 +150,58 @@ public class MapActivity extends Activity {
 	}
 
 	private void getSearchDialog() {
-		
+
 		ll_search = (LinearLayout) findViewById(R.id.ll_searchAround);
 		ll_search.setVisibility(0);
-		
+
 		et_searchKeyword = (EditText) findViewById(R.id.et_searchKeyWord);
 		et_searchDistance = (EditText) findViewById(R.id.et_distance);
 		ib_search = (ImageButton) findViewById(R.id.ib_search);
-		
-		
-		// curloc got some problem can not get curPosition and have nullpointerException
+
+		// curloc got some problem can not get curPosition and have
+		// nullpointerException
 		ib_search.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				int distance = 0;
 				String distanceS = et_searchDistance.getText().toString();
 				String key = et_searchKeyword.getText().toString();
 				if (distanceS.isEmpty()) {
-					Toast.makeText(getApplicationContext(), "empty distance",
+					Toast.makeText(context, "empty distance",
 							Toast.LENGTH_SHORT).show();
 				} else if (key.isEmpty()) {
-						Toast.makeText(getApplicationContext(), "empty keyword",
-								Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "empty keyword", Toast.LENGTH_SHORT)
+							.show();
 				} else {
 					distance = Integer.valueOf(distanceS);
-				
+
 					if (distance < 0) {
-					Toast.makeText(getApplicationContext(), "illegal distance value",
-							Toast.LENGTH_SHORT).show();
+						Toast.makeText(context, "illegal distance value",
+								Toast.LENGTH_SHORT).show();
 					} else {
-						String s = "keyword:"+key  + "  distance:"+distance;
-						Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-//						searchKeyAroundDistance(key, myCurPosition, distance);
+						String s = "keyword:" + key + "  distance:" + distance;
+						Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+
+						mbaiduMap.clear();
+						MapUtils.searchKeyAroundDistance(mPoiSearchAround, key,
+								myCurPosition, distance,
+								new MyGetPoiSearchResultListener(context,
+										mbaiduMap, mPoiSearchAround, myCurPosition));
 					}
 				}
 			}
 		});
 	}
 
-	private void getMyCurrentLocation() {
-		mlocClient.start();
-		mlocClient.requestLocation();
-	}
-
-	private void searchKeyAroundDistance(String key, LatLng position, int distance) {
-		PoiNearbySearchOption curNearByOption = new PoiNearbySearchOption()
-				.keyword(key).location(position)
-				.radius(distance);
-		if (mPoiSearchAround.searchNearby(curNearByOption)) {
-			mPoiSearchAround
-					.setOnGetPoiSearchResultListener(new myGetPoiSearchResultListener());
-		}
+	private void markMyCurPosition() {
+		mbaiduMap.clear();
+		// set new center point and zoom level(3-20) of the map
+		MapStatusUpdate newState = MapStatusUpdateFactory
+				.newLatLngZoom(myCurPosition, curZoom);
+		mbaiduMap.animateMapStatus(newState);
+		MapUtils.setMarker(curLocMarker, mbaiduMap, myCurPosition, markerIcon);
+		Toast.makeText(context, "my city ->" + curCity, Toast.LENGTH_LONG).show();
 	}
 
 	public class MyLocationListener implements BDLocationListener {
@@ -217,65 +211,26 @@ public class MapActivity extends Activity {
 
 			if (location == null || mbaiduMap == null)
 				return;
-			// get current location data
-			// MyLocationData locationData = new MyLocationData.Builder()
-			// .accuracy(location.getRadius()).direction(0)
-			// .latitude(location.getLatitude())
-			// .longitude(location.getLongitude()).build();
-			// mbaiduMap.setMyLocationData(locationData);
 			if (isFirstLoc) {
-				isFirstLoc = false;
 				myCurPosition = new LatLng(location.getLatitude(),
 						location.getLongitude());
-				// set new center point and zoom level(3-20) of the map
-				MapStatusUpdate newState = MapStatusUpdateFactory
-						.newLatLngZoom(myCurPosition, 15);
-				mbaiduMap.animateMapStatus(newState);
-				setMarker(location);
-			}
+				isFirstLoc = false;
+				curCity = location.getCity();
+				curAddr = location.getAddrStr();
+				
+			} 
 		}
 
 		public void onReceivePoi(BDLocation location) {
 		}
 	}
 
-	private void setMarker(BDLocation location) {
-		OverlayOptions curLocOO = new MarkerOptions()
-				.position(
-						new LatLng(location.getLatitude(), location
-								.getLongitude())).icon(markerIcon).zIndex(9)
-				.draggable(true);
-		curLocMarker = (Marker) mbaiduMap.addOverlay(curLocOO);
+	static public String getCurAddr() {
+		return curAddr;
 	}
 
-	class myMarkerClickListener implements OnMarkerClickListener {
-
-		@Override
-		public boolean onMarkerClick(final Marker marker) {
-			Button popBtn = new Button(getApplicationContext());
-			popBtn.setBackgroundResource(R.drawable.popup);
-			OnInfoWindowClickListener listener = null;
-			popBtn.setText("搜索周边美食");
-			popBtn.setTextColor(Color.BLACK);
-
-			listener = new OnInfoWindowClickListener() {
-				@Override
-				public void onInfoWindowClick() {
-					// 显示周边固定范围内到餐厅
-					Toast.makeText(getApplicationContext(),
-							"I am searching around 2000 meters",
-							Toast.LENGTH_SHORT).show();
-					searchKeyAroundDistance("餐厅", marker.getPosition(), 2000);
-				}
-
-			};
-			LatLng ll = marker.getPosition();
-			mInfoWindow = new InfoWindow(
-					BitmapDescriptorFactory.fromView(popBtn), ll, -47, listener);
-			mbaiduMap.showInfoWindow(mInfoWindow);
-			return true;
-		}
-
+	static public String getCurCity() {
+		return curCity;
 	}
 
 	@Override
@@ -293,6 +248,7 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 
+		mlocClient.unRegisterLocationListener(locListener);
 		mlocClient.stop();
 		mbaiduMap.setMyLocationEnabled(false);
 		baiduMapView.onDestroy();
@@ -300,55 +256,4 @@ public class MapActivity extends Activity {
 		super.onDestroy();
 	}
 
-	protected class myGetPoiSearchResultListener implements
-			OnGetPoiSearchResultListener {
-
-		@Override
-		public void onGetPoiDetailResult(PoiDetailResult result) {
-			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				Toast.makeText(MapActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT)
-						.show();
-			} else {
-				Toast.makeText(MapActivity.this,
-						result.getName() + ": " + result.getAddress(),
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		@Override
-		public void onGetPoiResult(PoiResult result) {
-			if (result == null
-					|| result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-				Toast.makeText(MapActivity.this, "未找到结果", Toast.LENGTH_LONG)
-						.show();
-				return;
-			}
-			if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-				mbaiduMap.clear();
-				PoiOverlay overlay = new MyPoiOverlay(mbaiduMap);
-				mbaiduMap.setOnMarkerClickListener(overlay);
-				overlay.setData(result);
-				overlay.addToMap();
-				overlay.zoomToSpan();
-				return;
-			}
-		}
-
-		// get detail when click the restaurant marker of the searching result
-		private class MyPoiOverlay extends PoiOverlay {
-
-			public MyPoiOverlay(BaiduMap arg0) {
-				super(arg0);
-			}
-
-			@Override
-			public boolean onPoiClick(int index) {
-				super.onPoiClick(index);
-				PoiInfo poiInfo = getPoiResult().getAllPoi().get(index);
-				mPoiSearchAround.searchPoiDetail((new PoiDetailSearchOption())
-						.poiUid(poiInfo.uid));
-				return true;
-			}
-		}
-	}
 }

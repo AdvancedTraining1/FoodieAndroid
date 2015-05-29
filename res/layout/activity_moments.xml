@@ -1,73 +1,131 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:fillViewport="true"
+    android:scrollbars="none"
     tools:context="com.bjtu.foodie.UI.MomentsActivity" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:id="@+id/iv_bgimg"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_ocean" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="-70dp"
-            android:orientation="horizontal" >
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingRight="3dp"
-                android:paddingTop="30dp" >
-
-                <!-- shadow [android:shadow did not work] -->
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="2dp"
-                    android:gravity="end"
-                    android:text="@string/userName"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="end"
-                    android:text="@string/userName"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-            </FrameLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:background="@color/white">
 
             <ImageView
-                android:id="@+id/iv_userPic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@android:color/white"
-                android:padding="2dp"
-                android:src="@drawable/icon_avatar" />
-        </LinearLayout>
+                android:id="@+id/iv_bgimg"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_ocean" />
 
-        <ListView
-            android:id="@+id/lv_moments"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="-70dp"
+                android:orientation="horizontal" >
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingRight="3dp"
+                    android:paddingTop="30dp"
+                    >
+
+                    <!-- shadow [android:shadow did not work] -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="2dp"
+                        android:gravity="end"
+                        android:text="@string/userName"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end"
+                        android:text="@string/userName"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/iv_userPic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/white"
+                    android:padding="2dp"
+                    android:src="@drawable/icon_avatar" />
+            </LinearLayout>
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/pull_refresh_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="#19000000"
+                android:dividerHeight="1dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white">
+
+        <SurfaceView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none" >
-        </ListView>
+            android:layout_height="1dp"
+            android:background="@color/whitesmoke"/>
         
-    </LinearLayout>
-</ScrollView>
+        <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="38dp"
+	        android:orientation="horizontal">
+		    <EditText
+		        android:id="@+id/et_new_comment"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:focusable="true"
+		        android:hint="comment:"/>
+            
+		    <Button 
+		        android:id="@+id/btn_new_comment"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:textSize="13sp"
+		        android:background="@color/azure"
+		        android:onClick="addComment"
+		        android:text="SEND"/>
+		    <!-- <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:visibility="gone"> -->
+		</LinearLayout>
+		    
+	</LinearLayout>
+</RelativeLayout>

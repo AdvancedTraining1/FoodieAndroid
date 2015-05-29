@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/beige"
+        android:padding="5dp"
+        android:textSize="15sp"
+        android:text="Where did you think of it?"/>
+
+	<EditText
+	    android:id="@+id/content"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:enabled="true"
+	    android:gravity="top"
+	    android:minLines="8"
+	    android:maxLines="10"
+	    android:scrollbars="vertical" 
+		android:hint="what did you think of it?"
+	    android:inputType="textMultiLine"/>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+
+		<ImageView
+		    android:id="@+id/imageView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/icon_location_red" />
+	    
+		<TextView
+		    android:id="@+id/location"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textSize="15sp"
+		    android:textStyle="bold"
+		    android:text="LOCATION"/>
+	</LinearLayout>
+	
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Share to wechat" />
+	
+</LinearLayout>

@@ -30,10 +30,12 @@ public class UserDao {
 		db.close();
 		return user;
 	}
+	
 	public void delete (String token){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.execSQL("delete from user where token = ?", new Object[]{token});
 		db.close();
 	}
+	
 
 }

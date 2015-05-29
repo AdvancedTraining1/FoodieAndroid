@@ -19,7 +19,7 @@ import android.os.StrictMode;
 @SuppressLint("NewApi")
 public class ConnectToServer {
 
-	final static String ipaddress="http://10.0.2.2:3000";
+	final static String ipaddress="http://101.200.174.49:3000";//:3000
 	@SuppressLint("NewApi")
 	public String testURLConn1(String urlAdd) throws Exception{
 
@@ -93,16 +93,6 @@ public class ConnectToServer {
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpPost request = new HttpPost();
 			request.setURI(new URI("http://123.57.38.31:3000/" + urlAdd));
-
-//			Session session = Session.getSession();
-//			String sessionid = (String) session.get("sessionId");
-//			if(sessionid != null) { 
-//				request.setHeader("Cookie", "JSPSESSID.732cdf6d=" + sessionid+";"+Constants.POST_SESSIONID); 
-//			}
-
-			//UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
-					//postParameters);
-			//request.setEntity(formEntity);
 
 			HttpResponse response = client.execute(request);
 			reader = new BufferedReader(new InputStreamReader(response

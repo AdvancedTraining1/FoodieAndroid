@@ -25,18 +25,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.UI.AddMomentActivity;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
 import android.os.StrictMode;
-import android.widget.Toast;
 
 public class MomentTalkToServer {
 
 	//public static final String serviceAddr = "http://123.57.38.31:3000/service/";
 	//10.0.2.2
-	public static final String serviceAddr = "http://172.28.42.21:3000/service/";
+	public static final String serviceAddr = "http://101.200.174.49:3000/service/";
 	public static String momentGet(String url) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 				.detectDiskReads().detectDiskWrites().detectNetwork()

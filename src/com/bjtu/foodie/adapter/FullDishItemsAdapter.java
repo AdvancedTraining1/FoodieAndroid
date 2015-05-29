@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.json.JSONException;
@@ -14,11 +13,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.bjtu.foodie.R;
-import com.bjtu.foodie.UI.NFCScanTagActivity;
-import com.bjtu.foodie.model.DishItem;
-
-import android.R.array;
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,7 +170,7 @@ public class FullDishItemsAdapter extends BaseAdapter {
 	             *          MODE_WORLD_WRITEABLE 公用 可读写 
 	             *  */  
 	            FileOutputStream outputStream = context.openFileOutput("NFC.dat",  
-	                    Activity.MODE_PRIVATE);  
+	                    Context.MODE_PRIVATE);  
 	            //Toast.makeText(context, "To another page",Toast.LENGTH_SHORT).show();           
 	            
 	            outputStream.write(text.getBytes());  

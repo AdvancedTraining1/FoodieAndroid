@@ -1,6 +1,7 @@
 package com.bjtu.foodie.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class DateModel {
 
@@ -15,6 +16,18 @@ public class DateModel {
 	private int dateUsers_count;
 	//private int dateStatus;
 	
+	private List<User> dateUsers;
+	
+	public List<User> getDateUsers() {
+		return dateUsers;
+	}
+
+
+	public void setDateUsers(List<User> dateUsers) {
+		this.dateUsers = dateUsers;
+	}
+
+
 	public DateModel(String userId, String userName, int userPic, String dateTitle, String dateContent,
 			Date dateTime, Date logTime, int dateUsers_count) {
 		super();
@@ -26,8 +39,23 @@ public class DateModel {
 		this.dateTime = dateTime;
 		this.logTime = logTime;
 		this.dateUsers_count = dateUsers_count;
+		//this.dateUsers = dateUsers;
 	}
 	
+	
+	public DateModel(List<User> dateUsers, Date dateTime, String dateContent) {
+		super();
+		this.dateContent = dateContent;
+		this.dateTime = dateTime;
+		this.dateUsers = dateUsers;
+	}
+	public DateModel(String dateUsers, String dateTime, String dateContent) {
+		super();
+		this.dateTitle = dateUsers;//?????
+		this.dateTime = new Date(dateTime);
+		this.dateContent = dateContent;
+		
+	}
 	
 	public String getUserId() {
 		return userId;
@@ -144,7 +172,7 @@ public class DateModel {
 	@SuppressWarnings("deprecation")
 	public String getSimpleDate() {
 		String simpleDate = null;
-		simpleDate = this.getMonth() + " " + this.logTime.getDate() + "th "
+		simpleDate = "Time: " + this.getMonth() + " " + this.logTime.getDate() + "th "
 				+ (this.logTime.getYear() + 1900) + " " + this.logTime.getHours()
 				+ ":" + this.logTime.getMinutes() + ":" + this.logTime.getSeconds();
 		return simpleDate;
