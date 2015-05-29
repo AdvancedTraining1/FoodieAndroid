@@ -123,7 +123,7 @@ public class MomentsActivity extends Activity {
 			public void onClick(View v) {
 				Intent intentMyMoment = new Intent(getApplicationContext(),
 						MyMomentActivity.class);
-				
+				intentMyMoment.putExtra(Constants.KEY_USER_ID, "555055e95f51f5be307902ad");
 				startActivity(intentMyMoment);
 			}
 		});

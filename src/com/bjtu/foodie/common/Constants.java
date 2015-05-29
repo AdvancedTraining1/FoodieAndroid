@@ -16,6 +16,7 @@ public class Constants {
 	public static final String KEY_PHOTO_FROM_TAKE = "fromTakePhoto";
 	public static final String KEY_ORIENTATION = "orientation";
 	public static final String KEY_SINGLE_DATA = "singleMomentData";
+	public static final String KEY_USER_ID = "userId";
 	
 	public static final String POST_TOKEN = "token";
 	public static final String POST_CONTENT = "content";
