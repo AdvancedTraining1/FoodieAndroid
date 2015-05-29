@@ -2,14 +2,13 @@ package com.bjtu.foodie.UI;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
-import android.widget.AdapterView;   
-import android.widget.AdapterView.OnItemClickListener;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.nfc.NdefMessage;
@@ -21,8 +20,11 @@ import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,8 +34,6 @@ import com.bjtu.foodie.adapter.FullDishItemsAdapter;
 import com.bjtu.foodie.adapter.FullDishItemsAdapter2;
 import com.bjtu.foodie.data.TestDishes;
 import com.bjtu.foodie.model.DishItem;
-import com.bjtu.foodie.model.Friend;
-import com.bjtu.foodie.model.User;
 
 public class DishMenu extends Activity implements OnClickListener,
 CreateNdefMessageCallback,OnNdefPushCompleteCallback{
@@ -48,6 +48,7 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     private Button m_submit;
     private String dishchoose="dish choose";
 	NfcAdapter mNfcAdapter;
+ 	String dishMenu="";
     private static final int MESSAGE_SENT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,12 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
             @Override   
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,   
                     long arg3) {   
-                //»ñµÃÑ¡ÖÐÏîµÄHashMap¶ÔÏó   
+                //ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½HashMapï¿½ï¿½ï¿½ï¿½   
                 HashMap<String,String> map=(HashMap<String,String>)m_listview.getItemAtPosition(arg2);   
                 String title=map.get("name");   
                 String content=map.get("desc");   
                 Toast.makeText(getApplicationContext(),    
-                        "ÄãÑ¡ÔñÁËµÚ"+arg2+"¸öItem£¬itemTitleµÄÖµÊÇ£º"+title+"itemContentµÄÖµÊÇ:"+content,   
+                		"ä½ é€‰æ‹©äº†ç¬¬"+arg2+"ä¸ªItemï¼ŒitemTitleçš„å€¼æ˜¯ï¼š"+title+"itemContentçš„å€¼æ˜¯:"+content,    
                         Toast.LENGTH_SHORT).show();   
             }   
                
@@ -87,48 +88,31 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     @Override
 	public void onClick(View v) {	
     	HashMap<Integer, Boolean> state =m_adapter2.state;
-    	String options="Ñ¡ÔñµÄÏîÊÇ:";
-    	String dishMenu="";
+    	String options="é€‰æ‹©çš„é¡¹æ˜¯:";
+   
     	for(int j=0;j<m_adapter2.getCount();j++){
     	System.out.println("state.get("+j+")=="+state.get(j));
     	if(state.get(j)!=null){
     	@SuppressWarnings("unchecked")
-    	DishItem dishChecked=(DishItem)m_adapter2.getItem(j);//µÃµ½Ñ¡ÖÐµÄÒ»µÀ²Ë
+    	DishItem dishChecked=(DishItem)m_adapter2.getItem(j);//ï¿½Ãµï¿½Ñ¡ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½ï¿½
     	String id=dishChecked.getId().toString();
+    	int img =  dishChecked.getPic();
     	String username=dishChecked.getName().toString();
     	String desc=dishChecked.getDesc().toString();
-    	dishMenu+=id+";"+username+";"+desc+";";
+    	int cor = dishChecked.getColor();
+    	dishMenu+=id+";"+username+";"+img+";"+desc+";"+cor+";";
     	options+="\n"+username+"."+desc;
     	}
     	}
-    	//ÏÔÊ¾Ñ¡ÔñÄÚÈÝ
-    	Toast.makeText(getApplicationContext(), dishMenu, Toast.LENGTH_LONG).show();
-    	
-       /*switch(v.getId()){
-    	
-       case R.id.button0:
-        	String s="You have choosed ";
-            ArrayList<Boolean> checkList = m_adapter2.getChecklist();
-            ArrayList<String> idList = m_adapter2.getIDList();
-            for(int i=0;i<checkList.size();i++){
-                if(checkList.get(i)){
-                    s=s+","+idList.get(i);
-                    dishchoose = dishchoose + ",dish"+i;
-                }
-            }
-            s=s+", and please touch to restaurant mobile to submit the dishes. Thanks!";
-            
-            mNfcAdapter.setNdefPushMessageCallback(this, this);
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            // Register callback to listen for message-sent success
-            mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
-            //Intent intent1=new Intent(this,ShowList1.class);
-            //send music names
-            //intent1.putStringArrayListExtra("list", getData());
-            //startActivity(intent1);
-            break;
-    }*/
-    	
+    	//ï¿½ï¿½Ê¾Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  //  	Toast.makeText(getApplicationContext(), dishMenu, Toast.LENGTH_LONG).show();
+    	String s="You have choosed ";
+    	s=s+options;
+    	s=s+", and please touch to restaurant mobile to submit the dishes. Thanks!";
+    	mNfcAdapter.setNdefPushMessageCallback(this, this);
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+           // Register callback to listen for message-sent success
+        mNfcAdapter.setOnNdefPushCompleteCallback(this, this);   	
     	
     	}
         
@@ -153,13 +137,15 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
 	@Override
 	public NdefMessage createNdefMessage(NfcEvent event) {
 		
+		dishchoose = dishMenu;
 		
 		// TODO Auto-generated method stub
 		   NdefMessage msg = new NdefMessage(
 	                new NdefRecord[] { createMimeRecord(
 	                        "text/dishchoose", dishchoose.getBytes())
 	                });
-		   dishchoose = "dish choose";
+		dishchoose = "";
+		dishMenu = "";
 		return msg;
 	}
 	                
@@ -204,33 +190,33 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
 		
 	}
 	                
-//        @Override
-//        public void onResume() {
-//            super.onResume();
-//            // Check to see that the Activity started due to an Android Beam
-//            System.out.println("onResume.......");
-//            System.out.println("onResume  get Action......."+getIntent().getAction());
-//            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
-//                processIntent(getIntent());
-//            }
-//        }
+        @Override
+        public void onResume() {
+            super.onResume();
+            // Check to see that the Activity started due to an Android Beam
+            System.out.println("onResume.......");
+            System.out.println("onResume  get Action......."+getIntent().getAction());
+            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+                processIntent(getIntent());
+            }
+        }
 
-//        @Override
-//        public void onNewIntent(Intent intent) {
-//            // onResume gets called after this to handle the intent
-//            setIntent(intent);
-//        }
+        @Override
+        public void onNewIntent(Intent intent) {
+            // onResume gets called after this to handle the intent
+            setIntent(intent);
+        }
         
-//        void processIntent(Intent intent) {
-//       	 System.out.println("processIntent.......");
-//           Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-//                   NfcAdapter.EXTRA_NDEF_MESSAGES);
-//           // only one message sent during the beam
-//           NdefMessage msg = (NdefMessage) rawMsgs[0];
-//           System.out.println("transfor information:"+new String(msg.getRecords()[0].getPayload()));
-//           // record 0 contains the MIME type, record 1 is the AAR, if present
-//         //  mInfoText.setText(new String(msg.getRecords()[0].getPayload()));
-//       }
+        void processIntent(Intent intent) {
+       	 System.out.println("processIntent.......");
+           Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
+                   NfcAdapter.EXTRA_NDEF_MESSAGES);
+           // only one message sent during the beam
+           NdefMessage msg = (NdefMessage) rawMsgs[0];
+           System.out.println("transfor information:"+new String(msg.getRecords()[0].getPayload()));
+           // record 0 contains the MIME type, record 1 is the AAR, if present
+         //  mInfoText.setText(new String(msg.getRecords()[0].getPayload()));
+       }
 
 
     
