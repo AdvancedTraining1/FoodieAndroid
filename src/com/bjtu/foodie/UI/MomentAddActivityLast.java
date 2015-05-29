@@ -26,9 +26,6 @@ public class MomentAddActivityLast extends Activity{
 	private EditText contentEditText;
 	private TextView locationTextView;
 	
-//	public MomentAddActivity1 addActivity1;
-//	List activityList = new ArrayList();
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,9 +36,6 @@ public class MomentAddActivityLast extends Activity{
 		serverPicPath = intent.getStringExtra(Constants.KEY_PHOTO_PATH);
 		contentEditText = (EditText)findViewById(R.id.content);
 		locationTextView = (TextView)findViewById(R.id.location);
-		
-//		activityList.add(MomentAddActivity1.class);
-//		activityList.add(MomentAddActivity2.class);
 	}
 	
 	@Override
