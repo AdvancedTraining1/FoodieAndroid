@@ -3,8 +3,15 @@ package com.bjtu.foodie.UI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import android.widget.AdapterView;   
+import android.widget.AdapterView.OnItemClickListener;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -25,14 +32,20 @@ import com.bjtu.foodie.adapter.FullDishItemsAdapter;
 import com.bjtu.foodie.adapter.FullDishItemsAdapter2;
 import com.bjtu.foodie.data.TestDishes;
 import com.bjtu.foodie.model.DishItem;
+import com.bjtu.foodie.model.Friend;
+import com.bjtu.foodie.model.User;
 
 public class DishMenu extends Activity implements OnClickListener,
 CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     
+	
+	ConnectToServer connect=new ConnectToServer();
 	private ListView m_listview;
     private List<DishItem> m_DishData;
+    private List<DishItem> dishData;
     private FullDishItemsAdapter m_adapter;
     private FullDishItemsAdapter2 m_adapter2;
+    private List<DishItem> dishMenu;
     private Button m_submit;
     private String dishchoose="dish choose";
 	NfcAdapter mNfcAdapter;
@@ -48,19 +61,51 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
         
         m_listview = (ListView)findViewById(R.id.listview0);
         m_DishData = (new TestDishes()).getData();
+        dishData=getDish();
         //m_adapter = new FullDishItemsAdapter(this,m_DishData);	
         //m_listview.setAdapter(m_adapter);
         
         m_adapter2 = new FullDishItemsAdapter2(this, m_DishData);
         m_listview.setAdapter(m_adapter2);
+        m_listview.setOnItemClickListener(new OnItemClickListener(){   
+            @Override   
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,   
+                    long arg3) {   
+                //获得选中项的HashMap对象   
+                HashMap<String,String> map=(HashMap<String,String>)m_listview.getItemAtPosition(arg2);   
+                String title=map.get("name");   
+                String content=map.get("desc");   
+                Toast.makeText(getApplicationContext(),    
+                        "你选择了第"+arg2+"个Item，itemTitle的值是："+title+"itemContent的值是:"+content,   
+                        Toast.LENGTH_SHORT).show();   
+            }   
+               
+        });
         
         m_submit.setOnClickListener(this);
     }
     
     @Override
-	public void onClick(View v) {
-    	switch(v.getId()){
-        case R.id.button0:
+	public void onClick(View v) {	
+    	HashMap<Integer, Boolean> state =m_adapter2.state;
+    	String options="选择的项是:";
+    	for(int j=0;j<m_adapter2.getCount();j++){
+    	System.out.println("state.get("+j+")=="+state.get(j));
+    	if(state.get(j)!=null){
+    	@SuppressWarnings("unchecked")
+    	DishItem dishChecked=(DishItem)m_adapter2.getItem(j);//得到选中的一道菜
+    	String id=dishChecked.getId().toString();
+    	String username=dishChecked.getName().toString();
+    	String desc=dishChecked.getDesc().toString();
+    	options+="\n"+username+"."+desc;
+    	}
+    	}
+    	//显示选择内容
+    	Toast.makeText(getApplicationContext(), options, Toast.LENGTH_LONG).show();
+    	
+       /*switch(v.getId()){
+    	
+       case R.id.button0:
         	String s="You have choosed ";
             ArrayList<Boolean> checkList = m_adapter2.getChecklist();
             ArrayList<String> idList = m_adapter2.getIDList();
@@ -81,9 +126,11 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
             //intent1.putStringArrayListExtra("list", getData());
             //startActivity(intent1);
             break;
-    }
+    }*/
+    	
+    	
+    	}
         
-    }
 
 	@Override
 	public void onNdefPushComplete(NfcEvent event) {
@@ -121,7 +168,40 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
                 NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
         return mimeRecord;
     }
-	                
+	           
+    public List<DishItem> getDish(){
+		//List<DateModel> friendDates= new ArrayList<DateModel>();
+    	List<DishItem> dish = new ArrayList<DishItem>();
+		
+		//User user = userDao.find();
+		//String tokenString = user.getToken();
+		
+		String dishResult;		
+		String urlString="/service/dish/getalldishs";
+		try {
+			dishResult = connect.testURLConn1(urlString);
+			JSONObject jsonObject = new JSONObject(dishResult);System.out.println("jsonObject=="+jsonObject);
+			JSONArray jsonArray = jsonObject.getJSONArray("date");System.out.println("jsonArray=="+jsonArray);
+			//userJSON = jsonObject.getJSONObject("user");
+			
+			for(int i=0;i<jsonArray.length();i++){   
+				 JSONObject jo = (JSONObject)jsonArray.opt(i);
+		            String id = jo.getString("_id");
+		            String dishName = jo.getString("dishName");
+		            String desc = jo.getString("desc");
+		            int pic=jo.getInt("pic");
+		            int col=jo.getInt("col");
+		            DishItem dishitem = new DishItem(id, dishName, desc,pic,col);
+	            dish.add(dishitem);
+	        }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	 
+		return dish;
+		
+	}
 	                
 //        @Override
 //        public void onResume() {
