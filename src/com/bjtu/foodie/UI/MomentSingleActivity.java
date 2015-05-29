@@ -61,7 +61,6 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	private String intentMsg;
 	private JSONObject singleMoment;
 	private String momentId;
-	private String tempUser;
 	
 	int pageNo = 1;
 	ArrayList<JSONObject> list = new ArrayList<JSONObject>();
@@ -72,6 +71,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	SimpleMomentLikeAdapter likeAdapter;
 	
 	public UserDao userDao = new UserDao(this);
+	private String userId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +135,9 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		/*commentEditText.clearFocus(); 
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
         imm.hideSoftInputFromWindow(commentEditText.getWindowToken(),0); */
-        
+		User user = userDao.find();
+		userId = user.getId();
+		
 		try {
 			ImageLoader.getInstance()
 			.displayImage("http://101.200.174.49:3000/"+singleMoment.getJSONObject("author").getString("head").trim(), userHeadImageView, options, new SimpleImageLoadingListener() {
@@ -150,9 +152,8 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 			}else{
 				likeListView.setVisibility(View.VISIBLE);
 				for(int i = 0 ; i < likeArray.length() ; i++){
-					tempUser = ((JSONObject)likeArray.get(i)).getString("_id");
 							
-					if(((JSONObject)likeArray.get(i)).getString("_id").equals("555055e95f51f5be307902ad")){
+					if(((JSONObject)likeArray.get(i)).getString("_id").equals(userId)){
 						likedButton.setVisibility(View.VISIBLE);
 						Log.i(Constants.TAG_MOMENT, "liked");
 					}
@@ -328,7 +329,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	public void toSingleUser(View view){
 		Intent intentMyMoment = new Intent(getApplicationContext(),
 				MyMomentActivity.class);
-		intentMyMoment.putExtra(Constants.KEY_USER_ID, "555055e95f51f5be307902ad");
+		intentMyMoment.putExtra(Constants.KEY_USER_ID, userId);
 		startActivity(intentMyMoment);
 	}
 }
