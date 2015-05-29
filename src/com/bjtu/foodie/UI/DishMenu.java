@@ -56,7 +56,7 @@ public class DishMenu extends Activity implements OnClickListener{
                 }
             }
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            //Intent intent1=new Intent(this,ShowList1.class);
+            //Intent intent1=new Intent(this,ShowList1.class);123,23,412,123
             //send music names
             //intent1.putStringArrayListExtra("list", getData());
             //startActivity(intent1);
