@@ -45,7 +45,6 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     private List<DishItem> dishData;
     private FullDishItemsAdapter m_adapter;
     private FullDishItemsAdapter2 m_adapter2;
-    private List<DishItem> dishMenu;
     private Button m_submit;
     private String dishchoose="dish choose";
 	NfcAdapter mNfcAdapter;
@@ -89,6 +88,7 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
 	public void onClick(View v) {	
     	HashMap<Integer, Boolean> state =m_adapter2.state;
     	String options="选择的项是:";
+    	String dishMenu="";
     	for(int j=0;j<m_adapter2.getCount();j++){
     	System.out.println("state.get("+j+")=="+state.get(j));
     	if(state.get(j)!=null){
@@ -97,11 +97,12 @@ CreateNdefMessageCallback,OnNdefPushCompleteCallback{
     	String id=dishChecked.getId().toString();
     	String username=dishChecked.getName().toString();
     	String desc=dishChecked.getDesc().toString();
+    	dishMenu+=id+";"+username+";"+desc+";";
     	options+="\n"+username+"."+desc;
     	}
     	}
     	//显示选择内容
-    	Toast.makeText(getApplicationContext(), options, Toast.LENGTH_LONG).show();
+    	Toast.makeText(getApplicationContext(), dishMenu, Toast.LENGTH_LONG).show();
     	
        /*switch(v.getId()){
     	
