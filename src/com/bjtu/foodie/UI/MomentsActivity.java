@@ -182,8 +182,6 @@ public class MomentsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	
-	
 	class ListMomentTask extends AsyncTask<Object, Object, String>{
 		ArrayList<JSONObject> tempList = new ArrayList<JSONObject>();
 		String recipeRecult;
@@ -228,4 +226,10 @@ public class MomentsActivity extends Activity {
 			}
 		}
 	}
+	
+	@Override
+    protected void onResume() {  
+        super.onResume();
+        Log.v(Constants.TAG_MOMENT, "onResume");
+    } 
 }

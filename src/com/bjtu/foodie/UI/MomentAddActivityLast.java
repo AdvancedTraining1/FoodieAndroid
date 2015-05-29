@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.common.Constants;
+import com.bjtu.foodie.db.UserDao;
+import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.utils.MomentTalkToServer;
 
 public class MomentAddActivityLast extends Activity{
@@ -25,6 +27,7 @@ public class MomentAddActivityLast extends Activity{
 	
 	private EditText contentEditText;
 	private TextView locationTextView;
+	public UserDao userDao = new UserDao(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,8 @@ public class MomentAddActivityLast extends Activity{
     }
 	
 	public void createMoment(){
-		if(LoginActivity.token != null){
+		User user = userDao.find();
+		if(user!=null){
 			String content = contentEditText.getText().toString();
 			String location = locationTextView.getText().toString();
 			if(location.equals("LOCATION")){
@@ -65,7 +69,7 @@ public class MomentAddActivityLast extends Activity{
 			}
 			
 			List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, LoginActivity.token));
+	        postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, user.getToken()));
 	        postParameters.add(new BasicNameValuePair(Constants.POST_CONTENT, content));
 	        postParameters.add(new BasicNameValuePair(Constants.POST_LOCATION, location));
 	        postParameters.add(new BasicNameValuePair(Constants.POST_PICTURE, serverPicPath));
