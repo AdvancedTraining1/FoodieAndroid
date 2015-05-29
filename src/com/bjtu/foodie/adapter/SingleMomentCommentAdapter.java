@@ -112,7 +112,9 @@ public class SingleMomentCommentAdapter extends BaseAdapter {
 		public void onClick(View v) {
 			Log.i(Constants.TAG_MOMENT, "comment moment" + pos);
 			try {
-				commentEditText.setText("reply "+list.get(pos).getJSONObject("author").getString("account")+": ");
+				String replyString = "reply "+list.get(pos).getJSONObject("author").getString("account")+": ";
+				commentEditText.setText(replyString);
+				commentEditText.setSelection(replyString.length());
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
