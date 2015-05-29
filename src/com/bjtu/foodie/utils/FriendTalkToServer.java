@@ -37,7 +37,7 @@ import com.loopj.android.http.SyncHttpClient;
 public class FriendTalkToServer {
 	//public static final String serviceAddr = "http://123.57.38.31:3000/service/";
 		//10.0.2.2
-		public static final String serviceAddr = "http://192.168.1.103:3000";
+		public static final String serviceAddr = "http://101.200.174.49:3000";
 		
 		public String testURLConn1(String urlAdd) throws Exception{
 
@@ -165,102 +165,6 @@ public class FriendTalkToServer {
 			return result;
 		}
 		
-		public static void post2(){
-			NameValuePair pair1 = new BasicNameValuePair("name", "test");
-
-	        List<NameValuePair> pairList = new ArrayList<NameValuePair>();
-	        pairList.add(pair1);
-
-	        try
-	        {
-	            HttpEntity requestHttpEntity = new UrlEncodedFormEntity(
-	                    pairList);
-	            // URL使用基本URL即可，其中不需要加参数
-	            HttpPost httpPost = new HttpPost("http://10.0.2.2:3000/service/moment/addMoment");
-	            // 将请求体内容加入请求中
-	            httpPost.setEntity(requestHttpEntity);
-	            // 需要客户端对象来发送请求
-	            HttpClient httpClient = new DefaultHttpClient();
-	            // 发送请求
-	            HttpResponse response = httpClient.execute(httpPost);
-	            // 显示响应
-	            //showResponseResult(response);
-	        }
-	        catch (Exception e)
-	        {
-	            e.printStackTrace();
-	        }
-		}
-		
-		public static void post3() throws JSONException, ClientProtocolException, IOException{
-			HttpPost request = new HttpPost("http://10.0.2.2:3000/service/moment/addMoment");
-			// 先封装一个 JSON 对象
-			JSONObject param = new JSONObject();
-			param.put("name", "cmm3");
-			param.put("password", "123456");
-			// 绑定到请求 Entry
-			StringEntity se = new StringEntity(param.toString());
-			request.setEntity(se);
-			// 发送请求
-			HttpResponse httpResponse = new DefaultHttpClient().execute(request);
-			// 得到应答的字符串，这也是一个 JSON 格式保存的数据
-			String retSrc = EntityUtils.toString(httpResponse.getEntity());
-			// 生成 JSON 对象
-			//JSONObject result = new JSONObject( retSrc);
-			//String token = result.get("token");
-		}
-		
-		public static void post4(){
-		    HttpClient httpClient = new DefaultHttpClient();  
-	        try {  
-	            HttpPost httpPost = new HttpPost("http://10.0.2.2:3000/service/moment/addMoment");  
-	            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();  
-	            JSONObject jsonObject = new JSONObject();  
-	            jsonObject.put("uemail", "cmm4");  
-	            nameValuePair.add(new BasicNameValuePair("jsonString", jsonObject  
-	                    .toString()));  
-	            //Log.i("lifeweeker", jsonObject2.toString());  
-	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-	        }catch (Exception e){
-	        	
-	        }
-		}
-		
-		public static void post5(String url, Class<AddMomentActivity> class1){
-			//AsyncHttpClient client = new AsyncHttpClient(); 
-			SyncHttpClient client = new SyncHttpClient();
-	        //String url = "http://ec2-54-77-212-173.eu-west-1.compute.amazonaws.com:4242/moments"; 
-
-	        JSONObject jsonObject = new JSONObject();
-	        try {
-	        	jsonObject.put("name", "cmm5");
-			} catch (JSONException e) {
-			
-				e.printStackTrace();
-			}
-	        StringEntity stringEntity = null; 
-	        try {
-				stringEntity = new StringEntity(jsonObject.toString());
-			} catch (UnsupportedEncodingException e) {
-		
-				e.printStackTrace();
-			} 
-
-	        client.post(serviceAddr + url, new AsyncHttpResponseHandler() {  
-				@Override
-				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-						Throwable arg3) {
-					// TODO Auto-generated method stub
-					
-				}
-
-
-				@Override
-				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-					// TODO Auto-generated method stub
-					
-				}  
-	        });  
-		}
+	
 
 }
