@@ -10,12 +10,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -59,6 +61,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	private String intentMsg;
 	private JSONObject singleMoment;
 	private String momentId;
+	private String tempUser;
 	
 	int pageNo = 1;
 	ArrayList<JSONObject> list = new ArrayList<JSONObject>();
@@ -109,9 +112,6 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		
 		initView();
 		
-		/*likeAdapter = new SimpleMomentLikeAdapter(this, likeList);
-		likeGridView.setAdapter(likeAdapter);*/
-		
 		momentAdapter = new SingleMomentCommentAdapter(this, list, commentEditText);
 		commentListView.setAdapter(momentAdapter);
 		
@@ -132,6 +132,10 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		likedButton = (ImageButton)findViewById(R.id.ib_concel_like);
 		likeListView = (LinearLayout)findViewById(R.id.linear_like);
 		
+		/*commentEditText.clearFocus(); 
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
+        imm.hideSoftInputFromWindow(commentEditText.getWindowToken(),0); */
+        
 		try {
 			ImageLoader.getInstance()
 			.displayImage("http://101.200.174.49:3000/"+singleMoment.getJSONObject("author").getString("head").trim(), userHeadImageView, options, new SimpleImageLoadingListener() {
@@ -146,6 +150,8 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 			}else{
 				likeListView.setVisibility(View.VISIBLE);
 				for(int i = 0 ; i < likeArray.length() ; i++){
+					tempUser = ((JSONObject)likeArray.get(i)).getString("_id");
+							
 					if(((JSONObject)likeArray.get(i)).getString("_id").equals("555055e95f51f5be307902ad")){
 						likedButton.setVisibility(View.VISIBLE);
 						Log.i(Constants.TAG_MOMENT, "liked");
@@ -319,44 +325,10 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		}*/
 	}
 	
-	/*public void LikeIt(View view){
-		Log.i(Constants.TAG_MOMENT, "like moment");
-		
-		User user = userDao.find();
-		if(user!=null){
-			List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-			postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, user.getToken()));
-	        postParameters.add(new BasicNameValuePair(Constants.POST_MOMENT_ID, momentId));
-	        
-	        String resultString = MomentTalkToServer.momentPost("moment/addLike",postParameters);
-	        if(resultString.equals("like moment success！")){
-	        	Toast.makeText(this, "like success !",
-					     Toast.LENGTH_SHORT).show();
-	        	
-	        	likeListView.setVisibility(View.VISIBLE);
-	        	ImageView imageView = new ImageView(this);
-				LayoutParams params = new LayoutParams(50, 50);  
-				params.height = 110;
-				params.width = 120;
-				imageView.setLayoutParams(params);
-				imageView.setPadding(10, 0, 10, 10);
-				ImageLoader.getInstance()
-				.displayImage("http://101.200.174.49:3000/head/defaulthead.jpeg", imageView, optionHead, new SimpleImageLoadingListener() {
-				});
-				imageView.setScaleType(ScaleType.CENTER);
-				likeListView.addView(imageView);
-	        }else{
-	        	Toast.makeText(this, "already liked!",
-					     Toast.LENGTH_SHORT).show();
-	        }
-        }else {
-			Intent loginIntent = new Intent(this,LoginActivity.class);
-			startActivity(loginIntent);
-		}
+	public void toSingleUser(View view){
+		Intent intentMyMoment = new Intent(getApplicationContext(),
+				MyMomentActivity.class);
+		intentMyMoment.putExtra(Constants.KEY_USER_ID, "555055e95f51f5be307902ad");
+		startActivity(intentMyMoment);
 	}
-
-	
-	public void concelLikeIt(View view){
-		
-	}*/
 }

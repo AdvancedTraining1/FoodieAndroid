@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,11 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.SimpleMomentItemAdapter;
+import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.utils.MomentTalkToServer;
 
 public class MyMomentActivity extends Activity {
@@ -28,6 +32,7 @@ public class MyMomentActivity extends Activity {
 	List<JSONObject> myMomentList = new ArrayList<JSONObject>();
 	SimpleMomentItemAdapter myMomentAdapter;
 	ImageButton imgbtn_newMoment;
+	String userId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +40,26 @@ public class MyMomentActivity extends Activity {
 		setContentView(R.layout.activity_my_moments);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		Intent intent = getIntent();
+		userId = intent.getStringExtra(Constants.KEY_USER_ID);
+		
 		lv_myMoments = (ListView) findViewById(R.id.lv_myMoments);
 		imgbtn_newMoment = (ImageButton) findViewById(R.id.iv_photo);
 		
 		myMomentAdapter = new SimpleMomentItemAdapter(this, myMomentList);
 		lv_myMoments.setAdapter(myMomentAdapter);
 		
-		imgbtn_newMoment.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-			}
-		});
+		lv_myMoments.setOnItemClickListener(new OnItemClickListener() {  
+	        @Override  
+	        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+	        	Intent intent = new Intent(MyMomentActivity.this, MomentSingleActivity.class);
+	        	intent.putExtra(Constants.KEY_SINGLE_DATA, myMomentList.get(position).toString());
+				startActivity(intent);
+	        }  
+	    });
 		
 		ListMomentTask momentTask = new ListMomentTask();
 		momentTask.execute();
-		
-		setListViewHeight(lv_myMoments);
-		//ListView listview = (ListView)findViewById(R.id.lv_myMoments);
 	}
 
 	@Override
@@ -81,7 +87,7 @@ public class MyMomentActivity extends Activity {
 		
 		@Override
 		protected String doInBackground(Object... arg0) {
-			momentRecult = MomentTalkToServer.momentGet("moment/listOwn?authorId=555055e95f51f5be307902ad");
+			momentRecult = MomentTalkToServer.momentGet("moment/listOwn?authorId="+userId);
 			
 			try {
 				JSONObject jsonObject = new JSONObject(momentRecult);
@@ -104,27 +110,6 @@ public class MyMomentActivity extends Activity {
 			myMomentList.addAll(tempList);
 			myMomentAdapter.notifyDataSetChanged();
 			super.onPostExecute(null);
-		}
-	}
-	
-	public void setListViewHeight(ListView listView) {
-		// ListView listview = (ListView) findViewById(R.id.lv_myMoments);
-		int totalHeight = 0;
-		SimpleMomentItemAdapter adapter = (SimpleMomentItemAdapter) listView
-				.getAdapter();
-		if (null != adapter) {
-			for (int i = 0; i < adapter.getCount(); i++) {
-				View listItem = adapter.getView(i, null, listView);
-				if (null != listItem) {
-					listItem.measure(0, 0);// 注意listview子项必须为LinearLayout才能调用该方法
-					totalHeight += listItem.getMeasuredHeight();
-				}
-			}
-
-			ViewGroup.LayoutParams params = listView.getLayoutParams();
-			params.height = totalHeight
-					+ (listView.getDividerHeight() * (listView.getCount() - 1));
-			listView.setLayoutParams(params);
 		}
 	}
 }

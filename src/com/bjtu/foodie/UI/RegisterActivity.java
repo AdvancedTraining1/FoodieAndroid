@@ -3,6 +3,7 @@ package com.bjtu.foodie.UI;
 import org.json.JSONObject;
 
 import com.bjtu.foodie.R;
+import com.bjtu.foodie.R.id;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
 import android.app.Activity;
@@ -26,6 +27,7 @@ public class RegisterActivity extends Activity {
 	private Button btn_back;
 	
 	public static String token;
+	public static String id;
 	//public boolean isConnect = false;
 	public UserDao userDao = new UserDao(this);
 	ConnectToServer connect;
@@ -135,7 +137,8 @@ public class RegisterActivity extends Activity {
 		
 		try{
 			token = jsonObject.getString("token");
-			userDao.add(token);
+			id = jsonObject.getString("token");
+			userDao.add(token,id);
 			System.out.println("token:"+token);
 		}catch(Exception e){
 			e.printStackTrace();

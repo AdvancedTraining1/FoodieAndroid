@@ -1,5 +1,7 @@
 package com.bjtu.foodie.adapter;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.json.JSONException;
@@ -76,7 +78,8 @@ public class SimpleMomentItemAdapter extends BaseAdapter {
 
 		JSONObject moment = this.moments.get(arg0);
 		try {
-			holder.tv_date.setText(moment.getString("date"));
+			String time = moment.getString("date");
+			holder.tv_date.setText(time.substring(time.length()-2));
 			holder.tv_month.setText("May");
 			holder.tv_content.setText(moment.getString("content"));
 			ImageLoader.getInstance()
