@@ -12,10 +12,11 @@
         android:icon="@drawable/ic_action_web_site"
         android:showAsAction="ifRoom"
         android:title="@string/action_switchmaptype"/>
-    <item
+<!--     <item
         android:id="@+id/action_location"
         android:icon="@drawable/ic_action_location_found"
         android:showAsAction="always"
         android:title="@string/action_location"/>
+        --> 
 
 </menu>

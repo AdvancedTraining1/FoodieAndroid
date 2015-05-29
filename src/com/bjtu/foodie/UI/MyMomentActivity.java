@@ -3,26 +3,36 @@ package com.bjtu.foodie.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.SimpleMomentItemAdapter;
-import com.bjtu.foodie.data.TestData;
-import com.bjtu.foodie.model.Moment;
+import com.bjtu.foodie.common.Constants;
+import com.bjtu.foodie.utils.MomentTalkToServer;
 
 public class MyMomentActivity extends Activity {
 
 	ListView lv_myMoments;
-	List<Moment> myMomentList;
+	List<JSONObject> myMomentList = new ArrayList<JSONObject>();
 	SimpleMomentItemAdapter myMomentAdapter;
 	ImageButton imgbtn_newMoment;
+	String userId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,22 +40,26 @@ public class MyMomentActivity extends Activity {
 		setContentView(R.layout.activity_my_moments);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		Intent intent = getIntent();
+		userId = intent.getStringExtra(Constants.KEY_USER_ID);
+		
 		lv_myMoments = (ListView) findViewById(R.id.lv_myMoments);
 		imgbtn_newMoment = (ImageButton) findViewById(R.id.iv_photo);
-		
-		myMomentList = new ArrayList<Moment>();
-		myMomentList = (new TestData()).getMomentsData();
 		
 		myMomentAdapter = new SimpleMomentItemAdapter(this, myMomentList);
 		lv_myMoments.setAdapter(myMomentAdapter);
 		
-		imgbtn_newMoment.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-			}
-		});
+		lv_myMoments.setOnItemClickListener(new OnItemClickListener() {  
+	        @Override  
+	        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+	        	Intent intent = new Intent(MyMomentActivity.this, MomentSingleActivity.class);
+	        	intent.putExtra(Constants.KEY_SINGLE_DATA, myMomentList.get(position).toString());
+				startActivity(intent);
+	        }  
+	    });
+		
+		ListMomentTask momentTask = new ListMomentTask();
+		momentTask.execute();
 	}
 
 	@Override
@@ -65,5 +79,37 @@ public class MyMomentActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	class ListMomentTask extends AsyncTask<Object, Object, String>{
+		ArrayList<JSONObject> tempList = new ArrayList<JSONObject>();
+		String momentRecult;
+		
+		@Override
+		protected String doInBackground(Object... arg0) {
+			momentRecult = MomentTalkToServer.momentGet("moment/listOwn?authorId="+userId);
+			
+			try {
+				JSONObject jsonObject = new JSONObject(momentRecult);
+				JSONArray jsonArray = jsonObject.getJSONArray("root");
+				if(jsonArray.length() == 0){
+					return "No";
+				}
+				for(int i=0;i<jsonArray.length();i++){   
+	                JSONObject jo = (JSONObject)jsonArray.opt(i);
+	                tempList.add(jo);
+	            }
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		public void onPostExecute(String result){
+			myMomentList.addAll(tempList);
+			myMomentAdapter.notifyDataSetChanged();
+			super.onPostExecute(null);
+		}
 	}
 }

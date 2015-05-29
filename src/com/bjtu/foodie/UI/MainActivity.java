@@ -95,6 +95,8 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(),
 						MomentsActivity.class);
+				//Intent i = new Intent(getApplicationContext(),
+						//SinginActivity.class);
 				startActivity(i);
 			}
 		});

@@ -1,4 +1,6 @@
 bin/
 gen/com/bjtu/foodie/R.java
 /gen
+/node_modules
+node_modules/
 /project.properties

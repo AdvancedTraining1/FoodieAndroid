@@ -1,9 +1,11 @@
 package com.bjtu.foodie.adapter;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.bjtu.foodie.R;
-import com.bjtu.foodie.model.Moment;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,14 +15,31 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjtu.foodie.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 public class SimpleMomentItemAdapter extends BaseAdapter {
 
-	private List<Moment> moments;
+	private List<JSONObject> moments;
 	private Context context;
+	DisplayImageOptions options;
 
-	public SimpleMomentItemAdapter(Context contex, List<Moment> moments) {
+	public SimpleMomentItemAdapter(Context contex, List<JSONObject> moments) {
 		this.moments = moments;
 		this.context = contex;
+		
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_launcher)
+		.showImageForEmptyUri(R.drawable.ic_launcher)
+		.showImageOnFail(R.drawable.ic_launcher)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		.displayer(new RoundedBitmapDisplayer(0))
+		.build();
 	}
 
 	@Override
@@ -39,7 +58,7 @@ public class SimpleMomentItemAdapter extends BaseAdapter {
 	}
 
 	public String getMomentId(int arg0) {
-		return moments.get(arg0).getId();
+		return moments.get(arg0).toString();
 	}
 
 	@SuppressWarnings({ "static-access" })
@@ -57,13 +76,19 @@ public class SimpleMomentItemAdapter extends BaseAdapter {
 			holder = (Holder) view.getTag();
 		}
 
-		Moment moment = this.moments.get(arg0);
-		holder.tv_date.setText(moment.getDate().getDay()+" ");
-		holder.tv_month.setText(moment.getMonth());
-		holder.tv_content.setText(moment.getContent());
+		JSONObject moment = this.moments.get(arg0);
+		try {
+			String time = moment.getString("date");
+			holder.tv_date.setText(time.substring(time.length()-2));
+			holder.tv_month.setText("May");
+			holder.tv_content.setText(moment.getString("content"));
+			ImageLoader.getInstance()
+			.displayImage("http://101.200.174.49:3000/"+moment.getString("picture").trim(), holder.iv_item_content_pic, options, new SimpleImageLoadingListener() {
+			});
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		
-		//---------getPic == id of the pic in drawable-------
-		holder.iv_item_content_pic.setImageResource(moment.getPic());
 		return view;
 	}
 
