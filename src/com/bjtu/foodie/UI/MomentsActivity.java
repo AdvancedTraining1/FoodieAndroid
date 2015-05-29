@@ -32,7 +32,9 @@ import android.widget.Toast;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.FullMomentItemAdapter;
 import com.bjtu.foodie.common.Constants;
+import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.map.MapActivity;
+import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.utils.MomentTalkToServer;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -58,6 +60,7 @@ public class MomentsActivity extends Activity {
 	PullToRefreshListView mPullRefreshListView;
 	private LinearLayout layoutNew;
 	private EditText editTextNew;
+	public UserDao userDao = new UserDao(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,10 +124,14 @@ public class MomentsActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intentMyMoment = new Intent(getApplicationContext(),
-						MyMomentActivity.class);
-				intentMyMoment.putExtra(Constants.KEY_USER_ID, "555055e95f51f5be307902ad");
-				startActivity(intentMyMoment);
+				User user = userDao.find();
+        		if(user!=null){
+        			Log.i(Constants.TAG_MOMENT, user.getId());
+        			Intent intentMyMoment = new Intent(getApplicationContext(),
+    						MyMomentActivity.class);
+    				intentMyMoment.putExtra(Constants.KEY_USER_ID, user.getId());
+    				startActivity(intentMyMoment);
+        		}
 			}
 		});
 		
