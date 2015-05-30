@@ -135,17 +135,6 @@ public class MomentsActivity extends Activity {
 			}
 		});
 		
-		findViewById(R.id.iv_bgimg).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "Close",
-					     Toast.LENGTH_SHORT).show();
-				layoutNew.setVisibility(View.GONE);
-				editTextNew.setText(null);
-//				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-			}
-		});
-		
 		ListMomentTask task = new ListMomentTask();
 		task.execute();
 	}

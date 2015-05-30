@@ -19,12 +19,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.adapter.SimpleMomentItemAdapter;
 import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.utils.MomentTalkToServer;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 public class MyMomentActivity extends Activity {
 
@@ -33,6 +36,9 @@ public class MyMomentActivity extends Activity {
 	SimpleMomentItemAdapter myMomentAdapter;
 	ImageButton imgbtn_newMoment;
 	String userId;
+	String userAccount;
+	TextView tv_username;
+	TextView tv_username_black;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,15 @@ public class MyMomentActivity extends Activity {
 		
 		Intent intent = getIntent();
 		userId = intent.getStringExtra(Constants.KEY_USER_ID);
+		userAccount = intent.getStringExtra(Constants.KEY_USER_ACCOUNT);
+		
+		tv_username = (TextView) findViewById(R.id.tv_username);
+		tv_username_black = (TextView) findViewById(R.id.tv_username_black);
+		if(userAccount != null){
+			tv_username.setText(userAccount);
+			tv_username_black.setText(userAccount);
+		}
+			tv_username.setText(userAccount);
 		
 		lv_myMoments = (ListView) findViewById(R.id.lv_myMoments);
 		imgbtn_newMoment = (ImageButton) findViewById(R.id.iv_photo);
@@ -111,5 +126,9 @@ public class MyMomentActivity extends Activity {
 			myMomentAdapter.notifyDataSetChanged();
 			super.onPostExecute(null);
 		}
+	}
+	
+	public String getUserAccount(String userId){
+		return null;
 	}
 }

@@ -16,19 +16,22 @@
 	    android:id="@+id/content"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_margin="5dp"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
 	    android:enabled="true"
 	    android:gravity="top"
 	    android:minLines="8"
 	    android:maxLines="10"
 	    android:scrollbars="vertical" 
-		android:hint="what did you think of it?"
+		android:hint="What did you think of it?"
 	    android:inputType="textMultiLine"/>
 
 	<LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
+	    android:layout_marginTop="10dp"
 	    android:layout_gravity="center_vertical">
 
 		<ImageView
@@ -49,11 +52,11 @@
 		    android:text="LOCATION"/>
 	</LinearLayout>
 	
-	<Button
+	<!-- <Button
 	    android:id="@+id/button1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="Share to wechat" 
-	    android:layout_marginLeft="10dp"/>
+	    android:layout_marginLeft="10dp"/> -->
 	
 </LinearLayout>

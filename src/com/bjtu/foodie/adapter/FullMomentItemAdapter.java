@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.UI.LoginActivity;
 import com.bjtu.foodie.UI.MomentSingleActivity;
+import com.bjtu.foodie.UI.MyMomentActivity;
 import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.db.UserDao;
 import com.bjtu.foodie.model.User;
@@ -110,7 +111,7 @@ public class FullMomentItemAdapter extends BaseAdapter {
 		}
 		
 		holder.ib_item_comment.setOnClickListener(new OnClickCommentBtnListener(position));
-//		holder.ib_item_like.setOnClickListener(new OnClickLikeBtnListener(position));
+		holder.iv_item_userphoto.setOnClickListener(new OnClickHeadListener(position));
 		return view;
 	}
 	
@@ -129,40 +130,27 @@ public class FullMomentItemAdapter extends BaseAdapter {
 		}
 	}
 	
-	private class OnClickLikeBtnListener implements OnClickListener {
+	private class OnClickHeadListener implements OnClickListener {
 		private int pos;
-		private String momentId;
+		private String userId;
+		private String userAccount;
 		
-		public OnClickLikeBtnListener(int pos) {
+		public OnClickHeadListener(int pos) {
 			this.pos = pos;
-		}
-		@Override
-		public void onClick(View v) {
-			Log.i(Constants.TAG_MOMENT, "like moment");
 			try {
-				momentId = list.get(pos).getString("_id");
+				userId = list.get(pos).getJSONObject("author").getString("_id");
+				userAccount = list.get(pos).getJSONObject("author").getString("account");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
-			User user = userDao.find();
-			if(user!=null){
-				List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-				postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, user.getToken()));
-		        postParameters.add(new BasicNameValuePair(Constants.POST_MOMENT_ID, momentId));
-		        
-		        String resultString = MomentTalkToServer.momentPost("moment/addLike",postParameters);
-		        if(resultString.equals("like moment success！")){
-		        	Toast.makeText(context, "like success !",
-						     Toast.LENGTH_SHORT).show();
-		        }else{
-		        	Toast.makeText(context, "already liked!",
-						     Toast.LENGTH_SHORT).show();
-		        }
-	        }else {
-				Intent loginIntent = new Intent(context,LoginActivity.class);
-				context.startActivity(loginIntent);
-			}
+		}
+		@Override
+		public void onClick(View v) {
+			Intent intentMyMoment = new Intent(context,
+					MyMomentActivity.class);
+			intentMyMoment.putExtra(Constants.KEY_USER_ID, userId);
+			intentMyMoment.putExtra(Constants.KEY_USER_ACCOUNT, userAccount);
+			context.startActivity(intentMyMoment);
 		}
 	}
 

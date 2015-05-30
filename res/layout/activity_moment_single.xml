@@ -87,18 +87,6 @@
                     android:onClick="concelLikeIt"
                     android:src="@drawable/heart_full" />
             </RelativeLayout>
-
-            <!-- <GridView 
-                android:id="@+id/grid_like"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               	android:numColumns="auto_fit"
-                android:orientation="horizontal"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:columnWidth="90dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center"/> -->
             
             <HorizontalScrollView
                 android:layout_width="match_parent"

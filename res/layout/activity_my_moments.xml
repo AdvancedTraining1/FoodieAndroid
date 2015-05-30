@@ -42,6 +42,7 @@
                     <!-- shadow [android:shadow did not work] -->
 
                     <TextView
+                        android:id="@+id/tv_username_black"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="2dp"

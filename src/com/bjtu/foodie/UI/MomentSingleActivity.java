@@ -15,7 +15,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -73,10 +75,12 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	public UserDao userDao = new UserDao(this);
 	private String userId;
 	
+	private View headerView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_moment_single);
+		setContentView(R.layout.activity_moment_single1);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		instance = this;
 		
@@ -111,9 +115,11 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		Log.i(Constants.TAG_MOMENT, "single moment data:" + singleMoment);
 		
 		initView();
+        initHeaderView(headerView);
 		
 		momentAdapter = new SingleMomentCommentAdapter(this, list, commentEditText);
 		commentListView.setAdapter(momentAdapter);
+		commentListView.addHeaderView(headerView);
 		
 		ListCommentTask task = new ListCommentTask();
 		task.execute();
@@ -122,37 +128,39 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	private void initView(){
 		commentListView = (ListView) findViewById(R.id.pull_refresh_list_comment);
 		commentEditText = (EditText) findViewById(R.id.ed_comment);
-		userHeadImageView = (ImageView)findViewById(R.id.img_item_userphoto);
-		userNameTextView  = (TextView) findViewById(R.id.txt_item_uname);
+//		userHeadImageView = (ImageView)findViewById(R.id.img_item_userphoto);
+		/*userNameTextView  = (TextView) findViewById(R.id.txt_item_uname);
 		contentTextView  = (TextView) findViewById(R.id.txt_item_content);
 		pictureImageView = (ImageView)findViewById(R.id.img_item_content_pic);
 		pictureImageView.setMinimumWidth(Util.getScreenWidthDp(this));
-		pictureImageView.setMinimumHeight(Util.getScreenWidthDp(this));
+		pictureImageView.setMinimumHeight(Util.getScreenWidthDp(this));*/
 		unlikeButton = (ImageButton)findViewById(R.id.ib_like_moment);
 		likedButton = (ImageButton)findViewById(R.id.ib_concel_like);
-		likeListView = (LinearLayout)findViewById(R.id.linear_like);
 		
-		/*commentEditText.clearFocus(); 
-		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
-        imm.hideSoftInputFromWindow(commentEditText.getWindowToken(),0); */
+		LayoutInflater lif = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		headerView = lif.inflate(R.layout.moment_single_head, null);
+		
+		likeListView = (LinearLayout) headerView.findViewById(R.id.linear_like);
+		
 		User user = userDao.find();
 		userId = user.getId();
 		
 		try {
-			ImageLoader.getInstance()
+			/*ImageLoader.getInstance()
 			.displayImage("http://101.200.174.49:3000/"+singleMoment.getJSONObject("author").getString("head").trim(), userHeadImageView, options, new SimpleImageLoadingListener() {
 			});
 			ImageLoader.getInstance()
 			.displayImage("http://101.200.174.49:3000/"+singleMoment.getString("picture").trim(), pictureImageView, options, new SimpleImageLoadingListener() {
 			});
-			userNameTextView.setText(singleMoment.getJSONObject("author").getString("account"));
+			userNameTextView.setText(singleMoment.getJSONObject("author").getString("account"));*/
 			JSONArray likeArray = singleMoment.getJSONArray("likeList");
 			if(likeArray == null || likeArray.length() == 0){
 				unlikeButton.setVisibility(View.VISIBLE);
 			}else{
 				likeListView.setVisibility(View.VISIBLE);
 				for(int i = 0 ; i < likeArray.length() ; i++){
-							
+					final String likedUserId = ((JSONObject)likeArray.get(i)).getString("_id");
+					
 					if(((JSONObject)likeArray.get(i)).getString("_id").equals(userId)){
 						likedButton.setVisibility(View.VISIBLE);
 						Log.i(Constants.TAG_MOMENT, "liked");
@@ -170,6 +178,18 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 					});
 					imageView.setScaleType(ScaleType.CENTER);
 					likeListView.addView(imageView);
+					imageView.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							// TODO Auto-generated method stub
+							String a = likedUserId;
+							Intent intentMyMoment = new Intent(getApplicationContext(),
+		    						MyMomentActivity.class);
+		    				intentMyMoment.putExtra(Constants.KEY_USER_ID, likedUserId);
+		    				startActivity(intentMyMoment);
+						}
+					});
 				}
 			}
 		} catch (JSONException e) {
@@ -220,6 +240,102 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 					     Toast.LENGTH_SHORT).show();
             }  
         });
+	}
+	
+	private void initHeaderView(View view){
+		userHeadImageView = (ImageView) view.findViewById(R.id.img_item_userphoto);
+		userNameTextView  = (TextView) view.findViewById(R.id.txt_item_uname);
+		contentTextView  = (TextView) view.findViewById(R.id.txt_item_content);
+		pictureImageView = (ImageView) view.findViewById(R.id.img_item_content_pic);
+		pictureImageView.setMinimumWidth(Util.getScreenWidthDp(this));
+		pictureImageView.setMinimumHeight(Util.getScreenWidthDp(this));
+		/*unlikeButton = (ImageButton)view.findViewById(R.id.ib_like_moment);
+		likedButton = (ImageButton)view.findViewById(R.id.ib_concel_like);
+		likeListView = (LinearLayout)view.findViewById(R.id.linear_like);*/
+		
+		try {
+			ImageLoader.getInstance()
+			.displayImage("http://101.200.174.49:3000/"+singleMoment.getJSONObject("author").getString("head").trim(), userHeadImageView, options, new SimpleImageLoadingListener() {
+			});
+			ImageLoader.getInstance()
+			.displayImage("http://101.200.174.49:3000/"+singleMoment.getString("picture").trim(), pictureImageView, options, new SimpleImageLoadingListener() {
+			});
+			userNameTextView.setText(singleMoment.getJSONObject("author").getString("account"));
+//			JSONArray likeArray = singleMoment.getJSONArray("likeList");
+			/*if(likeArray == null || likeArray.length() == 0){
+				unlikeButton.setVisibility(View.VISIBLE);
+			}else{
+				likeListView.setVisibility(View.VISIBLE);
+				for(int i = 0 ; i < likeArray.length() ; i++){
+							
+					if(((JSONObject)likeArray.get(i)).getString("_id").equals(userId)){
+						likedButton.setVisibility(View.VISIBLE);
+						Log.i(Constants.TAG_MOMENT, "liked");
+					}
+					likeList.add((JSONObject) likeArray.get(i));
+					
+					ImageView imageView = new ImageView(this);
+					LayoutParams params = new LayoutParams(50, 50);  
+					params.height = 110;
+					params.width = 120;
+					imageView.setLayoutParams(params);
+					imageView.setPadding(10, 0, 10, 10);
+					ImageLoader.getInstance()
+					.displayImage("http://101.200.174.49:3000/"+((JSONObject)likeArray.get(i)).getString("head").trim(), imageView, optionHead, new SimpleImageLoadingListener() {
+					});
+					imageView.setScaleType(ScaleType.CENTER);
+					likeListView.addView(imageView);
+				}
+			}*/
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		/*unlikeButton.setOnClickListener(new Button.OnClickListener(){  
+            public void onClick(View v) {  
+            	Log.i(Constants.TAG_MOMENT, "like moment");
+        		
+        		User user = userDao.find();
+        		if(user!=null){
+        			List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+        			postParameters.add(new BasicNameValuePair(Constants.POST_TOKEN, user.getToken()));
+        	        postParameters.add(new BasicNameValuePair(Constants.POST_MOMENT_ID, momentId));
+        	        
+        	        String resultString = MomentTalkToServer.momentPost("moment/addLike",postParameters);
+        	        if(resultString.equals("like moment success！")){
+        	        	Toast.makeText(MomentSingleActivity.this, "like success !",
+        					     Toast.LENGTH_SHORT).show();
+        	        	
+        	        	likeListView.setVisibility(View.VISIBLE);
+        	        	ImageView imageView = new ImageView(MomentSingleActivity.this);
+        				LayoutParams params = new LayoutParams(50, 50);  
+        				params.height = 110;
+        				params.width = 120;
+        				imageView.setLayoutParams(params);
+        				imageView.setPadding(10, 0, 10, 10);
+        				ImageLoader.getInstance()
+        				.displayImage("http://101.200.174.49:3000/head/defaulthead.jpeg", imageView, optionHead, new SimpleImageLoadingListener() {
+        				});
+        				imageView.setScaleType(ScaleType.CENTER);
+        				likeListView.addView(imageView);
+        				
+        				unlikeButton.setVisibility(View.INVISIBLE);
+        				likedButton.setVisibility(View.VISIBLE);
+        	        }
+                }else {
+        			Intent loginIntent = new Intent(MomentSingleActivity.this,LoginActivity.class);
+        			startActivity(loginIntent);
+        		}
+            }  
+        });
+		
+		likedButton.setOnClickListener(new Button.OnClickListener(){  
+            public void onClick(View v) {
+            	Toast.makeText(MomentSingleActivity.this, "already liked!",
+					     Toast.LENGTH_SHORT).show();
+            }  
+        });*/
+		
 	}
 	
 	public void addComment(View view){

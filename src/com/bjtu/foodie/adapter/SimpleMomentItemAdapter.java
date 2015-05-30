@@ -79,7 +79,7 @@ public class SimpleMomentItemAdapter extends BaseAdapter {
 		JSONObject moment = this.moments.get(arg0);
 		try {
 			String time = moment.getString("date");
-			holder.tv_date.setText(time.substring(time.length()-2));
+			holder.tv_date.setText(time.substring(8,10));
 			holder.tv_month.setText("May");
 			holder.tv_content.setText(moment.getString("content"));
 			ImageLoader.getInstance()

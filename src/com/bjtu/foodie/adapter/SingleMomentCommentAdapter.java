@@ -28,6 +28,7 @@ import com.bjtu.foodie.R;
 import com.bjtu.foodie.UI.LoginActivity;
 import com.bjtu.foodie.UI.MomentSingleActivity;
 import com.bjtu.foodie.UI.MomentsActivity;
+import com.bjtu.foodie.UI.MyMomentActivity;
 import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.utils.MomentTalkToServer;
 import com.bjtu.foodie.utils.TitlePopup;
@@ -123,7 +124,6 @@ public class SingleMomentCommentAdapter extends BaseAdapter {
 	
 	private class OnClickUserListener implements OnClickListener {
 		private int pos;
-		private String momentId;
 		
 		public OnClickUserListener(int pos) {
 			this.pos = pos;
@@ -131,6 +131,16 @@ public class SingleMomentCommentAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 			Log.i(Constants.TAG_MOMENT, "click"+pos);
+			try {
+				String userId = list.get(pos).getJSONObject("author").getString("_id");
+				String userAccount = list.get(pos).getJSONObject("author").getString("account");
+				Intent intentMyMoment = new Intent(context,MyMomentActivity.class);
+				intentMyMoment.putExtra(Constants.KEY_USER_ID, userId);
+				intentMyMoment.putExtra(Constants.KEY_USER_ACCOUNT, userAccount);
+				context.startActivity(intentMyMoment);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			/*try {
 				momentId = list.get(pos).getString("_id");
 			} catch (JSONException e) {
