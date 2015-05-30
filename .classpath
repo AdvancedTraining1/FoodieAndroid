@@ -7,10 +7,5 @@
 	<classpathentry kind="lib" path="libs/android-async-http-1.4.5.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="/home/zhangcan/adt-bundle-linux-x86_64-20140702/sdk/platforms/android-19/android.jar">
-		<accessrules>
-			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
-		</accessrules>
-	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
