@@ -41,7 +41,7 @@ public class FullFriendMessageAdapter extends BaseAdapter{
 	private Handler handler = new Handler();
 	private Context context;
 	DisplayImageOptions options;  
-	final String urlString = "http://192.168.1.103:3000/";
+	final String urlString = "http://101.200.174.49:3000/";
 	String dealmessage ="0";
 
 	public UserDao userDao;

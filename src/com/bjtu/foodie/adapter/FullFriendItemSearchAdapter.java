@@ -36,7 +36,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 public class FullFriendItemSearchAdapter extends BaseAdapter{
 	
-	final String urlString = "http://192.168.1.103:3000/";
+	final String urlString = "http://101.200.174.49:3000/";
 	
 	public List<Friend> friendList;
 	private FoodieAndroidAPP myApp; 
