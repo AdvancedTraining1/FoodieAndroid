@@ -261,6 +261,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 			.displayImage("http://101.200.174.49:3000/"+singleMoment.getString("picture").trim(), pictureImageView, options, new SimpleImageLoadingListener() {
 			});
 			userNameTextView.setText(singleMoment.getJSONObject("author").getString("account"));
+			contentTextView.setText(singleMoment.getString("content"));
 //			JSONArray likeArray = singleMoment.getJSONArray("likeList");
 			/*if(likeArray == null || likeArray.length() == 0){
 				unlikeButton.setVisibility(View.VISIBLE);
