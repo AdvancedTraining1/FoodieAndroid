@@ -28,7 +28,7 @@ public class FullFriendItemAdapter extends BaseAdapter{
 	private Context context;
 	DisplayImageOptions options;  
 //	FriendListActivity context;
-	final String urlString = "http://192.168.1.103:3000/";
+	final String urlString = "http://101.200.174.49:3000/";
 	
 	public FullFriendItemAdapter(List<Friend> friendList, Context context) {
 		super();
