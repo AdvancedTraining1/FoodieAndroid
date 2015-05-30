@@ -20,15 +20,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.StrictMode;
+
 import com.bjtu.foodie.UI.AddMomentActivity;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
-
-import android.os.StrictMode;
 
 public class MomentTalkToServer {
 
@@ -83,11 +84,12 @@ public class MomentTalkToServer {
 		BufferedReader reader = null;
 		try {
 			DefaultHttpClient client = new DefaultHttpClient();
+//			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters,HTTP.UTF_8);
 			HttpPost request = new HttpPost();
 			request.setURI(new URI(serviceAddr + url));
 
 			UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
-					postParameters);
+					postParameters,HTTP.UTF_8);
 			request.setEntity(formEntity);
 
 			HttpResponse response = client.execute(request);

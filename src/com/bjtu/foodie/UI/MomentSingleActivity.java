@@ -240,6 +240,8 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 	        	Toast.makeText(getApplicationContext(), "comment success !",
 					     Toast.LENGTH_SHORT).show();
 	        	commentEditText.setText(null);
+	        	commentEditText.setFocusableInTouchMode(false);
+	        	commentEditText.clearFocus();
 	        	RefreshCommentTask refreshCommentTask = new RefreshCommentTask();
 	        	refreshCommentTask.execute();
 	        }
@@ -286,7 +288,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		@Override
 		protected Object doInBackground(Object... arg0) {
 			//评论信息
-			String commentRecult = MomentTalkToServer.momentGet("moment/getCommentById?id="+momentId+"&pageNo="+pageNo+"&pageSize=10");
+			String commentRecult = MomentTalkToServer.momentGet("moment/getCommentById?id="+momentId+"&pageNo="+pageNo+"&pageSize=0");
 			try {
 				JSONObject jsonObject = new JSONObject(commentRecult);
 				JSONArray jsonArray = jsonObject.getJSONArray("root");
@@ -303,7 +305,7 @@ public class MomentSingleActivity extends Activity implements OnItemClickListene
 		@Override
 		public void onPostExecute(Object result){
 			list.clear();
-			list = taskList;
+			list.addAll(taskList);
 			momentAdapter.notifyDataSetChanged();
 //			showComment();
 		}
