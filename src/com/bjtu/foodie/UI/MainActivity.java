@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_mainpage);
 
 		lv_restRecommend = (ListView) findViewById(R.id.lv_restRecommend);
-		
+
 		/**
 		 * only use test data temporarily
 		 */
@@ -104,20 +104,23 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				/*Intent i = new Intent(getApplicationContext(),
-						DatesActivity.class);
-				startActivity(i);*/
+				/*
+				 * Intent i = new Intent(getApplicationContext(),
+				 * DatesActivity.class); startActivity(i);
+				 */
 				UserDao userDao = new UserDao(MainActivity.this);
 				User user = userDao.find();
 				Handler handler = new Handler();
-				if (user != null) {					
+				if (user != null) {
 					String token = user.getToken();
 					if (token.equals("") || token == null) {
 
 						handler.post(new Runnable() {
 							@Override
 							public void run() {
-								Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
+								Toast.makeText(MainActivity.this,
+										"login frist", Toast.LENGTH_SHORT)
+										.show();
 							}
 						});
 
@@ -131,56 +134,58 @@ public class MainActivity extends Activity {
 					handler.post(new Runnable() {
 						@Override
 						public void run() {
-							Toast.makeText(MainActivity.this, "login frist",Toast.LENGTH_SHORT).show();
+							Toast.makeText(MainActivity.this, "login frist",
+									Toast.LENGTH_SHORT).show();
 						}
 					});
 				}
-				
+
 			}
 
 		});
-        
-        btn_friend = (Button) this.findViewById(R.id.btn_friend);
-        btn_friend.setOnClickListener(new OnClickListener() {
-        	
-			
+
+		btn_friend = (Button) this.findViewById(R.id.btn_friend);
+		btn_friend.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				
+
 				System.out.println("sss---");
 				UserDao userDao = new UserDao(MainActivity.this);
 				User user = userDao.find();
 				Handler handler = new Handler();
-				if(user!=null){
-					System.out.println("sss---"+user.getToken());
-					
-					
+				if (user != null) {
+					System.out.println("sss---" + user.getToken());
+
 					String token = user.getToken();
-					if(token.equals("")||token==null){						
+					if (token.equals("") || token == null) {
 
 						handler.post(new Runnable() {
 							@Override
 							public void run() {
-								Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
+								Toast.makeText(MainActivity.this,
+										"login frist", Toast.LENGTH_SHORT)
+										.show();
 							}
 						});
-						
-					}else{
-						Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
-						startActivity(i);						
+
+					} else {
+						Intent i = new Intent(getApplicationContext(),
+								FriendListActivity.class);
+						startActivity(i);
 					}
-				
-				
-			}else{
-				
-				handler.post(new Runnable() {
-					@Override
-					public void run() {
-						Toast.makeText(MainActivity.this,"login frist", Toast.LENGTH_SHORT).show();
-					}
-				});
-			}
-				
+
+				} else {
+
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(MainActivity.this, "login frist",
+									Toast.LENGTH_SHORT).show();
+						}
+					});
+				}
+
 			}
 
 		});
@@ -208,5 +213,13 @@ public class MainActivity extends Activity {
 	public void onPause() {
 		super.onPause();
 		JPushInterface.onPause(this);
+	}
+
+	public void functionScan(View view) {
+		Toast.makeText(MainActivity.this, "To Scacn a Tag", Toast.LENGTH_LONG)
+				.show();
+		Intent intent = new Intent();
+		intent.setClass(MainActivity.this, NFCScanTagActivity.class);
+		startActivityForResult(intent, 0);
 	}
 }
