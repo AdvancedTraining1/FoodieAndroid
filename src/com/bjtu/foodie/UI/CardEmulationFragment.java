@@ -16,7 +16,8 @@
 
 package com.bjtu.foodie.UI;
 
-import com.bjtu.foodie.R;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -25,7 +26,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.bjtu.foodie.R;
+import com.bjtu.foodie.db.UserDao;
+import com.bjtu.foodie.model.User;
+import com.bjtu.foodie.utils.FriendTalkToServer;
 
 /**
  * Generic UI for sample discovery.
@@ -33,7 +38,12 @@ import android.widget.Toast;
 public class CardEmulationFragment extends Fragment {
 
     public static final String TAG = "CardEmulationFragment";
-
+    FriendTalkToServer connect = new FriendTalkToServer();
+    public UserDao userDao = null;
+    public void setDao(UserDao userDao)
+    {
+    	this.userDao = userDao;
+    }
     /** Called when sample is created. Displays generic UI with welcome text. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,24 @@ public class CardEmulationFragment extends Fragment {
         //account.setText(MessageStorage.GetAccount(getActivity()));
         //account.addTextChangedListener(new AccountUpdater());
         account.setVisibility(View.INVISIBLE);
-        MessageStorage.SetAccount(getActivity(), "110");
+        User user = userDao.find();
+		String tokenString = user.getToken();
+
+		
+		String myId = null;		
+		String urlString="/service/friend/myId?token="+tokenString;
+		try {
+			String result = connect.testURLConn1(urlString);
+			JSONObject jsonObject = new JSONObject(result);
+			myId = jsonObject.getString("id");
+			System.out.println("my id ----" +myId);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+        MessageStorage.SetAccount(getActivity(), myId);
         return v;
     }
 

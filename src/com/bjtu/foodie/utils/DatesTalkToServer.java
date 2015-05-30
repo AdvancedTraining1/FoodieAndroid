@@ -19,7 +19,7 @@ public class DatesTalkToServer {
 
 	//public static final String serviceAddr = "http://101.200.174.49:3000/service/";
 	//10.0.2.2
-	public static final String serviceAddr = "http://192.168.1.104:3000/service/";//192.168.1.103 wifi
+	public static final String serviceAddr = "http://101.200.174.49:3000/service/";//192.168.1.103 wifi
 	public static String datesGet(String url) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 				.detectDiskReads().detectDiskWrites().detectNetwork()

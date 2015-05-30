@@ -21,7 +21,7 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 import com.bjtu.foodie.UI.MomentAddActivityLast;
 
-public class GetCurrentLocate {
+public class GetCurrentLocateAround {
 
 	// display map
 	private Context context;
@@ -38,7 +38,7 @@ public class GetCurrentLocate {
 	private static String curCity; // needed by citySearch
 	private ArrayList<String> nearbyNames;
 
-	public GetCurrentLocate(Context context) {
+	public GetCurrentLocateAround(Context context) {
 		this.context = context;
 		this.nearbyNames = new ArrayList<String>();
 		SDKInitializer.initialize(context);

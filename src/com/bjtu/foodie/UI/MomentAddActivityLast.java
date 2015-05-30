@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.bjtu.foodie.R;
 import com.bjtu.foodie.common.Constants;
 import com.bjtu.foodie.db.UserDao;
-import com.bjtu.foodie.map.GetCurrentLocate;
+import com.bjtu.foodie.map.GetCurrentLocateAround;
 import com.bjtu.foodie.model.User;
 import com.bjtu.foodie.utils.MomentTalkToServer;
 
@@ -106,7 +106,7 @@ public class MomentAddActivityLast extends Activity{
 	class OnGetLocationClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			GetCurrentLocate mGetCurrentLocate = new GetCurrentLocate(
+			GetCurrentLocateAround mGetCurrentLocate = new GetCurrentLocateAround(
 					getApplicationContext());
 		}
 	}

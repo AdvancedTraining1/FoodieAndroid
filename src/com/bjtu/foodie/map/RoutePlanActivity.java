@@ -3,11 +3,12 @@ package com.bjtu.foodie.map;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +22,12 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
+import com.baidu.mapapi.navi.BaiduMapNavigation;
+import com.baidu.mapapi.navi.NaviPara;
 import com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.overlayutil.TransitRouteOverlay;
 import com.baidu.mapapi.overlayutil.WalkingRouteOverlay;
@@ -44,14 +50,17 @@ import com.bjtu.foodie.R;
 public class RoutePlanActivity extends Activity implements
 		OnGetRoutePlanResultListener {
 
+	enum NaviType {
+		WALK, CAR
+	};
+
+	private NaviType naviType;
 	private String curCity;
 	private String stAddr, enAddr;
 	private LatLng stLoc, enLoc;
 
 	private TextView tv_start;
 	private TextView tv_end;
-	private ImageView iv_relocate;
-	private ImageView iv_refind;
 	private ImageView iv_walk, iv_bus, iv_car;
 	private ListView lv_routeStep;
 	private ImageButton imgBtn_navig;
@@ -59,6 +68,7 @@ public class RoutePlanActivity extends Activity implements
 	private MapView mapView;
 	private BaiduMap mbaiduMap;
 	private RoutePlanSearch mRoutePlanSearch;
+	private BitmapDescriptor markerIcon;
 
 	private List<DrivingRouteLine> carRouteLines;
 	private List<TransitRouteLine> busRouteLines;
@@ -103,6 +113,23 @@ public class RoutePlanActivity extends Activity implements
 			}
 		});
 
+		imgBtn_navig.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				switch (naviType) {
+				case WALK:
+					walkNavi();
+					break;
+				case CAR:
+					carNavi();
+					break;
+				default:
+					break;
+				}
+			}
+		});
+
 	}
 
 	private void initMap() {
@@ -114,9 +141,9 @@ public class RoutePlanActivity extends Activity implements
 
 		Marker markerS = null, markerE = null;
 		MapUtils.setMarker(markerS, mbaiduMap, stLoc, BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_selflocation));
+				.fromResource(R.drawable.icon_start));
 		MapUtils.setMarker(markerE, mbaiduMap, enLoc, BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_restaurant));
+				.fromResource(R.drawable.icon_end));
 
 		MapStatusUpdate newStatus = MapStatusUpdateFactory.newLatLngZoom(stLoc,
 				16);
@@ -126,8 +153,6 @@ public class RoutePlanActivity extends Activity implements
 	private void initView() {
 		tv_start = (TextView) findViewById(R.id.tv_startPos);
 		tv_end = (TextView) findViewById(R.id.tv_endPos);
-		iv_relocate = (ImageView) findViewById(R.id.iv_reLocation);
-		iv_refind = (ImageView) findViewById(R.id.iv_refindResaurant);
 
 		iv_walk = (ImageView) findViewById(R.id.iv_walk);
 		iv_bus = (ImageView) findViewById(R.id.iv_bus);
@@ -154,7 +179,7 @@ public class RoutePlanActivity extends Activity implements
 
 	@Override
 	public void onGetDrivingRouteResult(DrivingRouteResult driveResult) {
-		
+
 		if (driveResult == null
 				|| driveResult.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
 			Toast.makeText(getApplicationContext(), "No Route",
@@ -180,6 +205,7 @@ public class RoutePlanActivity extends Activity implements
 		}
 		imgBtn_navig.setVisibility(View.VISIBLE);
 		lv_routeStep.setVisibility(View.GONE);
+		naviType = NaviType.CAR;
 	}
 
 	@Override
@@ -257,6 +283,7 @@ public class RoutePlanActivity extends Activity implements
 		}
 		imgBtn_navig.setVisibility(View.VISIBLE);
 		lv_routeStep.setVisibility(View.GONE);
+		naviType = NaviType.WALK;
 	}
 
 	class MyDrivingRouteOverlay extends DrivingRouteOverlay {
@@ -268,13 +295,13 @@ public class RoutePlanActivity extends Activity implements
 		@Override
 		public BitmapDescriptor getStartMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_selflocation);
+					.fromResource(R.drawable.icon_start);
 		}
 
 		@Override
 		public BitmapDescriptor getTerminalMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_restaurant);
+					.fromResource(R.drawable.icon_end);
 		}
 	}
 
@@ -287,13 +314,13 @@ public class RoutePlanActivity extends Activity implements
 		@Override
 		public BitmapDescriptor getStartMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_selflocation);
+					.fromResource(R.drawable.icon_start);
 		}
 
 		@Override
 		public BitmapDescriptor getTerminalMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_restaurant);
+					.fromResource(R.drawable.icon_end);
 		}
 	}
 
@@ -318,6 +345,52 @@ public class RoutePlanActivity extends Activity implements
 		super.onDestroy();
 	}
 
+	private void carNavi() {
+		NaviPara np = new NaviPara();
+		np.startPoint = stLoc;
+		np.startName = stAddr;
+		np.endPoint = enLoc;
+		np.endName = enAddr;
+		try {
+			BaiduMapNavigation.openBaiduMapNavi(np, getApplicationContext());
+		} catch (BaiduMapAppNotSupportNaviException e) {
+			e.printStackTrace();
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("您尚未安装百度地图app或app版本过低，点击确认安装？");
+			builder.setTitle("提示");
+			builder.setPositiveButton("确认",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							BaiduMapNavigation
+									.getLatestBaiduMapApp(RoutePlanActivity.this);
+						}
+
+					});
+
+			builder.setNegativeButton("取消",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+
+		}
+
+	}
+
+	private void walkNavi() {
+		Toast.makeText(getApplicationContext(),
+				"how many routes:" + walkRouteLines.size(),
+				Toast.LENGTH_LONG).show();
+		markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.icon_dot_small);
+		mbaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
+				LocationMode.FOLLOWING, true, markerIcon));
+		GetCurLocation showloc = new GetCurLocation(getApplicationContext(), markerIcon, mbaiduMap);
+	}
+
 	class MyWalkingRouteOverlay extends WalkingRouteOverlay {
 
 		public MyWalkingRouteOverlay(BaiduMap arg0) {
@@ -327,13 +400,13 @@ public class RoutePlanActivity extends Activity implements
 		@Override
 		public BitmapDescriptor getStartMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_selflocation);
+					.fromResource(R.drawable.icon_start);
 		}
 
 		@Override
 		public BitmapDescriptor getTerminalMarker() {
 			return BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_restaurant);
+					.fromResource(R.drawable.icon_end);
 		}
 	}
 }
