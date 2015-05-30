@@ -262,7 +262,7 @@
         </activity>
         <activity
             android:name="com.bjtu.foodie.UI.SinginActivity"
-            android:label="@string/title_activity_friend_message" >
+            android:label="signin" >
         </activity>
         
         <service android:name="com.bjtu.foodie.UI.CardService"

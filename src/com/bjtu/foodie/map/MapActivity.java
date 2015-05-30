@@ -140,9 +140,6 @@ public class MapActivity extends Activity {
 			}
 			curMapModeIsNormal = !curMapModeIsNormal;
 			break;
-		case R.id.action_location:
-			markMyCurPosition();
-			break;
 		default:
 			break;
 		}
@@ -217,7 +214,7 @@ public class MapActivity extends Activity {
 				isFirstLoc = false;
 				curCity = location.getCity();
 				curAddr = location.getAddrStr();
-				
+				markMyCurPosition();
 			} 
 		}
 

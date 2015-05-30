@@ -46,8 +46,10 @@ public class CardEmulationFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment, container, false);
         EditText account = (EditText) v.findViewById(R.id.card_account_field);
-        account.setText(MessageStorage.GetAccount(getActivity()));
-        account.addTextChangedListener(new AccountUpdater());
+        //account.setText(MessageStorage.GetAccount(getActivity()));
+        //account.addTextChangedListener(new AccountUpdater());
+        account.setVisibility(View.INVISIBLE);
+        MessageStorage.SetAccount(getActivity(), "110");
         return v;
     }
 
