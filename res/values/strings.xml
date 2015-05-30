@@ -37,9 +37,9 @@
     <string name="title_activity_friend_message">FriendMessageActivity</string>
     <string name="card_title">被读的卡片</string>
     <string name="account_number">Put it to reader</string>
-	<string name="service_name">CardEmulation Sample</string>
+    <string name="service_name">CardEmulation Sample</string>
     <string name="intro_message">
-        <![CDATA[
+<![CDATA[
         
             
             	这是预约位置，排号的地方，只有你安安静静的等了，在会喊到你，这个机制还不是很完善，不过签个到，点个名还是妥妥的，
@@ -51,4 +51,6 @@
         
         ]]>
     </string>
+    <string name="title_activity_my_friend_search">MyFriendSearchActivity</string>
+
 </resources>

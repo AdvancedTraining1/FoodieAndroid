@@ -43,8 +43,18 @@ public class MapUtils {
 			LatLng location, BitmapDescriptor markerIcon) {
 		OverlayOptions curLocOO = new MarkerOptions()
 				.position(new LatLng(location.latitude, location.longitude))
-				.icon(markerIcon).zIndex(9).draggable(true);
+				.icon(markerIcon).zIndex(15).draggable(true);
 		curLocMarker = (Marker) mbaiduMap.addOverlay(curLocOO);
 	}
 
+	public static void setLocMarker(Marker curLocMarker, BaiduMap mbaiduMap,
+			LatLng location, BitmapDescriptor markerIcon) {
+		if (curLocMarker == null) {
+			OverlayOptions curLocOO = new MarkerOptions()
+					.position(new LatLng(location.latitude, location.longitude))
+					.icon(markerIcon).zIndex(15);
+			curLocMarker = (Marker) mbaiduMap.addOverlay(curLocOO);
+		} else 
+			curLocMarker.remove();
+	}
 }

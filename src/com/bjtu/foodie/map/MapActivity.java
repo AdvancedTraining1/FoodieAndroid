@@ -58,10 +58,10 @@ public class MapActivity extends Activity {
 	private EditText et_searchDistance;
 	private ImageButton ib_search;
 	private LinearLayout ll_search;
-	
+
 	// my position infomation
 	private static String curAddr;
-	private static String curCity; //  needed by citySearch
+	private static String curCity; // needed by citySearch
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +184,8 @@ public class MapActivity extends Activity {
 						MapUtils.searchKeyAroundDistance(mPoiSearchAround, key,
 								myCurPosition, distance,
 								new MyGetPoiSearchResultListener(context,
-										mbaiduMap, mPoiSearchAround, myCurPosition));
+										mbaiduMap, mPoiSearchAround,
+										myCurPosition));
 					}
 				}
 			}
@@ -194,11 +195,12 @@ public class MapActivity extends Activity {
 	private void markMyCurPosition() {
 		mbaiduMap.clear();
 		// set new center point and zoom level(3-20) of the map
-		MapStatusUpdate newState = MapStatusUpdateFactory
-				.newLatLngZoom(myCurPosition, curZoom);
+		MapStatusUpdate newState = MapStatusUpdateFactory.newLatLngZoom(
+				myCurPosition, curZoom);
 		mbaiduMap.animateMapStatus(newState);
 		MapUtils.setMarker(curLocMarker, mbaiduMap, myCurPosition, markerIcon);
-		Toast.makeText(context, "my city ->" + curCity, Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "my city ->" + curCity, Toast.LENGTH_LONG)
+				.show();
 	}
 
 	public class MyLocationListener implements BDLocationListener {
@@ -215,7 +217,7 @@ public class MapActivity extends Activity {
 				curCity = location.getCity();
 				curAddr = location.getAddrStr();
 				markMyCurPosition();
-			} 
+			}
 		}
 
 		public void onReceivePoi(BDLocation location) {

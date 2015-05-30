@@ -32,7 +32,7 @@ import com.bjtu.foodie.UI.TempRestaurantActivity;
 import com.bjtu.foodie.model.RestaurantForSerializable;
 
 public class MyGetPoiSearchResultListener implements
-		OnGetPoiSearchResultListener, OnMapClickListener{
+		OnGetPoiSearchResultListener, OnMapClickListener {
 
 	private Context context;
 	private BaiduMap mbaiduMap;
@@ -54,18 +54,16 @@ public class MyGetPoiSearchResultListener implements
 			Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
 		} else {
 			mbaiduMap.hideInfoWindow();
-			String info = "UID: " + result.getUid() + "\nname: "
-					+ result.getName() + "\nAdress:" + result.getAddress()
-					+ "\n营业时间:" + result.getShopHours() + "\n餐厅类型:"
-					+ result.getType() + "\n环境评分:"
-					+ result.getEnvironmentRating() + "\n人均价格:"
-					+ result.getPrice() + "\n服务评分:" + result.getServiceRating();
+			String info = "\nname: " + result.getName() + "\nAdress:"
+					+ result.getAddress() +"\n餐厅类型:" + result.getType();
 
 			// click and pop the detail infos of restaurant
 			LinearLayout ll_popup = new LinearLayout(context);
 			ll_popup.setOrientation(LinearLayout.VERTICAL);
-			LayoutParams llParam = new LayoutParams(600,android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+			LayoutParams llParam = new LayoutParams(600,
+					android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			ll_popup.setLayoutParams(llParam);
+			ll_popup.setGravity(Gravity.CENTER_HORIZONTAL);
 			ll_popup.setBackgroundResource(R.drawable.location_tips);
 
 			// TextView tv_restrInfodetail = new TextView(context);
@@ -78,7 +76,8 @@ public class MyGetPoiSearchResultListener implements
 					android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 			tv_info.setBackgroundColor(0x00000000);
 			btn_planRoute.setLayoutParams(new LayoutParams(
-					android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+					android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+					android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 			btn_planRoute.setText("RoutePlan");
 			btn_planRoute.setTextColor(0x88ffffff);
 			btn_planRoute.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -120,17 +119,21 @@ public class MyGetPoiSearchResultListener implements
 				public void onClick(View v) {
 					Toast.makeText(context, "planning Ur route",
 							Toast.LENGTH_LONG).show();
-					Intent intentToRoutePlan = new Intent(context, RoutePlanActivity.class);
-					intentToRoutePlan.putExtra("startPos", MapActivity.getCurAddr());
+					Intent intentToRoutePlan = new Intent(context,
+							RoutePlanActivity.class);
+					intentToRoutePlan.putExtra("startPos",
+							MapActivity.getCurAddr());
 					intentToRoutePlan.putExtra("endPos", result.getName());
-					double[] startLoc = {position.latitude, position.longitude};
-					double[] endLoc = {result.getLocation().latitude, result.getLocation().longitude};
-					
-System.out.println(startLoc[0] + "; " + startLoc[1]);
+					double[] startLoc = { position.latitude, position.longitude };
+					double[] endLoc = { result.getLocation().latitude,
+							result.getLocation().longitude };
+
+					System.out.println(startLoc[0] + "; " + startLoc[1]);
 					intentToRoutePlan.putExtra("startPosition", startLoc);
 					intentToRoutePlan.putExtra("endPosition", endLoc);
-					intentToRoutePlan.putExtra("curCity", MapActivity.getCurCity());
-					
+					intentToRoutePlan.putExtra("curCity",
+							MapActivity.getCurCity());
+
 					intentToRoutePlan.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					context.startActivity(intentToRoutePlan);
 				}
@@ -143,7 +146,7 @@ System.out.println(startLoc[0] + "; " + startLoc[1]);
 			mbaiduMap.animateMapStatus(newStatus);
 		}
 	}
-	
+
 	@Override
 	public void onGetPoiResult(PoiResult result) {
 		if (result == null
@@ -160,7 +163,7 @@ System.out.println(startLoc[0] + "; " + startLoc[1]);
 			Toast.makeText(context, rN, Toast.LENGTH_LONG).show();
 			PoiOverlay overlay = new MyPoiOverlay(mbaiduMap);
 			mbaiduMap.setOnMarkerClickListener(overlay);
-			
+
 			overlay.setData(result);
 			overlay.addToMap();
 			overlay.zoomToSpan();

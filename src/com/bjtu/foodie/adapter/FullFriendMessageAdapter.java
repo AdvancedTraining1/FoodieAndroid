@@ -127,6 +127,7 @@ public class FullFriendMessageAdapter extends BaseAdapter{
 			
 		}else if (friendMessage.getStatus().equals("3")) {
 			holder.messageTextView.setText(friendMessage.getFrom().getAccount() +" already refuse you");
+			holder.statusMessage.setVisibility(View.INVISIBLE);
 			holder.agreebtn.setVisibility(View.GONE);
 			holder.disAgreebtn.setVisibility(View.GONE);
 			

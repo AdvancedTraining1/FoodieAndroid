@@ -9,7 +9,7 @@
         android:targetSdkVersion="19" />
     <!-- NFC -->
     <uses-permission android:name="android.permission.NFC" />
-	
+
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -188,8 +188,8 @@
         </activity>
         <activity
             android:name=".UI.MomentPopupActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:parentActivityName=".UI.MomentPopupActivity" >
+            android:parentActivityName=".UI.MomentPopupActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <activity
             android:name=".UI.MomentSingleActivity"
@@ -212,7 +212,6 @@
         <activity
             android:name=".UI.MyDateActivity"
             android:parentActivityName=".UI.MainActivity" />
-        
         <activity
             android:name=".UI.DishMenu"
             android:parentActivityName=".UI.MainActivity" >
@@ -257,27 +256,38 @@
             android:label="@string/title_activity_new_friend_search_result" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.FriendMessageActivity"
+            android:name=".UI.FriendMessageActivity"
             android:label="@string/title_activity_friend_message" >
         </activity>
         <activity
-            android:name="com.bjtu.foodie.UI.SinginActivity"
+            android:name=".UI.SinginActivity"
             android:label="signin" >
         </activity>
-        
-        <service android:name="com.bjtu.foodie.UI.CardService"
-                 android:exported="true"
-                 android:permission="android.permission.BIND_NFC_SERVICE">
+
+        <service
+            android:name=".UI.CardService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE" >
+
             <!-- Intent filter indicating that we support card emulation. -->
             <intent-filter>
-                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <!-- Required XML configuration file, listing the AIDs that we are emulating cards
-                 for. This defines what protocols our card emulation service supports. -->
-            <meta-data android:name="android.nfc.cardemulation.host_apdu_service"
-                       android:resource="@xml/aid_list"/>
+            <!--
+                 Required XML configuration file, listing the AIDs that we are emulating cards
+                 for. This defines what protocols our card emulation service supports.
+            -->
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/aid_list" />
         </service>
+
+        <activity
+            android:name="com.bjtu.foodie.UI.MyFriendSearchActivity"
+            android:label="@string/title_activity_my_friend_search" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />

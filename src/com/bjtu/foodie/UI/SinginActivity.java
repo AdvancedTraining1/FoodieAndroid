@@ -1,6 +1,8 @@
 package com.bjtu.foodie.UI;
 
 import com.bjtu.foodie.R;
+import com.bjtu.foodie.db.UserDao;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -14,6 +16,7 @@ import android.widget.ViewAnimator;
 
 public class SinginActivity extends SampleActivityBase {
 	public static final String TAG = "MainActivity";
+	public UserDao userDao = new UserDao(this);
 	//private boolean mLogShown;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class SinginActivity extends SampleActivityBase {
 		
 		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CardEmulationFragment fragment = new CardEmulationFragment();
+        fragment.setDao(userDao);
         transaction.replace(R.id.sample_content_fragment, fragment);
         transaction.commit();
         

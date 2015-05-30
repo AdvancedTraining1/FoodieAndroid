@@ -127,9 +127,13 @@ public class FriendListActivity extends Activity {
 			Intent AddFriend = new Intent(this, AddFriendActivity.class);
 			startActivity(AddFriend);
 			break;
-		case R.id.action_search:
-			Intent SearchFriend = new Intent(this, SearchFriendActivity.class);
-			startActivity(SearchFriend);
+		case R.id.action_searchFriend:
+			
+		//	FriendListActivity.this.finish();
+//			friendList = getFriendList();
+//			Intent SearchFriend = new Intent(this, MyFriendSearchActivity.class);
+//			SearchFriend.putExtra("friendList", (Serializable) friendList); 
+//			startActivity(SearchFriend);
 			break;
 		default:
 			break;
